@@ -7,7 +7,11 @@
 
     public class LearningSystemContext : IdentityDbContext<ApplicationUser>
     {
-        public LearningSystemContext(DbContextOptions<LearningSystemContext> options)
+        public LearningSystemContext()
+        {
+        }
+
+        public LearningSystemContext(DbContextOptions options)
             : base(options)
         {
         }
