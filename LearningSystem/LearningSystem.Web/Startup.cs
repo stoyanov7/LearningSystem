@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web
+namespace LearningSystem.Web
 {
     using Common;
     using Data;
@@ -47,6 +47,7 @@
             .AddDefaultTokenProviders()
             .AddEntityFrameworkStores<LearningSystemContext>();
 
+            services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
