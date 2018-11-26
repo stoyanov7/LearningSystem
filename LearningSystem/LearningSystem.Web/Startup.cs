@@ -1,5 +1,8 @@
-namespace LearningSystem.Web
+﻿namespace LearningSystem.Web
 {
+    using Areas.Admin.Services;
+    using Areas.Admin.Services.Contracts;
+    using AutoMapper;
     using Common;
     using Data;
     using LearningSystem.Models.Identity;
@@ -47,8 +50,11 @@ namespace LearningSystem.Web
             .AddDefaultTokenProviders()
             .AddEntityFrameworkStores<LearningSystemContext>();
 
-            services.AddAutoMapper();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddAutoMapper();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

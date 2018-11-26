@@ -1,0 +1,25 @@
+﻿@using LearningSystem.Web.Areas.Admin.Models.ViewModels
+@model UserDetailsViewModel
+
+@{
+    ViewData["Title"] = $"Details for {Model.Username}";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p><strong>Username:</strong> @Model.Username</p>
+<p>
+    <strong>Roles:</strong>
+    @if (Model.Roles.Any())
+    {
+        <ul>
+            @foreach (var role in Model.Roles)
+            {
+                <li>@role</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <strong>Student</strong>
+    }
+</p>
