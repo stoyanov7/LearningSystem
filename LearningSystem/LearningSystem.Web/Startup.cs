@@ -1,5 +1,6 @@
 ﻿namespace LearningSystem.Web
 {
+    using Common;
     using Data;
     using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Builder;
@@ -43,8 +44,9 @@
                 options.User.RequireUniqueEmail = true;
             })
             .AddDefaultUI()
-            .AddEntityFrameworkStores<LearningSystemContext>()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders()
+            .AddEntityFrameworkStores<LearningSystemContext>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -54,6 +56,8 @@
         {
             if (env.IsDevelopment())
             {
+                app.SeedDatabase();
+
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -71,6 +75,10 @@
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "area",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
