@@ -7,6 +7,7 @@
 
 <h2>@ViewData["Title"]</h2>
 <p><strong>Username:</strong> @Model.Username</p>
+<p><strong>Email:</strong> <a href="mailto://@Model.Email">@Model.Email</a></p>
 <p>
     <strong>Roles:</strong>
     @if (Model.Roles.Any())
