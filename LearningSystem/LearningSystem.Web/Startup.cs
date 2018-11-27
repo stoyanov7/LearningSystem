@@ -2,6 +2,7 @@
 {
     using Areas.Admin.Services;
     using Areas.Admin.Services.Contracts;
+    using Areas.Identity.Services;
     using AutoMapper;
     using Common;
     using Data;
@@ -10,6 +11,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -52,6 +54,7 @@
 
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IEmailSender, EmailSender>();
 
             services.AddAutoMapper();
             
