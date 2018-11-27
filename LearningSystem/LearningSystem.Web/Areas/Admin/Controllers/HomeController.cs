@@ -4,9 +4,6 @@
     
     public class HomeController : AdminController
     {
-        public IActionResult Index()
-        {
-            return this.View();
-        }
+        public IActionResult Index() => this.View();
     }
 }

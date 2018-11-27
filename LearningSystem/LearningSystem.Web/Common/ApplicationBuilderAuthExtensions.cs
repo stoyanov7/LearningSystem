@@ -1,10 +1,8 @@
 ﻿namespace LearningSystem.Web.Common
 {
-    using Data;
     using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ApplicationBuilderAuthExtensions
@@ -49,8 +47,9 @@
                 {
                     user = new ApplicationUser
                     {
-                        UserName = "admin@gmail.com",
-                        Email = "admin@gmail.com"
+                        UserName = "admin",
+                        Email = "admin@gmail.com",
+                        FullName = "Admin Adminov"
                     };
 
                     await userManager.CreateAsync(user, DefaultAdminPassword);

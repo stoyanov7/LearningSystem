@@ -3,6 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
+    using Common;
     using Microsoft.AspNetCore.Authorization;
     using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Identity;
@@ -39,6 +40,15 @@
         public class InputModel
         {
             [Required]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
+            [Required]
+            [FullName]
+            [Display(Name = "Full name")]
+            public string FullName { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -68,8 +78,9 @@
             {
                 var user = new ApplicationUser
                     {
-                        UserName = this.Input.Email,
-                        Email = this.Input.Email
+                        UserName = this.Input.Username,
+                        Email = this.Input.Email,
+                        FullName = this.Input.FullName
                     };
 
                 var result = await this.userManager

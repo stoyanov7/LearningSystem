@@ -3,6 +3,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using Common;
     using Microsoft.AspNetCore.Authorization;
     using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Identity;
@@ -39,6 +40,13 @@
 
         public class InputModel
         {
+            [Required]
+            public string Username { get; set; }
+
+            [Required]
+            [Display(Name = "Full name")]
+            public string FullName { get; set; }
+
             [Required]
             [EmailAddress]
             public string Email { get; set; }
@@ -107,7 +115,8 @@
                 {
                     this.Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        FullName = info.Principal.FindFirstValue(ClaimTypes.Name)
                     };
                 }
 
@@ -133,7 +142,8 @@
             {
                 var user = new ApplicationUser
                 {
-                    UserName = this.Input.Email,
+                    UserName = this.Input.Username,
+                    FullName = this.Input.FullName,
                     Email = this.Input.Email
                 };
 
