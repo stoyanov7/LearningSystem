@@ -7,7 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Models.ViewModels;
-    using Services.Contracts;
+    using Services.Admin.Contracts;
 
     public class UsersController : AdminController
     {
@@ -28,8 +28,7 @@
         public async Task<IActionResult> Index()
         {
             var model = await this.usersService
-                .All<AllUsersViewModel>()
-                .ToListAsync();
+                .All<AllUsersViewModel>(this.User);
 
             return this.View(model);
         }
@@ -37,6 +36,14 @@
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
+            var currentUser = await this.userManager
+                .GetUserAsync(this.User);
+
+            if (id == currentUser.Id)
+            {
+                return this.Unauthorized();
+            }
+
             var user = await this.usersService.Find(id);
 
             if (user == null)

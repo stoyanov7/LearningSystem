@@ -1,8 +1,5 @@
 ﻿namespace LearningSystem.Web
 {
-    using Areas.Admin.Services;
-    using Areas.Admin.Services.Contracts;
-    using Areas.Identity.Services;
     using AutoMapper;
     using Common;
     using Data;
@@ -16,6 +13,9 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Services.Admin;
+    using Services.Admin.Contracts;
+    using Services.Identity;
 
     public class Startup
     {

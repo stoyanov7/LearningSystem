@@ -15,6 +15,11 @@
             new IdentityRole("Lecturer")
         };
 
+
+        /// <summary>
+        /// Middleware for seed data into database.
+        /// </summary>
+        /// <param name="app"></param>
         public static async void SeedDatabase(this IApplicationBuilder app)
         {
             var serviceFactory = app

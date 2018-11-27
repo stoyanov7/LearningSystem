@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Areas.Identity.Services
+﻿namespace LearningSystem.Services.Identity
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Identity.UI.Services;
@@ -10,11 +10,22 @@
     {
         private readonly IConfiguration configuration;
 
+        /// <summary>
+        /// Initialize a new instance of the <see cref="EmailSender"/> class.
+        /// </summary>
+        /// <param name="configuration"></param>
         public EmailSender(IConfiguration configuration)
         {
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Method for sending a validation e-mail.
+        /// </summary>
+        /// <param name="email">Email for validation.</param>
+        /// <param name="subject">Subject of the message.</param>
+        /// <param name="htmlMessage">HTML message.</param>
+        /// <returns>Awaitable task is returned.</returns>
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             var apiKey = this.configuration["SendGrid:ApiKey"];
