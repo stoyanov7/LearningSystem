@@ -52,12 +52,19 @@
             .AddDefaultTokenProviders()
             .AddEntityFrameworkStores<LearningSystemContext>();
 
+            services.AddAuthentication()
+                .AddMicrosoftAccount(microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = this.Configuration["Authentication:Microsoft:ApplicationId"];
+                    microsoftOptions.ClientSecret = this.Configuration["Authentication:Microsoft:Password"];
+                });
+
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IEmailSender, EmailSender>();
 
             services.AddAutoMapper();
-            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
