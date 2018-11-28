@@ -20,6 +20,8 @@
         [StringLength(100, MinimumLength = 3)]
         public string Name { get; set; }
 
+        public string Slug { get; set; }
+
         [Required]
         [MinLength(3)]
         public string Description { get; set; }
