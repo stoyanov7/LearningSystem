@@ -60,6 +60,7 @@
                 });
 
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<IEmailSender, EmailSender>();
 
