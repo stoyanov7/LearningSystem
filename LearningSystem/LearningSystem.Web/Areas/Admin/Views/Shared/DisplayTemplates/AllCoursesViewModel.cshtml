@@ -1,0 +1,8 @@
+﻿@model LearningSystem.ViewModels.Admin.AllCoursesViewModel
+
+<li>
+    <a asp-area="Admin"
+       asp-controller="Courses"
+       asp-action="Details"
+       asp-route-id="@Model.Id">@Model.Name</a>
+</li>

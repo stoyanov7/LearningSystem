@@ -1,7 +1,13 @@
-﻿
+﻿@using LearningSystem.ViewModels.Admin
+@model IEnumerable<AllCoursesViewModel>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "All courses";
 }
 
-<h2>Index</h2>
-
+<h2>@ViewData["Title"]</h2>
+<a asp-area="Admin" 
+   asp-controller="Courses" 
+   asp-action="Create" 
+   class="btn btn-success">Create new course</a>
+<ul>@Html.DisplayForModel()</ul>

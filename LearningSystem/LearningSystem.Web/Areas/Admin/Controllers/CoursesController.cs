@@ -1,5 +1,6 @@
 ﻿namespace LearningSystem.Web.Areas.Admin.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Services.Admin.Contracts;
@@ -15,7 +16,13 @@
         }
 
         [HttpGet]
-        public IActionResult Index() => this.View();
+        public IActionResult Index()
+        {
+            var model = this.coursesService
+                .All<AllCoursesViewModel>();
+
+            return this.View(model);
+        }
 
         [HttpGet]
         public IActionResult Create() => this.View();
@@ -32,6 +39,15 @@
 
             // TODO: Redirect to Details
             return this.View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await this.coursesService
+                .Details<CourseDetailsViewModel>(id);
+
+            return this.View(model);
         }
     }
 }
