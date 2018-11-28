@@ -1,8 +1,8 @@
 ﻿namespace LearningSystem.Web.Infrastructure
 {
-    using Areas.Admin.Models.ViewModels;
     using AutoMapper;
     using LearningSystem.Models.Identity;
+    using ViewModels.Admin;
 
     public class MappingProfile : Profile
     {

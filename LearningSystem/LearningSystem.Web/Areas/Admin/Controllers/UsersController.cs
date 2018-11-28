@@ -5,9 +5,8 @@
     using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Models.ViewModels;
     using Services.Admin.Contracts;
+    using ViewModels.Admin;
 
     public class UsersController : AdminController
     {

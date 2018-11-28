@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\LearningSystem.Data\LearningSystem.Data.csproj" />
     <ProjectReference Include="..\LearningSystem.Services\LearningSystem.Services.csproj" />
+    <ProjectReference Include="..\LearningSystem.ViewModels\LearningSystem.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

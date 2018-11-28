@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Areas.Admin.Models.ViewModels
+﻿namespace LearningSystem.ViewModels.Admin
 {
     public class AllUsersViewModel
     {
