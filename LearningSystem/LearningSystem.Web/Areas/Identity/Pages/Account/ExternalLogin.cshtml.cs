@@ -3,7 +3,6 @@
     using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    using Common;
     using Microsoft.AspNetCore.Authorization;
     using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Identity;

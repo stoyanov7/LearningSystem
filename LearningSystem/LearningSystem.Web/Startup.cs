@@ -1,7 +1,6 @@
 ﻿namespace LearningSystem.Web
 {
     using AutoMapper;
-    using Common;
     using Data;
     using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Builder;
@@ -16,6 +15,7 @@
     using Services.Admin;
     using Services.Admin.Contracts;
     using Services.Identity;
+    using Utilities.Common;
 
     public class Startup
     {

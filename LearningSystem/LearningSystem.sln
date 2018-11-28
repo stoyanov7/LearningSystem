@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Services", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.ViewModels", "LearningSystem.ViewModels\LearningSystem.ViewModels.csproj", "{4BDE1BCF-9D8D-40C9-988A-AF4361C21C47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Utilities", "LearningSystem.Utilities\LearningSystem.Utilities.csproj", "{56B96F2F-554B-49BA-AD87-C015416453BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4BDE1BCF-9D8D-40C9-988A-AF4361C21C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BDE1BCF-9D8D-40C9-988A-AF4361C21C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BDE1BCF-9D8D-40C9-988A-AF4361C21C47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56B96F2F-554B-49BA-AD87-C015416453BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56B96F2F-554B-49BA-AD87-C015416453BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56B96F2F-554B-49BA-AD87-C015416453BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56B96F2F-554B-49BA-AD87-C015416453BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
