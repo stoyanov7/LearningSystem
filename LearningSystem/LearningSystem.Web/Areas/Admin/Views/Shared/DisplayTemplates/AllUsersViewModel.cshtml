@@ -1,0 +1,16 @@
+﻿@using LearningSystem.Web.Areas.Admin.Models.ViewModels
+@model AllUsersViewModel
+
+<tr>
+    <td>@Model.Username</td>
+    <td>@Model.Email</td>
+    <td>@Html.DisplayFor(model => model.IsLecturer)</td>
+    <td>@Html.DisplayFor(model => model.IsAdmin)</td>
+    <td>
+        <a asp-area="Admin"
+           asp-controller="Users"
+           asp-action="Details"
+           asp-route-id="@Model.Id"
+           class="btn btn-default">Details</a>
+    </td>
+</tr>
