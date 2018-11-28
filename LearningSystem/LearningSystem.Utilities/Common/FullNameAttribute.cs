@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Common
+﻿namespace LearningSystem.Utilities.Common
 {
     using System;
     using System.ComponentModel.DataAnnotations;
