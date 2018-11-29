@@ -13,6 +13,8 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Repository;
+    using Repository.Contracts;
     using Services.Admin;
     using Services.Admin.Contracts;
     using Services.Identity;
@@ -62,6 +64,8 @@
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddSingleton<IEmailSender, EmailSender>();
 
             services.AddAutoMapper();

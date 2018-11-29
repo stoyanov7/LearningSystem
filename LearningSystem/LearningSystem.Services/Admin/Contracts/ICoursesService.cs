@@ -9,6 +9,6 @@
 
         IEnumerable<TModel> All<TModel>();
 
-        Task<TModel> Details<TModel>(int id);
+        Task<TModel> DetailsAsync<TModel>(int id);
     }
 }

@@ -36,15 +36,14 @@
 
             await this.coursesService.AddCourseAsync(model);
 
-            // TODO: Redirect to Details
-            return this.View();
+            return this.RedirectToAction("Details");
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var model = await this.coursesService
-                .Details<CourseDetailsViewModel>(id);
+                .DetailsAsync<CourseDetailsViewModel>(id);
 
             return this.View(model);
         }

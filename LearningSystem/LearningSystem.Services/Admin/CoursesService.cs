@@ -8,16 +8,16 @@
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Contracts;
-    using Data;
     using Microsoft.EntityFrameworkCore;
     using Models;
+    using Repository.Contracts;
 
     public class CoursesService : ICoursesService
     {
         private readonly IMapper mapper;
-        private readonly LearningSystemContext context;
+        private readonly IRepository<Course> context;
 
-        public CoursesService(IMapper mapper, LearningSystemContext context)
+        public CoursesService(IMapper mapper, IRepository<Course> context)
         {
             this.mapper = mapper;
             this.context = context;
@@ -26,17 +26,15 @@
         public async Task AddCourseAsync<TModel>(TModel model)
         {
             var course = this.mapper.Map<Course>(model);
-
-            await this.context.Courses.AddAsync(course);
-            await this.context.SaveChangesAsync();
+            await this.context.AddAsync(course);
         }
 
         public IEnumerable<TModel> All<TModel>() => this.By<TModel>().AsEnumerable();
 
-        public async Task<TModel> Details<TModel>(int id)
-        { 
+        public async Task<TModel> DetailsAsync<TModel>(int id)
+        {
             var model = await this.context
-                .Courses
+                .Details()
                 .Include(c => c.Instances)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
@@ -45,7 +43,7 @@
 
         private IQueryable<TModel> By<TModel>(Expression<Func<Course, bool>> predicate = null)
             => this.context
-                .Courses
+                .Get()
                 .AsQueryable()
                 .Where(predicate ?? (i => true))
                 .ProjectTo<TModel>();
