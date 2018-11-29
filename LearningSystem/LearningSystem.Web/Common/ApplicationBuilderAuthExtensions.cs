@@ -1,6 +1,6 @@
-﻿namespace LearningSystem.Utilities.Common
+﻿namespace LearningSystem.Web.Common
 {
-    using Models.Identity;
+    using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;

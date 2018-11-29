@@ -11,9 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Services", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.ViewModels", "LearningSystem.ViewModels\LearningSystem.ViewModels.csproj", "{4BDE1BCF-9D8D-40C9-988A-AF4361C21C47}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Utilities", "LearningSystem.Utilities\LearningSystem.Utilities.csproj", "{56B96F2F-554B-49BA-AD87-C015416453BF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Web", "LearningSystem.Web\LearningSystem.Web.csproj", "{AA5A04D7-1BE1-4ABC-A734-60D919FF8B29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Web", "LearningSystem.Web\LearningSystem.Web.csproj", "{AA5A04D7-1BE1-4ABC-A734-60D919FF8B29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{4BDE1BCF-9D8D-40C9-988A-AF4361C21C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BDE1BCF-9D8D-40C9-988A-AF4361C21C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BDE1BCF-9D8D-40C9-988A-AF4361C21C47}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56B96F2F-554B-49BA-AD87-C015416453BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56B96F2F-554B-49BA-AD87-C015416453BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56B96F2F-554B-49BA-AD87-C015416453BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56B96F2F-554B-49BA-AD87-C015416453BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AA5A04D7-1BE1-4ABC-A734-60D919FF8B29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA5A04D7-1BE1-4ABC-A734-60D919FF8B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA5A04D7-1BE1-4ABC-A734-60D919FF8B29}.Release|Any CPU.ActiveCfg = Release|Any CPU

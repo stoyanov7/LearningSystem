@@ -1,8 +1,8 @@
-﻿namespace LearningSystem.Utilities.Infrastructure
+﻿namespace LearningSystem.Web.Infrastructure
 {
     using AutoMapper;
-    using Models;
-    using Models.Identity;
+    using LearningSystem.Models;
+    using LearningSystem.Models.Identity;
     using ViewModels.Admin;
 
     public class MappingProfile : Profile
