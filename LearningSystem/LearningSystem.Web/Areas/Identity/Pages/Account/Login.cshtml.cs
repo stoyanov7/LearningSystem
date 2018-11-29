@@ -16,12 +16,16 @@
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<LoginModel> logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
+            ILogger<LoginModel> logger,
+            UserManager<ApplicationUser> userManager)
         {
             this.signInManager = signInManager;
             this.logger = logger;
+            this.userManager = userManager;
         }
 
         [BindProperty]
@@ -74,7 +78,7 @@
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await this
                     .signInManager.PasswordSignInAsync(this.Input.Username, this.Input.Password, this.Input.RememberMe, lockoutOnFailure: true);
-
+                
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User logged in.");
