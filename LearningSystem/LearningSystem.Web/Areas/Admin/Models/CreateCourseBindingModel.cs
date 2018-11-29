@@ -1,8 +1,8 @@
-﻿namespace LearningSystem.ViewModels.Admin
+﻿namespace LearningSystem.Web.Areas.Admin.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Models;
+    using LearningSystem.Models;
 
     public class CreateCourseBindingModel
     {

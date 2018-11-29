@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.ViewModels.Admin
+﻿namespace LearningSystem.Web.Areas.Admin.Models
 {
     public class CourseInstanceViewModel
     {

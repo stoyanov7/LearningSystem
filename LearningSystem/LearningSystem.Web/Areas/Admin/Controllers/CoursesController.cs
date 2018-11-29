@@ -2,8 +2,8 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using Models;
     using Services.Admin.Contracts;
-    using ViewModels.Admin;
 
     public class CoursesController : AdminController
     {
