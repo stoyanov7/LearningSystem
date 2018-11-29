@@ -2,10 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Models;
 
     public interface ICoursesService
     {
-        Task AddCourseAsync<TModel>(TModel model);
+        Task<Course> AddCourseAsync<TModel>(TModel model);
 
         IEnumerable<TModel> All<TModel>();
 

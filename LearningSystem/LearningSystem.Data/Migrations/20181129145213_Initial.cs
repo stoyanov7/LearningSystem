@@ -53,7 +53,9 @@ namespace LearningSystem.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Slug = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -61,7 +63,7 @@ namespace LearningSystem.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ResTypes",
+                name: "ResourceTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -70,7 +72,7 @@ namespace LearningSystem.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResTypes", x => x.Id);
+                    table.PrimaryKey("PK_ResourceTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,10 +188,10 @@ namespace LearningSystem.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Slug = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
-                    LectureId = table.Column<string>(nullable: false),
                     LecturerId = table.Column<string>(nullable: true),
                     CourseId = table.Column<int>(nullable: false)
                 },
@@ -236,7 +238,7 @@ namespace LearningSystem.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentsInCourseses",
+                name: "StudentsInCourses",
                 columns: table => new
                 {
                     StudentId = table.Column<string>(nullable: false),
@@ -244,19 +246,19 @@ namespace LearningSystem.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentsInCourseses", x => new { x.CourseId, x.StudentId });
+                    table.PrimaryKey("PK_StudentsInCourses", x => new { x.CourseId, x.StudentId });
                     table.ForeignKey(
-                        name: "FK_StudentsInCourseses_CourseInstances_CourseId",
+                        name: "FK_StudentsInCourses_CourseInstances_CourseId",
                         column: x => x.CourseId,
                         principalTable: "CourseInstances",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_StudentsInCourseses_AspNetUsers_StudentId",
+                        name: "FK_StudentsInCourses_AspNetUsers_StudentId",
                         column: x => x.StudentId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -280,9 +282,9 @@ namespace LearningSystem.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Resources_ResTypes_TypeId",
+                        name: "FK_Resources_ResourceTypes_TypeId",
                         column: x => x.TypeId,
-                        principalTable: "ResTypes",
+                        principalTable: "ResourceTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -352,8 +354,8 @@ namespace LearningSystem.Data.Migrations
                 column: "TypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentsInCourseses_StudentId",
-                table: "StudentsInCourseses",
+                name: "IX_StudentsInCourses_StudentId",
+                table: "StudentsInCourses",
                 column: "StudentId");
         }
 
@@ -378,7 +380,7 @@ namespace LearningSystem.Data.Migrations
                 name: "Resources");
 
             migrationBuilder.DropTable(
-                name: "StudentsInCourseses");
+                name: "StudentsInCourses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -387,7 +389,7 @@ namespace LearningSystem.Data.Migrations
                 name: "Lectures");
 
             migrationBuilder.DropTable(
-                name: "ResTypes");
+                name: "ResourceTypes");
 
             migrationBuilder.DropTable(
                 name: "CourseInstances");

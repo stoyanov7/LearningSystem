@@ -23,10 +23,12 @@
             this.context = context;
         }
 
-        public async Task AddCourseAsync<TModel>(TModel model)
+        public async Task<Course> AddCourseAsync<TModel>(TModel model)
         {
             var course = this.mapper.Map<Course>(model);
             await this.context.AddAsync(course);
+
+            return course;
         }
 
         public IEnumerable<TModel> All<TModel>() => this.By<TModel>().AsEnumerable();

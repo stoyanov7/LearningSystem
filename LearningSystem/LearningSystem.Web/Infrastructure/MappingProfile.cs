@@ -14,9 +14,7 @@
             this.CreateMap<ApplicationUser, UserDetailsViewModel>();
 
             this.CreateMap<CreateCourseBindingModel, Course>()
-                .ForMember(x => x.Id, opt => opt.Ignore())
                 .ForMember(x => x.Instances, opt => opt.Ignore())
-                .ForSourceMember(x => x.Id, opt => opt.DoNotValidate())
                 .ForSourceMember(x => x.Instances, opt => opt.DoNotValidate());
 
             this.CreateMap<Course, AllCoursesViewModel>();

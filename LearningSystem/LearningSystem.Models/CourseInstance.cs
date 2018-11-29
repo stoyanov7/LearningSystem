@@ -34,11 +34,10 @@
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        [Required]
-        public string LectureId { get; set; }
+
+        public string LecturerId { get; set; }
         public ApplicationUser Lecturer { get; set; }
 
-        [Required]
         public int CourseId { get; set; }
         public Course Course { get; set; }
 

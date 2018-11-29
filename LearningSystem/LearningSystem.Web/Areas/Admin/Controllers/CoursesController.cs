@@ -34,9 +34,9 @@
                 return this.View();
             }
 
-            await this.coursesService.AddCourseAsync(model);
+            var course = await this.coursesService.AddCourseAsync(model);
 
-            return this.RedirectToAction("Details");
+            return this.RedirectToAction("Details", new {id = course.Id});
         }
 
         [HttpGet]

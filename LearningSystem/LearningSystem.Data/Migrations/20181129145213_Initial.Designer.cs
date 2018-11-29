@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearningSystem.Data.Migrations
 {
     [DbContext(typeof(LearningSystemContext))]
-    [Migration("20181122104212_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20181129145213_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,6 +26,10 @@ namespace LearningSystem.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Slug");
 
                     b.HasKey("Id");
 
@@ -45,14 +49,13 @@ namespace LearningSystem.Data.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<string>("LectureId")
-                        .IsRequired();
-
                     b.Property<string>("LecturerId");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<string>("Slug");
 
                     b.Property<DateTime>("StartDate");
 
@@ -184,7 +187,7 @@ namespace LearningSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ResTypes");
+                    b.ToTable("ResourceTypes");
                 });
 
             modelBuilder.Entity("LearningSystem.Models.StudentsInCourses", b =>
@@ -197,7 +200,7 @@ namespace LearningSystem.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentsInCourseses");
+                    b.ToTable("StudentsInCourses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -348,12 +351,12 @@ namespace LearningSystem.Data.Migrations
                     b.HasOne("LearningSystem.Models.CourseInstance", "Course")
                         .WithMany("Students")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LearningSystem.Models.Identity.ApplicationUser", "Student")
                         .WithMany("EnrolledCourses")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -47,9 +47,6 @@ namespace LearningSystem.Data.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<string>("LectureId")
-                        .IsRequired();
-
                     b.Property<string>("LecturerId");
 
                     b.Property<string>("Name")
@@ -188,7 +185,7 @@ namespace LearningSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ResTypes");
+                    b.ToTable("ResourceTypes");
                 });
 
             modelBuilder.Entity("LearningSystem.Models.StudentsInCourses", b =>
@@ -201,7 +198,7 @@ namespace LearningSystem.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentsInCourseses");
+                    b.ToTable("StudentsInCourses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -352,12 +349,12 @@ namespace LearningSystem.Data.Migrations
                     b.HasOne("LearningSystem.Models.CourseInstance", "Course")
                         .WithMany("Students")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LearningSystem.Models.Identity.ApplicationUser", "Student")
                         .WithMany("EnrolledCourses")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
