@@ -11,7 +11,6 @@
     using Data;
     using Microsoft.EntityFrameworkCore;
     using Models;
-    using ViewModels.Admin;
 
     public class CoursesService : ICoursesService
     {
@@ -24,7 +23,7 @@
             this.context = context;
         }
 
-        public async Task AddCourseAsync(CreateCourseBindingModel model)
+        public async Task AddCourseAsync<TModel>(TModel model)
         {
             var course = this.mapper.Map<Course>(model);
 

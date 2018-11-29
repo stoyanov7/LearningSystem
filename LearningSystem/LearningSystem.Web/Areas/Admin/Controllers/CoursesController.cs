@@ -1,6 +1,5 @@
 ﻿namespace LearningSystem.Web.Areas.Admin.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Services.Admin.Contracts;
