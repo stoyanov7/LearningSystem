@@ -7,10 +7,26 @@
 
     public interface IUsersService
     {
+        /// <summary>
+        /// Get all users by entity key, except the current user.
+        /// </summary>
+        /// <typeparam name="TModel">Entity type.</typeparam>
+        /// <returns>All records.</returns>
         Task<IEnumerable<TModel>> All<TModel>(ClaimsPrincipal user);
 
+        /// <summary>
+        /// Get details by entity key.
+        /// </summary>
+        /// <typeparam name="TModel">Entity type.</typeparam>
+        /// <param name="id">Entity key.</param>
+        /// <returns>All details for record.</returns>
         Task<TModel> Details<TModel>(string id);
 
-        Task<ApplicationUser> Find(string id);
+        /// <summary>
+        /// Get application user by id;
+        /// </summary>
+        /// <param name="id">Application user id</param>
+        /// <returns>Application user</returns>
+        Task<ApplicationUser> FindAsync(string id);
     }
 }

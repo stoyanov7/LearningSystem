@@ -8,12 +8,18 @@
     using Models;
     using Services.Admin.Contracts;
 
+    /// <summary>
+    /// Controller for viewing users.
+    /// </summary>
     public class UsersController : AdminController
     {
         private readonly IUsersService usersService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UsersController"/> class.
+        /// </summary>
         public UsersController(IUsersService usersService, 
             UserManager<ApplicationUser> userManager, 
             IMapper mapper)
@@ -23,6 +29,10 @@
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Display list of all registered users.
+        /// </summary>
+        /// <returns>List with all users.</returns>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -32,6 +42,11 @@
             return this.View(model);
         }
 
+        /// <summary>
+        /// Details for user.
+        /// </summary>
+        /// <param name="id">User id.</param>
+        /// <returns>View with user information.</returns>
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
@@ -43,7 +58,7 @@
                 return this.Unauthorized();
             }
 
-            var user = await this.usersService.Find(id);
+            var user = await this.usersService.FindAsync(id);
 
             if (user == null)
             {

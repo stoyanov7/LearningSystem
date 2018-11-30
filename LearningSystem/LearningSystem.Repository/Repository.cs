@@ -8,15 +8,27 @@
     using Contracts;
     using Microsoft.EntityFrameworkCore;
 
+    /// <summary>
+    /// Generic class to create an abstraction layer between the data access layer and the business logic layer.
+    /// </summary>
+    /// <typeparam name="T">Type of entity.</typeparam>
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly IUnitOfWork unitOfWork;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Repository{T}"/> class.
+        /// </summary>
         public Repository(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
+        /// <summary>
+        /// Add asynchronous entity to the database.
+        /// </summary>
+        /// <param name="entity">Entity for adding.</param>
+        /// <returns></returns>
         public async Task AddAsync(T entity)
         {
             await this.unitOfWork
@@ -27,6 +39,23 @@
             await this.unitOfWork.CommitAsync();
         }
 
+        /// <summary>
+        /// Find entity by given key.
+        /// </summary>
+        /// <param name="id">Entity key.</param>
+        /// <returns>Found entity.</returns>
+        public async Task<T> FindById(string id)
+        {
+            return await this.unitOfWork
+                .Context
+                .Set<T>()
+                .FindAsync(id);
+        }
+
+        /// <summary>
+        /// Check if given entity exist in database, if exist delete the entity.
+        /// </summary>
+        /// <param name="entity">Entity for deleting.</param>
         public void Delete(T entity)
         {
             var existing = this.unitOfWork
@@ -45,12 +74,21 @@
             }
         }
 
+        /// <summary>
+        /// Get entity as enumerable.
+        /// </summary>
+        /// <returns>Enumerable entity.</returns>
         public IEnumerable<T> Get()
             => this.unitOfWork
                 .Context
                 .Set<T>()
                 .AsEnumerable<T>();
 
+        /// <summary>
+        /// Get entity by given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate for filtering.</param>
+        /// <returns>Enumerable entity.</returns>
         public IEnumerable<T> Get(Expression<Func<T, bool>> predicate) 
             => this.unitOfWork
                 .Context
@@ -58,12 +96,19 @@
                 .Where(predicate)
                 .AsEnumerable<T>();
 
+        /// <summary>
+        /// Get details for given entity.
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<T> Details() 
             => this.unitOfWork
                 .Context
                 .Set<T>();
 
-
+        /// <summary>
+        /// Update entity.
+        /// </summary>
+        /// <param name="entity">Entity for updating.</param>
         public void Update(T entity)
         {
             this.unitOfWork

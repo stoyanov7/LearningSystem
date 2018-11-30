@@ -8,17 +8,23 @@
     using System.Threading.Tasks;
     using AutoMapper.QueryableExtensions;
     using Contracts;
-    using Data;
     using Microsoft.AspNetCore.Identity;
     using Models.Identity;
     using Microsoft.EntityFrameworkCore;
+    using Repository.Contracts;
 
+    /// <summary>
+    /// Service to entering users data.
+    /// </summary>
     public class UsersService : IUsersService
     {
-        private readonly LearningSystemContext context;
+        private readonly IRepository<ApplicationUser> context;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public UsersService(LearningSystemContext context, UserManager<ApplicationUser> userManager)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UsersService"/> class.
+        /// </summary>
+        public UsersService(IRepository<ApplicationUser> context, UserManager<ApplicationUser> userManager)
         {
             this.context = context;
             this.userManager = userManager;
@@ -48,14 +54,17 @@
             => await this.By<TModel>(x => x.Id == id)
                 .FirstOrDefaultAsync();
 
-        public async Task<ApplicationUser> Find(string id)
-            => await this.context
-                .Users
-                .FindAsync(id);
+        /// <summary>
+        /// Get application user by id;
+        /// </summary>
+        /// <param name="id">Application user id</param>
+        /// <returns>Application user</returns>
+        public async Task<ApplicationUser> FindAsync(string id)
+            => await this.context.FindById(id);
 
         private IQueryable<TModel> By<TModel>(Expression<Func<ApplicationUser, bool>> predicate = null)
             => this.context
-                .Users
+                .Get()
                 .AsQueryable()
                 .Where(predicate ?? (i => true))
                 .ProjectTo<TModel>();

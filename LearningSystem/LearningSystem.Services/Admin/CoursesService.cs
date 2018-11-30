@@ -12,17 +12,29 @@
     using Models;
     using Repository.Contracts;
 
+    /// <summary>
+    /// Services to entering course data.
+    /// </summary>
     public class CoursesService : ICoursesService
     {
         private readonly IMapper mapper;
         private readonly IRepository<Course> context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CoursesService"/> class.
+        /// </summary>
         public CoursesService(IMapper mapper, IRepository<Course> context)
         {
             this.mapper = mapper;
             this.context = context;
         }
 
+        /// <summary>
+        /// Add new course to the database.
+        /// </summary>
+        /// <typeparam name="TModel">Course model.</typeparam>
+        /// <param name="model">Course for adding.</param>
+        /// <returns>Return the mapped course.</returns>
         public async Task<Course> AddCourseAsync<TModel>(TModel model)
         {
             var course = this.mapper.Map<Course>(model);
@@ -31,8 +43,19 @@
             return course;
         }
 
+        /// <summary>
+        /// Get all courses.
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <returns>List with all courses.</returns>
         public IEnumerable<TModel> All<TModel>() => this.By<TModel>().AsEnumerable();
 
+        /// <summary>
+        /// Get details for course by given key.
+        /// </summary>
+        /// <typeparam name="TModel">Model of course.</typeparam>
+        /// <param name="id">Course key.</param>
+        /// <returns>Mapped information for the course.</returns>
         public async Task<TModel> DetailsAsync<TModel>(int id)
         {
             var model = await this.context

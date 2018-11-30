@@ -2,16 +2,20 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
     using Models;
     using Services.Admin.Contracts;
 
     public class CoursesController : AdminController
     {
         private readonly ICoursesService coursesService;
+        private readonly ILogger<CoursesController> logger;
 
-        public CoursesController(ICoursesService coursesService)
+        public CoursesController(ICoursesService coursesService,
+            ILogger<CoursesController> logger)
         {
             this.coursesService = coursesService;
+            this.logger = logger;
         }
 
         [HttpGet]
@@ -35,6 +39,7 @@
             }
 
             var course = await this.coursesService.AddCourseAsync(model);
+            this.logger.LogInformation($"Course - {course.Name} created successfully!");
 
             return this.RedirectToAction("Details", new {id = course.Id});
         }
