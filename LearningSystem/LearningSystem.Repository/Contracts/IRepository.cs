@@ -13,7 +13,14 @@
         /// </summary>
         /// <param name="id">Entity key.</param>
         /// <returns>Found entity.</returns>
-        Task<T> FindById(string id);
+        Task<T> FindByIdAsync(string id);
+
+        /// <summary>
+        /// Find entity by given key.
+        /// </summary>
+        /// <param name="id">Entity key.</param>
+        /// <returns>Found entity.</returns>
+        Task<T> FindByIdAsync(int id);
 
         /// <summary>
         /// Get entity as enumerable.

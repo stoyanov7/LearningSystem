@@ -66,6 +66,8 @@
             return this.mapper.Map<TModel>(model);
         }
 
+        public async Task<Course> FindAsync(int id) => await this.context.FindByIdAsync(id);
+
         private IQueryable<TModel> By<TModel>(Expression<Func<Course, bool>> predicate = null)
             => this.context
                 .Get()

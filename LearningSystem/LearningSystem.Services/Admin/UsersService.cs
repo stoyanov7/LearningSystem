@@ -60,7 +60,7 @@
         /// <param name="id">Application user id</param>
         /// <returns>Application user</returns>
         public async Task<ApplicationUser> FindAsync(string id)
-            => await this.context.FindById(id);
+            => await this.context.FindByIdAsync(id);
 
         private IQueryable<TModel> By<TModel>(Expression<Func<ApplicationUser, bool>> predicate = null)
             => this.context

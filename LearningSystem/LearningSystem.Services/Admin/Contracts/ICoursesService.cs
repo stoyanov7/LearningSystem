@@ -28,5 +28,7 @@
         /// <param name="id">Course key.</param>
         /// <returns>Mapped information for the course.</returns>
         Task<TModel> DetailsAsync<TModel>(int id);
+
+        Task<Course> FindAsync(int id);
     }
 }

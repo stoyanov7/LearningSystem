@@ -1,0 +1,76 @@
+﻿@model CreateCourseInstancesBindingModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create instance for course @Model.Name</h2>
+<form asp-area="Admin" asp-controller="CourseInstances" asp-action="Create" method="post" class="form-horizontal">
+    <input type="hidden" asp-for="CourseId" />
+    <div class="form-group">
+        <label class="control-label col-sm-2" asp-for="Name"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Name">
+            <span class="text-danger" asp-validation-for="Name"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" asp-for="Slug"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Slug">
+            <span class="text-danger" asp-validation-for="Slug"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" asp-for="Description"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="Description">
+            <span class="text-danger" asp-validation-for="Description"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" asp-for="LecturerId"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="LecturerId">
+            <span class="text-danger" asp-validation-for="LecturerId"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" asp-for="StartDate"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="StartDate">
+            <span class="text-danger" asp-validation-for="StartDate"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" asp-for="EndDate"></label>
+        <div class="col-sm-10">
+            <input class="form-control" asp-for="EndDate">
+            <span class="text-danger" asp-validation-for="EndDate"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10 col-sm-push-2">
+            <input type="submit" value="Create" class="btn btn-success" />
+            <a asp-area="Admin" asp-controller="Courses" asp-action="Index" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function createSlug(nameElementId, slugElementId) {
+            $(`#${nameElementId}`).change(function (e) {
+                let value = $(this).val();
+                let slug = value.toLowerCase().replace(/ /g, "-");
+                $(`#${slugElementId}`).val(slug);
+            });
+        }
+
+        $(function () {
+            createSlug("@(Html.IdFor(model => model.Name))", "@(Html.IdFor(model => model.Slug))");
+        });
+    </script>
+}

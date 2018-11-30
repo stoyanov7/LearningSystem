@@ -6,3 +6,23 @@
 <h2>Details</h2>
 
 <h1>@Model.Name</h1>
+<a asp-area="Admin" 
+   asp-controller="CourseInstances" 
+   asp-action="Create"
+   asp-route-id="@Model.Id"
+   class="btn btn-success">Create instance</a>
+
+@if (!Model.Instances.Any())
+{
+    <div>
+        No instances yet.
+        <a asp-area="Admin"
+           asp-controller="CourseInstances"
+           asp-action="Create"
+           asp-route-id="@Model.Id">Create the first one</a>
+    </div>
+}
+
+<ul>
+    @Html.DisplayFor(m => m.Instances)
+</ul>

@@ -20,6 +20,10 @@
             this.CreateMap<Course, AllCoursesViewModel>();
 
             this.CreateMap<Course, CourseDetailsViewModel>();
+
+            this.CreateMap<CreateCourseInstancesBindingModel, CourseInstance>();
+
+            this.CreateMap<CreateCourseInstancesBindingModel, Course>();
         }
     }
 }

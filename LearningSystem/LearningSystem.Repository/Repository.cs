@@ -44,13 +44,22 @@
         /// </summary>
         /// <param name="id">Entity key.</param>
         /// <returns>Found entity.</returns>
-        public async Task<T> FindById(string id)
-        {
-            return await this.unitOfWork
+        public async Task<T> FindByIdAsync(string id) 
+            => await this.unitOfWork
                 .Context
                 .Set<T>()
                 .FindAsync(id);
-        }
+
+        /// <summary>
+        /// Find entity by given key.
+        /// </summary>
+        /// <param name="id">Entity key.</param>
+        /// <returns>Found entity.</returns>
+        public async Task<T> FindByIdAsync(int id) 
+            => await this.unitOfWork
+                .Context
+                .Set<T>()
+                .FindAsync(id);
 
         /// <summary>
         /// Check if given entity exist in database, if exist delete the entity.

@@ -6,6 +6,6 @@
 
         public string Name { get; set; }
 
-        public string Slud { get; set; }
+        public string Slug { get; set; }
     }
 }

@@ -63,6 +63,7 @@
 
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICoursesService, CoursesService>();
+            services.AddTransient<ICourseInstancesService, CourseInstancesService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
