@@ -52,7 +52,7 @@
             await this.courseInstancesService.Create(model);
 
             // TODO: Redirect to details
-            return this.View();
+            return this.RedirectToAction("Index", "Courses");
         }
     }
 }
