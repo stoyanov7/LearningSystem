@@ -41,13 +41,19 @@
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.UtcNow.Year - Learning System</p>
-        </footer>
-    </div>
+<div class="container body-content">
+    @if (TempData.ContainsKey("__Message"))
+    {
+        var message = (MessageModel)TempData["__Message"];
+        <message type="@message.Type" message="@message.Message"></message>
+    }
+
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.UtcNow.Year - Learning System</p>
+    </footer>
+</div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

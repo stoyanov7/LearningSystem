@@ -23,16 +23,8 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-
+    <script src="js/create-slug.js"></script>
     <script>
-        function createSlug(nameElementId, slugElementId) {
-            $(`#${nameElementId}`).change(function (e) {
-                let value = $(this).val();
-                let slug = value.toLowerCase().replace(/ /g, "-");
-                $(`#${slugElementId}`).val(slug);
-            });
-        }
-
         $(function () {
             createSlug("@(Html.IdFor(model => model.Name))", "@(Html.IdFor(model => model.Slug))");
         });

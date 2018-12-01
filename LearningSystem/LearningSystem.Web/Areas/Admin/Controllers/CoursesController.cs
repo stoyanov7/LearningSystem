@@ -1,6 +1,7 @@
 ﻿namespace LearningSystem.Web.Areas.Admin.Controllers
 {
     using System.Threading.Tasks;
+    using Helpers.Messages;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Models;
@@ -40,6 +41,12 @@
 
             var course = await this.coursesService.AddCourseAsync(model);
             this.logger.LogInformation($"Course - {course.Name} created successfully!");
+
+            this.TempData["__Message"] = new MessageModel
+            {
+                Type = MessageType.Success,
+                Message = $"Course - {course.Name} created successfully!"
+            };
 
             return this.RedirectToAction("Details", new {id = course.Id});
         }
