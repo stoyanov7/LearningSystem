@@ -1,5 +1,22 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": []
+  "libraries": [
+    {
+      "library": "twitter-bootstrap@4.1.3",
+      "destination": "wwwroot/lib/bootstrap",
+      "files": [
+        "js/bootstrap.min.js",
+        "css/bootstrap.min.css",
+        "css/bootstrap.min.css.map"
+      ]
+    },
+    {
+      "library": "bootswatch@4.1.3",
+      "destination": "wwwroot/lib/bootswatch",
+      "files": [
+        "cosmo/bootstrap.min.css"
+      ]
+    }
+  ]
 }
