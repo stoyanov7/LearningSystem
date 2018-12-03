@@ -1,11 +1,12 @@
 ﻿namespace LearningSystem.Web.Areas.Admin.Controllers
 {
     using System.Threading.Tasks;
-    using Helpers.Messages;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Models;
     using Services.Admin.Contracts;
+    using Utilities.Constants;
+    using Utilities.Helpers.Messages;
 
     public class CoursesController : AdminController
     {
@@ -40,12 +41,12 @@
             }
 
             var course = await this.coursesService.AddCourseAsync(model);
-            this.logger.LogInformation($"Course - {course.Name} created successfully!");
+            this.logger.LogInformation(string.Format(AdminConstants.CreatedSuccessfullyCourse, course.Name));
 
             this.TempData["__Message"] = new MessageModel
             {
                 Type = MessageType.Success,
-                Message = $"Course - {course.Name} created successfully!"
+                Message = string.Format(AdminConstants.CreatedSuccessfullyCourse, course.Name)
             };
 
             return this.RedirectToAction("Details", new {id = course.Id});

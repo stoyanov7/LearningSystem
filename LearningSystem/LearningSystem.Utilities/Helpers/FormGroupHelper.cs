@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Helpers
+﻿namespace LearningSystem.Utilities.Helpers
 {
     using System;
     using System.IO;

@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Helpers.Messages
+﻿namespace LearningSystem.Utilities.Helpers.Messages
 {
     public enum MessageType
     {

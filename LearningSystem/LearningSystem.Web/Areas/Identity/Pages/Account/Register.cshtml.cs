@@ -3,7 +3,6 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-    using Common;
     using Microsoft.AspNetCore.Authorization;
     using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Identity;
@@ -11,6 +10,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
+    using Utilities.Common;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
