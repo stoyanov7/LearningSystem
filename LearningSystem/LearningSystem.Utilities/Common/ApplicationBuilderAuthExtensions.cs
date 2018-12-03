@@ -8,6 +8,7 @@
     public static class ApplicationBuilderAuthExtensions
     {
         private const string DefaultAdminPassword = "123";
+        private const string DetaultLecturerPassword = "123";
 
         private static readonly IdentityRole[] roles =
         {
@@ -59,6 +60,19 @@
 
                     await userManager.CreateAsync(user, DefaultAdminPassword);
                     await userManager.AddToRoleAsync(user, roles[0].Name);
+                }
+
+                var lecturer = await userManager.FindByNameAsync("lecturer");
+                if (lecturer == null)
+                {
+                    lecturer = new ApplicationUser
+                    {
+                        UserName = "lecturer",
+                        Email = "lecturer@gmail.com"
+                    };
+
+                    await userManager.CreateAsync(lecturer, DetaultLecturerPassword);
+                    await userManager.AddToRoleAsync(lecturer, roles[1].Name);
                 }
             }
         }
