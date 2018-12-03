@@ -4,7 +4,7 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<form asp-area="Admin" asp-controller="Courses" asp-action="Create" method="post" class="form-horizontal">
+<form asp-area="Admin" asp-controller="Courses" asp-action="Create" method="post">
     @Html.FormGroupFor(model => model.Name)
     @Html.FormGroupFor(model => model.Slug)
     <div class="form-group">

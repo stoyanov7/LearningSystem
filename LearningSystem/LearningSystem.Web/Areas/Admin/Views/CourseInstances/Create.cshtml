@@ -5,7 +5,7 @@
 }
 
 <h2>Create instance for course @Model.Name</h2>
-<form asp-area="Admin" asp-controller="CourseInstances" asp-action="Create" method="post" class="form-horizontal">
+<form asp-area="Admin" asp-controller="CourseInstances" asp-action="Create" method="post">
     <input type="hidden" asp-for="CourseId" />
     @Html.FormGroupFor(m => m.Name)
     @Html.FormGroupFor(m => m.Slug)
