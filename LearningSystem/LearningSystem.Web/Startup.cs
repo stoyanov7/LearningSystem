@@ -17,6 +17,8 @@
     using Services.Admin;
     using Services.Admin.Contracts;
     using Services.Identity;
+    using Services.Lecturer;
+    using Services.Lecturer.Contracts;
     using Utilities.Common;
 
     public class Startup
@@ -64,6 +66,7 @@
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICoursesService, CoursesService>();
             services.AddTransient<ICourseInstancesService, CourseInstancesService>();
+            services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

@@ -1,5 +1,8 @@
 ﻿@model CourseInstanceViewModel
 
 <li>
-    @Model.Name
+    <a asp-area="Lecturer" 
+       asp-controller="CourseInstances" 
+       asp-action="Details" 
+       asp-route-id="@Model.Id">@Model.Name</a>
 </li>

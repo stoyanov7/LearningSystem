@@ -130,5 +130,7 @@
                 .Set<T>()
                 .Attach(entity);
         }
+
+        public Task SaveChangesAsync() => this.unitOfWork.CommitAsync();
     }
 }

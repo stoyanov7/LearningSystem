@@ -59,5 +59,7 @@
         /// </summary>
         /// <returns></returns>
         IQueryable<T> Details();
+
+        Task SaveChangesAsync();
     }
 }
