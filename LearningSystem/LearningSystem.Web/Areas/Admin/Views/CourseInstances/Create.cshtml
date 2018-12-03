@@ -2,6 +2,19 @@
 
 @{
     ViewData["Title"] = "Create";
+
+    var lecturers = ViewData["Lecturers"] as IEnumerable<LecturerConsiseViewModel>;
+    IEnumerable<SelectListItem> lecturersSelectList = null;
+
+    if (lecturers != null)
+    {
+        lecturersSelectList = lecturers
+            .Select(l => new SelectListItem
+            {
+                Text = l.Name,
+                Value = l.Id
+            });
+    }
 }
 
 <h2>Create instance for course @Model.Name</h2>
@@ -10,7 +23,13 @@
     @Html.FormGroupFor(m => m.Name)
     @Html.FormGroupFor(m => m.Slug)
     @Html.FormGroupFor(m => m.Description)
-    @Html.FormGroupFor(m => m.LecturerId)
+    <div class="form-group">
+        <label asp-for="LecturerId" class="col-sm-2"></label>
+        <div class="col-sm-10">
+            <select asp-for="LecturerId" asp-items="lecturersSelectList" class="form-control"></select>
+            <span asp-validation-for="LecturerId" class="text-danger"></span>
+        </div>
+    </div>
     @Html.FormGroupFor(m => m.StartDate)
     @Html.FormGroupFor(m => m.EndDate)
     <div class="form-group">

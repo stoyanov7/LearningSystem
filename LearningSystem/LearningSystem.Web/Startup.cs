@@ -64,14 +64,7 @@
                     microsoftOptions.ClientSecret = this.Configuration["Authentication:Microsoft:Password"];
                 });
 
-            services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<ICoursesService, CoursesService>();
-            services.AddTransient<ICourseInstancesService, CourseInstancesService>();
-            services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
-            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddSingleton<IEmailSender, EmailSender>();
+            RegisterServices(services);
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
@@ -113,6 +106,21 @@
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<ICoursesService, CoursesService>();
+            services.AddTransient<ICourseInstancesService, CourseInstancesService>();
+            services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
+            services.AddTransient<ILecturersService, LecturersService>();
+
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            services.AddSingleton<IEmailSender, EmailSender>();
         }
     }
 }

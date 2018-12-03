@@ -24,6 +24,9 @@
             this.CreateMap<CreateCourseInstancesBindingModel, CourseInstance>();
 
             this.CreateMap<CreateCourseInstancesBindingModel, Course>();
+
+            this.CreateMap<ApplicationUser, LecturerConsiseViewModel>()
+                .ForMember(x => x.Name, opt => opt.MapFrom(u => u.UserName));
         }
     }
 }

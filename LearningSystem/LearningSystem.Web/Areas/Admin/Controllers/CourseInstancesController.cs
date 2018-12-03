@@ -10,12 +10,15 @@
     {
         private readonly ICourseInstancesService courseInstancesService;
         private readonly ICoursesService coursesService;
+        private readonly ILecturersService lecturersService;
 
         public CourseInstancesController(ICourseInstancesService courseInstancesService,
-            ICoursesService coursesService)
+            ICoursesService coursesService, 
+            ILecturersService lecturersService)
         {
             this.courseInstancesService = courseInstancesService;
             this.coursesService = coursesService;
+            this.lecturersService = lecturersService;
         }
 
         [HttpGet]
@@ -37,6 +40,11 @@
                 Name = course.Name,
                 Slug = course.Slug
             };
+
+            var lecturers = await this.lecturersService
+                .GetAllLecturers<LecturerConsiseViewModel>();
+
+            this.ViewData["Lecturers"] = lecturers;
 
             return this.View(model);
         }
