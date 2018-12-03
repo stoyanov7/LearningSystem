@@ -10,6 +10,7 @@
 
         Task<TModel> PrepareInstanceForEditingAsync<TModel>(int id);
 
-        Task EditAsync(int id, ClaimsPrincipal user, string name, string description, DateTime startDate, DateTime endDate)
+        Task EditAsync(int id, ClaimsPrincipal user, string name, string description, DateTime startDate,
+            DateTime endDate);
     }
 }
