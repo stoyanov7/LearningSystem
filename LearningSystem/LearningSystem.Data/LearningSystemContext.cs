@@ -45,6 +45,9 @@
             builder.Entity<StudentsInCourses>()
                 .HasKey(sc => new { sc.CourseId, sc.StudentId });
 
+            builder.Entity<HomeworkSubmition>()
+                .HasKey(hs => new { hs.AuthorId, hs.LectureId });
+
             base.OnModelCreating(builder);
         }
     }

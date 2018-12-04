@@ -4,14 +4,16 @@ using LearningSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LearningSystem.Data.Migrations
 {
     [DbContext(typeof(LearningSystemContext))]
-    partial class LearningSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20181204113311_HomeworkSubmition")]
+    partial class HomeworkSubmition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

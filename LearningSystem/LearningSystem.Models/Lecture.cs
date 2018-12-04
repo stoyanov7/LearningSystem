@@ -6,7 +6,11 @@
 
     public class Lecture
     {
-        public Lecture() => this.Resources = new List<Resource>();
+        public Lecture()
+        {
+            this.Resources = new List<Resource>();
+            this.HomeworkSubmitions = new List<HomeworkSubmition>();
+        }
 
         [Key]
         public int Id { get; set; }
@@ -35,5 +39,7 @@
         public CourseInstance Course { get; set; }
 
         public ICollection<Resource> Resources { get; set; }
+
+        public ICollection<HomeworkSubmition> HomeworkSubmitions { get; set; }
     }
 }
