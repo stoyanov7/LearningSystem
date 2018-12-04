@@ -37,6 +37,7 @@
         public IActionResult Create() => this.View();
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCourseBindingModel model)
         {
             if (!this.ModelState.IsValid)

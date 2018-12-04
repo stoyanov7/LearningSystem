@@ -28,6 +28,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(int id, CreateLectureBindingModel model)
         {
             await this.lecturerCourseInstancesService.AddLecture(id, model);

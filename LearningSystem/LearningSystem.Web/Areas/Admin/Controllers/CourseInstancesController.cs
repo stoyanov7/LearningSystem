@@ -50,6 +50,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCourseInstancesBindingModel model)
         {
             if (!this.ModelState.IsValid)

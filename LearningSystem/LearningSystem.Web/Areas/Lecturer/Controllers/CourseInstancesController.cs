@@ -33,6 +33,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditCourseInstanceBindingModel model)
         {
             if (!this.ModelState.IsValid)
