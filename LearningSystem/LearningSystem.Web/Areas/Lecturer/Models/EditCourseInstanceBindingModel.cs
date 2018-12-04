@@ -17,6 +17,6 @@
 
         public DateTime EndDate { get; set; }
 
-        public ICollection<LectureShortViewModel> Lecturer { get; set; }
+        public ICollection<LectureShortViewModel> Lectures { get; set; }
     }
 }

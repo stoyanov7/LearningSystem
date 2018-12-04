@@ -12,5 +12,9 @@
 
         Task EditAsync(int id, ClaimsPrincipal user, string name, string description, DateTime startDate,
             DateTime endDate);
+
+        Task<bool> InstanceExist(int id);
+
+        Task AddLecture<TModel>(int id, TModel model);
     }
 }

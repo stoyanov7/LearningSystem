@@ -1,6 +1,7 @@
 ﻿namespace LearningSystem.Web.Infrastructure
 {
     using Areas.Admin.Models;
+    using Areas.Lecturer.Models;
     using AutoMapper;
     using LearningSystem.Models;
     using LearningSystem.Models.Identity;
@@ -27,6 +28,10 @@
 
             this.CreateMap<ApplicationUser, LecturerConsiseViewModel>()
                 .ForMember(x => x.Name, opt => opt.MapFrom(u => u.UserName));
+
+            this.CreateMap<Lecture, LectureShortViewModel>();
+
+            this.CreateMap<CreateLectureBindingModel, Lecture>();
         }
     }
 }

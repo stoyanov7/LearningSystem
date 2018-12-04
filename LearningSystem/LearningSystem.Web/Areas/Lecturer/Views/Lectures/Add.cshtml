@@ -1,0 +1,21 @@
+﻿@using LearningSystem.Utilities.Helpers
+@model CreateLectureBindingModel
+
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h2>Add Lecture</h2>
+<form asp-area="Lecturer" asp-controller="Lectures" asp-action="Add" asp-route-id="@Model.CourseId" method="post">
+    @Html.FormGroupFor(model => model.Title)
+    @Html.FormGroupFor(model => model.Description)
+    @Html.FormGroupFor(model => model.LectureHall)
+    @Html.FormGroupFor(model => model.Order)
+    @Html.FormGroupFor(model => model.StartTime)
+    @Html.FormGroupFor(model => model.EndTime)
+    <div class="form-group row text-center">
+        <div class="col-sm-10 ">
+            <input type="submit" value="Add a lecture" class="btn btn-success" />
+        </div>
+    </div>
+</form>

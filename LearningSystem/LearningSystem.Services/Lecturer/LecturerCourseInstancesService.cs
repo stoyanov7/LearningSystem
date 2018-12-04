@@ -38,7 +38,8 @@
 
         public async Task<TModel> PrepareInstanceForEditingAsync<TModel>(int id)
         {
-            var instance = await this.repository.Details()
+            var instance = await this.repository
+                .Details()
                 .Include(l => l.Lectures)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
@@ -67,6 +68,19 @@
             courseInstance.Description = description;
             courseInstance.StartDate = startDate;
             courseInstance.EndDate = endDate;
+
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task<bool> InstanceExist(int id) 
+            => await this.repository
+                   .FindByIdAsync(id) != null;
+
+        public async Task AddLecture<TModel>(int id, TModel model)
+        {
+            var courseInstance = await this.repository.FindByIdAsync(id);
+            var lecture = this.mapper.Map<Lecture>(model);
+            courseInstance.Lectures.Add(lecture);
 
             await this.repository.SaveChangesAsync();
         }
