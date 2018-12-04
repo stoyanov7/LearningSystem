@@ -1,0 +1,10 @@
+﻿@model UploadHomeworkBindingModel
+@{
+    ViewData["Title"] = "UploadHomework";
+}
+
+<form asp-area="" asp-controller="Lectures" asp-action="UploadHomework" method="post" enctype="multipart/form-data">
+    <input asp-for="HomeworkFile">
+    <br />
+    <input type="submit" value="Upload" class="btn btn-success" />
+</form>
