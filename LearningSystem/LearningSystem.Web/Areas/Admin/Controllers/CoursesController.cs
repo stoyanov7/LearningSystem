@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Localization;
     using Microsoft.Extensions.Logging;
     using Models;
     using Services.Admin.Contracts;
@@ -12,19 +13,22 @@
     {
         private readonly ICoursesService coursesService;
         private readonly ILogger<CoursesController> logger;
+        private readonly IStringLocalizer<CoursesController> stringLocalizer;
 
         public CoursesController(ICoursesService coursesService,
-            ILogger<CoursesController> logger)
+            ILogger<CoursesController> logger,
+            IStringLocalizer<CoursesController> stringLocalizer)
         {
             this.coursesService = coursesService;
             this.logger = logger;
+            this.stringLocalizer = stringLocalizer;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
             var model = this.coursesService
-                .All<AllCoursesViewModel>();
+                   .All<AllCoursesViewModel>();
 
             return this.View(model);
         }
@@ -49,7 +53,7 @@
                 Message = string.Format(AdminConstants.CreatedSuccessfullyCourse, course.Name)
             };
 
-            return this.RedirectToAction("Details", new {id = course.Id});
+            return this.RedirectToAction("Details", new { id = course.Id });
         }
 
         [HttpGet]

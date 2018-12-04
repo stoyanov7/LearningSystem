@@ -1,12 +1,30 @@
 ﻿namespace LearningSystem.Web.Controllers
 {
+    using System;
     using System.Diagnostics;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Localization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
-    
+
     public class HomeController : Controller
     {
         public IActionResult Index() => this.View();
+
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            this.Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddYears(1)
+                }
+            );
+
+            return this.LocalRedirect(returnUrl);
+        }
 
         public IActionResult About()
         {
