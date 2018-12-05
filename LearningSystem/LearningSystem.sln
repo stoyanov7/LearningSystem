@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Repository",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Utilities", "LearningSystem.Utilities\LearningSystem.Utilities.csproj", "{D55F48A2-D33E-4CF5-9969-0FDE0DFF5E4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Tests", "LearningSystem.Tests\LearningSystem.Tests.csproj", "{F6200611-8CE5-4CFA-ABD6-67E7FFBEB3AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{D55F48A2-D33E-4CF5-9969-0FDE0DFF5E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D55F48A2-D33E-4CF5-9969-0FDE0DFF5E4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D55F48A2-D33E-4CF5-9969-0FDE0DFF5E4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6200611-8CE5-4CFA-ABD6-67E7FFBEB3AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6200611-8CE5-4CFA-ABD6-67E7FFBEB3AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6200611-8CE5-4CFA-ABD6-67E7FFBEB3AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6200611-8CE5-4CFA-ABD6-67E7FFBEB3AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

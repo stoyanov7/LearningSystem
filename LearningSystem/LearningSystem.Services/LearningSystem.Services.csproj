@@ -8,6 +8,7 @@
     <ProjectReference Include="..\LearningSystem.Data\LearningSystem.Data.csproj" />
     <ProjectReference Include="..\LearningSystem.Models\LearningSystem.Models.csproj" />
     <ProjectReference Include="..\LearningSystem.Repository\LearningSystem.Repository.csproj" />
+    <ProjectReference Include="..\LearningSystem.Utilities\LearningSystem.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

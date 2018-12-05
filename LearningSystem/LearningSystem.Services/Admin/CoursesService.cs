@@ -7,6 +7,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Repository.Contracts;
+    using Utilities.Common;
 
     /// <summary>
     /// Services to entering course data.
@@ -33,7 +34,9 @@
         /// <returns>Return the mapped course.</returns>
         public async Task<Course> AddCourseAsync<TModel>(TModel model)
         {
+            CoreValidator.EnsureNotNull(model, "The course is null");
             var course = this.mapper.Map<Course>(model);
+
             await this.context.AddAsync(course);
 
             return course;
