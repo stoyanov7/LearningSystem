@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Web", "Learn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Repository", "LearningSystem.Repository\LearningSystem.Repository.csproj", "{046FC4DD-E1DF-40C3-860B-5E4DC068DE92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningSystem.Utilities", "LearningSystem.Utilities\LearningSystem.Utilities.csproj", "{D55F48A2-D33E-4CF5-9969-0FDE0DFF5E4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearningSystem.Utilities", "LearningSystem.Utilities\LearningSystem.Utilities.csproj", "{D55F48A2-D33E-4CF5-9969-0FDE0DFF5E4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -25,10 +25,10 @@
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = this.coursesService
-                   .All<AllCoursesViewModel>();
+            var model = await this.coursesService
+                   .GetCoursesAsync<AllCoursesViewModel>();
 
             return this.View(model);
         }

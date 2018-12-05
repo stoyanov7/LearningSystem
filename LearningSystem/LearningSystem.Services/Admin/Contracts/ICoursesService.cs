@@ -19,7 +19,7 @@
         /// </summary>
         /// <typeparam name="TModel"></typeparam>
         /// <returns>List with all courses.</returns>
-        IEnumerable<TModel> All<TModel>();
+        Task<IEnumerable<TModel>> GetCoursesAsync<TModel>();
 
         /// <summary>
         /// Get details for course by given key.
