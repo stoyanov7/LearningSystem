@@ -21,6 +21,8 @@
     using Services.Identity;
     using Services.Lecturer;
     using Services.Lecturer.Contracts;
+    using Services.Student;
+    using Services.Student.Contracts;
     using Utilities.Common;
 
     public class Startup
@@ -133,6 +135,8 @@
             services.AddTransient<ICourseInstancesService, CourseInstancesService>();
             services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
             services.AddTransient<ILecturersService, LecturersService>();
+
+            services.AddTransient<IStudentCoursesService, StudentCoursesService>();
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
