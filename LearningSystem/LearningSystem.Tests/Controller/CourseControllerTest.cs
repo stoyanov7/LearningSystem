@@ -1,6 +1,8 @@
-namespace LearningSystem.Tests
+namespace LearningSystem.Tests.Controller
 {
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using LearningSystem.Services.Admin.Contracts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -66,8 +68,33 @@ namespace LearningSystem.Tests
             Assert.IsTrue(isServiceCalled);
         }
 
-        
+        [TestMethod]
+        public async Task Index_ShouldReturnAllCourses()
+        {
+            // Arrange
+            var model = new AllCoursesViewModel
+            {
+                Id = 1,
+                Name = "First"
+            };
 
+            this.courseServiceMock
+                .Setup(x => x.GetCoursesAsync<AllCoursesViewModel>())
+                .ReturnsAsync(new[] {model});
+
+            var controller = new CoursesController(this.courseServiceMock.Object, null, null);
+
+            // Act
+            var result = await controller.Index();
+
+            // Assert
+            var resultView = result as ViewResult;
+
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsNotNull(resultView?.Model);
+            Assert.IsInstanceOfType(resultView.Model, typeof(IEnumerable<AllCoursesViewModel>));
+        }
+        
         [TestMethod]
         public void Create_WithValidCourse_ShoudCallService()
         {

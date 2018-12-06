@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Tests
+﻿namespace LearningSystem.Tests.Mocks
 {
     using AutoMapper;
     using Web.Infrastructure;

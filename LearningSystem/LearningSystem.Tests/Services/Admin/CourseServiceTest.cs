@@ -1,9 +1,13 @@
 ﻿namespace LearningSystem.Tests.Services.Admin
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
+    using AutoMapper;
+    using Data;
     using LearningSystem.Services.Admin;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Mocks;
     using Models;
     using Moq;
     using Repository.Contracts;
@@ -12,11 +16,15 @@
     public class CourseServiceTest
     {
         private Mock<IRepository<Course>> courseRepositoryMock;
+        private LearningSystemContext context;
+        private IMapper mapper;
 
         [TestInitialize]
         public void TestInitialize()
         {
             this.courseRepositoryMock = new Mock<IRepository<Course>>();
+            this.context = LearningSystemContextMock.GetContext();
+            this.mapper = AutoMapperMock.GetMapper();
         }
 
         [TestMethod]
@@ -108,8 +116,7 @@
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            var mapper = AutoMapperMock.GetMapper();
-            var service = new CoursesService(mapper, this.courseRepositoryMock.Object);
+            var service = new CoursesService(this.mapper, this.courseRepositoryMock.Object);
 
             // Act
             var course = await service.AddCourseAsync(courseModel);
@@ -117,6 +124,71 @@
             // Asserts 
             Assert.AreEqual(courseName, course.Name);
             Assert.AreEqual(slugName, course.Slug);
+        }
+
+        [TestMethod]
+        public async Task GetCourses_WithAFewCourses_ShouldReturnAll()
+        {
+            // Arrange
+            this.context.Courses.Add(new Course { Id = 1, Name = "First course" });
+            this.context.Courses.Add(new Course { Id = 2, Name = "Second course" });
+            this.context.Courses.Add(new Course { Id = 3, Name = "Third course" });
+            await this.context.SaveChangesAsync();
+
+            this.courseRepositoryMock
+                .Setup(m => m.Details())
+                .Returns(this.context.Courses)
+                .Verifiable();
+
+            var service = new CoursesService(this.mapper, this.courseRepositoryMock.Object);
+
+            // Act
+            var courses = await service.GetCoursesAsync<Course>();
+
+            // Assert
+            Assert.IsNotNull(courses);
+            Assert.AreEqual(3, courses.Count());
+            CollectionAssert.AreEqual(new[] { 1, 2, 3 }, courses.Select(c => c.Id).ToArray());
+        }
+
+        [TestMethod]
+        public async Task GetCourses_WithNoCourses_ShouldReturnNone()
+        {
+            // Arrange           
+            this.courseRepositoryMock
+                .Setup(m => m.Details())
+                .Returns(this.context.Courses)
+                .Verifiable();
+
+            var service = new CoursesService(this.mapper, this.courseRepositoryMock.Object);
+
+            // Act
+            var courses = await service.GetCoursesAsync<Course>();
+
+            // Assert
+            Assert.IsNotNull(courses);
+            Assert.AreEqual(0, courses.Count());
+        }
+
+        [TestMethod]
+        public async Task Details_WithValidCourse_ShouldReturnCorrectDetails()
+        {
+            // Arrange
+            this.context.Courses.Add(new Course { Id = 1, Name = "First course" });
+            await this.context.SaveChangesAsync();
+
+            this.courseRepositoryMock
+                .Setup(m => m.Details())
+                .Returns(this.context.Courses)
+                .Verifiable();
+
+            var service = new CoursesService(this.mapper, this.courseRepositoryMock.Object);
+
+            // Act
+            var courses = await service.DetailsAsync<Course>(1);
+
+            // Assert
+            Assert.AreEqual(1, courses.Id);
         }
     }
 }
