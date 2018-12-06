@@ -17,7 +17,7 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script src="js/create-slug.js"></script>
+    <script src="~/js/create-slug.js"></script>
     <script>
        $(function () {
             createSlug("@(Html.IdFor(model => model.Name))", "@(Html.IdFor(model => model.Slug))");
