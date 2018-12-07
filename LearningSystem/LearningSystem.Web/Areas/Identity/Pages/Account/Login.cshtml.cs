@@ -11,6 +11,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.Extensions.Logging;
+    using Utilities.Constants;
 
     [AllowAnonymous]
     public class LoginModel : PageModel
@@ -78,9 +79,17 @@
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await this
                     .signInManager.PasswordSignInAsync(this.Input.Username, this.Input.Password, this.Input.RememberMe, lockoutOnFailure: true);
-                
+
                 if (result.Succeeded)
                 {
+                    var user = await this.userManager.FindByNameAsync(this.Input.Username);
+                    var roles = await this.userManager.GetRolesAsync(user);
+
+                    if (roles.Contains(AdminConstants.AdminRole))
+                    {
+                        return this.RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+
                     this.logger.LogInformation("User logged in.");
 
                     return this.LocalRedirect(returnUrl);
