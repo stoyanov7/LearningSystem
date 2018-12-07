@@ -6,6 +6,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Admin.Contracts;
+    using Utilities.Common;
+    using Utilities.Constants;
+    using Utilities.Helpers.Messages;
 
     public class CourseInstancesController : AdminController
     {
@@ -61,7 +64,12 @@
 
             var instance = await this.courseInstancesService.Create(model);
 
-            // TODO: Redirect to details
+            this.TempData.Put("__Message", new MessageModel
+            {
+                Type = MessageType.Success,
+                Message = string.Format(AdminConstants.CreatedSuccessfullyCourse, model.Name)
+            });
+
             return this.RedirectToAction("Details", "CourseInstances", new { id = instance});
         }
 
