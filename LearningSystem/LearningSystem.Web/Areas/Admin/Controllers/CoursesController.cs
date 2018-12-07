@@ -6,6 +6,7 @@
     using Microsoft.Extensions.Logging;
     using Models;
     using Services.Admin.Contracts;
+    using Utilities.Common;
     using Utilities.Constants;
     using Utilities.Helpers.Messages;
 
@@ -48,11 +49,11 @@
             var course = await this.coursesService.AddCourseAsync(model);
             this.logger.LogInformation(string.Format(AdminConstants.CreatedSuccessfullyCourse, course.Name));
 
-            this.TempData["__Message"] = new MessageModel
+            this.TempData.Put("__Message", new MessageModel
             {
                 Type = MessageType.Success,
                 Message = string.Format(AdminConstants.CreatedSuccessfullyCourse, course.Name)
-            };
+            });
 
             return this.RedirectToAction("Details", new { id = course.Id });
         }
