@@ -1,17 +1,43 @@
 ﻿@{
     ViewData["Title"] = "Contact";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<section id="contact-main" class="contact-main section">
+    <div class="container text-center">
+        <h2 class="title">Get in touch</h2>
+        <p class="intro">
+            We'd love to hear from you. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+        </p>
+        <div class="row">
+            <div class="item col-md-4 col-12">
+                <div class="item-inner">
+                    <i class="fa fa-envelope fa-5x"></i>
+                    <div class="details">
+                        <h4 class="title">Email</h4>
+                        <a href="#">support@website.com</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item col-md-4 col-12">
+                <div class="item-inner">
+                    <i class="fa fa-phone fa-5x"></i>
+                    <div class="details">
+                        <h4 class="title">Call us on:</h4>
+                        <p>0800 123 456</p>
+                        <p class="day">Mon-Sat 9am-6pm (GMT)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="item col-md-4 col-12">
+                <div class="item-inner">
+                    <i class="fa fa-map-marker fa-5x"></i>
+                    <div class="details">
+                        <h4 class="title">Find us at:</h4>
+                        <p>0800 123 456</p>
+                        <p>Sofia, Bulgaria</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

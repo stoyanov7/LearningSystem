@@ -9,8 +9,8 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<a asp-area="Admin" 
-   asp-controller="Courses" 
-   asp-action="Create" 
-   class="btn btn-success">@Localizer["Create new course"]</a>
+<a asp-area="Admin"
+   asp-controller="Courses"
+   asp-action="Create"
+   class="btn btn-success"><i class="fa fa-plus"></i> @Localizer["Create new course"]</a>
 <ul>@Html.DisplayForModel()</ul>
