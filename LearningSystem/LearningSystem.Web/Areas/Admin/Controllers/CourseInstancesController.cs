@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+    using Lecturer.Models;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Admin.Contracts;
@@ -58,10 +59,19 @@
                 return this.View();
             }
 
-            await this.courseInstancesService.Create(model);
+            var instance = await this.courseInstancesService.Create(model);
 
             // TODO: Redirect to details
-            return this.RedirectToAction("Index", "Courses");
+            return this.RedirectToAction("Details", "CourseInstances", new { id = instance});
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await this.courseInstancesService
+                .DetailsAsync<DetailsCourseInstanceViewModel>(id);
+
+            return this.View(model);
         }
     }
 }

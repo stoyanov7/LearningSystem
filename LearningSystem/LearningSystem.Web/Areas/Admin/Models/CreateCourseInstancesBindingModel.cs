@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Utilities.Common;
 
     public class CreateCourseInstancesBindingModel
     {

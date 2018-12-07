@@ -4,6 +4,8 @@
 
     public interface ICourseInstancesService
     {
-        Task Create<TModel>(TModel model);
+        Task<int> Create<TModel>(TModel model);
+
+        Task<TModel> DetailsAsync<TModel>(int id);
     }
 }
