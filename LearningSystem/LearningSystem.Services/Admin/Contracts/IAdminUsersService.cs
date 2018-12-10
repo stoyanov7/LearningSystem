@@ -5,14 +5,14 @@
     using System.Threading.Tasks;
     using Models.Identity;
 
-    public interface IUsersService
+    public interface IAdminUsersService
     {
         /// <summary>
         /// Get all users by entity key, except the current user.
         /// </summary>
         /// <typeparam name="TModel">Entity type.</typeparam>
         /// <returns>All records.</returns>
-        Task<IEnumerable<TModel>> All<TModel>(ClaimsPrincipal user);
+        Task<IEnumerable<TModel>> AllUsersAsync<TModel>(ClaimsPrincipal user);
 
         /// <summary>
         /// Get details by entity key.
@@ -20,13 +20,13 @@
         /// <typeparam name="TModel">Entity type.</typeparam>
         /// <param name="id">Entity key.</param>
         /// <returns>All details for record.</returns>
-        Task<TModel> Details<TModel>(string id);
+        Task<TModel> UserDetailsAync<TModel>(string id);
 
         /// <summary>
         /// Get application user by id;
         /// </summary>
         /// <param name="id">Application user id</param>
         /// <returns>Application user</returns>
-        Task<ApplicationUser> FindAsync(string id);
+        Task<ApplicationUser> FindUserAsync(string id);
     }
 }

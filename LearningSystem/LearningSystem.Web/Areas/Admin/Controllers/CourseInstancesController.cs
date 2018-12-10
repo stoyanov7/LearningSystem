@@ -12,24 +12,25 @@
 
     public class CourseInstancesController : AdminController
     {
-        private readonly ICourseInstancesService courseInstancesService;
-        private readonly ICoursesService coursesService;
-        private readonly ILecturersService lecturersService;
+        private readonly IAdminCourseInstancesService adminCourseInstancesService;
+        private readonly IAdminCoursesService adminCoursesService;
+        private readonly IAdminLecturersService adminLecturersService;
 
-        public CourseInstancesController(ICourseInstancesService courseInstancesService,
-            ICoursesService coursesService, 
-            ILecturersService lecturersService)
+        public CourseInstancesController(IAdminCourseInstancesService adminCourseInstancesService,
+            IAdminCoursesService adminCoursesService, 
+            IAdminLecturersService adminLecturersService)
         {
-            this.courseInstancesService = courseInstancesService;
-            this.coursesService = coursesService;
-            this.lecturersService = lecturersService;
+            this.adminCourseInstancesService = adminCourseInstancesService;
+            this.adminCoursesService = adminCoursesService;
+            this.adminLecturersService = adminLecturersService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Create(int id)
         {
             // TODO: Extract to service
-            var course = await this.coursesService.FindAsync(id);
+            var course = await this.adminCoursesService
+                .FindCourseAsync(id);
 
             if (course == null)
             {
@@ -45,8 +46,8 @@
                 Slug = course.Slug
             };
 
-            var lecturers = await this.lecturersService
-                .GetAllLecturers<LecturerConsiseViewModel>();
+            var lecturers = await this.adminLecturersService
+                .GetAllLecturersAsync<LecturerConsiseViewModel>();
 
             this.ViewData["Lecturers"] = lecturers;
 
@@ -62,7 +63,8 @@
                 return this.View();
             }
 
-            var instance = await this.courseInstancesService.Create(model);
+            var instance = await this.adminCourseInstancesService
+                .CreateCourseIntancesAsync(model);
 
             this.TempData.Put("__Message", new MessageModel
             {
@@ -76,8 +78,8 @@
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var model = await this.courseInstancesService
-                .DetailsAsync<DetailsCourseInstanceViewModel>(id);
+            var model = await this.adminCourseInstancesService
+                .CourseInstancesDetailsAsync<DetailsCourseInstanceViewModel>(id);
 
             return this.View(model);
         }

@@ -45,10 +45,10 @@
                 .ReturnsAsync(course)
                 .Verifiable();
 
-            var sut = new CoursesService(null, this.courseRepositoryMock.Object);
+            var sut = new AdminCoursesService(null, this.courseRepositoryMock.Object);
 
             //Act
-            var courseResult = await sut.FindAsync(expectedId);
+            var courseResult = await sut.FindCourseAsync(expectedId);
 
             //Assert
             this.courseRepositoryMock.Verify();
@@ -69,10 +69,10 @@
                 .ReturnsAsync(course)
                 .Verifiable();
 
-            var service = new CoursesService(null, this.courseRepositoryMock.Object);
+            var service = new AdminCoursesService(null, this.courseRepositoryMock.Object);
 
             //Act
-            var courseResult = await service.FindAsync(expectedId);
+            var courseResult = await service.FindCourseAsync(expectedId);
 
             // Assert
             Assert.IsNull(courseResult);
@@ -83,7 +83,7 @@
         {
             // Arrange           
             Course course = null;
-            var service = new CoursesService(null, this.courseRepositoryMock.Object);
+            var service = new AdminCoursesService(null, this.courseRepositoryMock.Object);
 
             this.courseRepositoryMock
                 .Setup(m => m.AddAsync(course))
@@ -116,7 +116,7 @@
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            var service = new CoursesService(this.mapper, this.courseRepositoryMock.Object);
+            var service = new AdminCoursesService(this.mapper, this.courseRepositoryMock.Object);
 
             // Act
             var course = await service.AddCourseAsync(courseModel);
@@ -140,7 +140,7 @@
                 .Returns(this.context.Courses)
                 .Verifiable();
 
-            var service = new CoursesService(this.mapper, this.courseRepositoryMock.Object);
+            var service = new AdminCoursesService(this.mapper, this.courseRepositoryMock.Object);
 
             // Act
             var courses = await service.GetCoursesAsync<Course>();
@@ -160,7 +160,7 @@
                 .Returns(this.context.Courses)
                 .Verifiable();
 
-            var service = new CoursesService(this.mapper, this.courseRepositoryMock.Object);
+            var service = new AdminCoursesService(this.mapper, this.courseRepositoryMock.Object);
 
             // Act
             var courses = await service.GetCoursesAsync<Course>();
@@ -182,10 +182,10 @@
                 .Returns(this.context.Courses)
                 .Verifiable();
 
-            var service = new CoursesService(this.mapper, this.courseRepositoryMock.Object);
+            var service = new AdminCoursesService(this.mapper, this.courseRepositoryMock.Object);
 
             // Act
-            var courses = await service.DetailsAsync<Course>(1);
+            var courses = await service.CourseDetailsAsync<Course>(1);
 
             // Assert
             Assert.AreEqual(1, courses.Id);

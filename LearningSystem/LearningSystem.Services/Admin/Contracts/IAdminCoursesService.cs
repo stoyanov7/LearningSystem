@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using Models;
 
-    public interface ICoursesService
+    public interface IAdminCoursesService
     {
         /// <summary>
         /// Add new course to the database.
@@ -27,8 +27,8 @@
         /// <typeparam name="TModel">Model of course.</typeparam>
         /// <param name="id">Course key.</param>
         /// <returns>Mapped information for the course.</returns>
-        Task<TModel> DetailsAsync<TModel>(int id);
+        Task<TModel> CourseDetailsAsync<TModel>(int id);
 
-        Task<Course> FindAsync(int id);
+        Task<Course> FindCourseAsync(int id);
     }
 }

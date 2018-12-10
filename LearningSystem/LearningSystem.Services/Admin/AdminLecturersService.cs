@@ -7,18 +7,18 @@
     using Microsoft.AspNetCore.Identity;
     using Models.Identity;
 
-    public class LecturersService : ILecturersService
+    public class AdminLecturersService : IAdminLecturersService
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMapper mapper;
 
-        public LecturersService(UserManager<ApplicationUser> userManager, IMapper mapper)
+        public AdminLecturersService(UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             this.userManager = userManager;
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<TModel>> GetAllLecturers<TModel>()
+        public async Task<IEnumerable<TModel>> GetAllLecturersAsync<TModel>()
         {
             var users = await this.userManager.GetUsersInRoleAsync("Lecturer"); 
             var lecturers = this.mapper.Map<IEnumerable<TModel>>(users);

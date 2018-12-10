@@ -18,7 +18,7 @@
         public async Task<IActionResult> Details(int id)
         {
             var model = await this.courseInstancesService
-                .DetailsAsync<DetailsCourseInstanceViewModel>(id);
+                .CourseInstanceDetailsAsync<DetailsCourseInstanceViewModel>(id);
 
             return this.View(model);
         }
@@ -27,7 +27,7 @@
         public async Task<IActionResult> Edit(int id)
         {
             var model = await this.courseInstancesService
-                .PrepareInstanceForEditingAsync<EditCourseInstanceBindingModel>(id);
+                .PrepareCourseInstanceForEditingAsync<EditCourseInstanceBindingModel>(id);
 
             return this.View(model);
         }
@@ -42,7 +42,7 @@
             }
 
             await this.courseInstancesService
-                .EditAsync(id, this.User, model.Name, model.Description, model.StartDate, model.EndDate);
+                .EditCourseInstanceAsync(id, this.User, model.Name, model.Description, model.StartDate, model.EndDate);
 
             // TODO: Redirect to Details
             return this.View(model);

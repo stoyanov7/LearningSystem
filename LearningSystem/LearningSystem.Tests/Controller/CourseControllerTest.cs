@@ -15,12 +15,12 @@ namespace LearningSystem.Tests.Controller
     [TestClass]
     public class CourseControllerTest
     {
-        private Mock<ICoursesService> courseServiceMock;
+        private Mock<IAdminCoursesService> courseServiceMock;
 
         [TestInitialize]
         public void TestInitialize() 
         {
-            this.courseServiceMock = new Mock<ICoursesService>();
+            this.courseServiceMock = new Mock<IAdminCoursesService>();
         } 
 
         [TestMethod]

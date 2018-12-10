@@ -16,15 +16,15 @@
     /// <summary>
     /// Service to entering users data.
     /// </summary>
-    public class UsersService : IUsersService
+    public class AdminUsersService : IAdminUsersService
     {
         private readonly IRepository<ApplicationUser> context;
         private readonly UserManager<ApplicationUser> userManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UsersService"/> class.
+        /// Initializes a new instance of the <see cref="AdminUsersService"/> class.
         /// </summary>
-        public UsersService(IRepository<ApplicationUser> context, UserManager<ApplicationUser> userManager)
+        public AdminUsersService(IRepository<ApplicationUser> context, UserManager<ApplicationUser> userManager)
         {
             this.context = context;
             this.userManager = userManager;
@@ -35,7 +35,7 @@
         /// </summary>
         /// <typeparam name="TModel">Entity type.</typeparam>
         /// <returns>All records.</returns>
-        public async Task<IEnumerable<TModel>> All<TModel>(ClaimsPrincipal user)
+        public async Task<IEnumerable<TModel>> AllUsersAsync<TModel>(ClaimsPrincipal user)
         {
             var currentUser = await this.userManager
                 .GetUserAsync(user);
@@ -50,7 +50,7 @@
         /// <typeparam name="TModel">Entity type.</typeparam>
         /// <param name="id">Entity key.</param>
         /// <returns>All details for record.</returns>
-        public async Task<TModel> Details<TModel>(string id)
+        public async Task<TModel> UserDetailsAync<TModel>(string id)
             => await this.By<TModel>(x => x.Id == id)
                 .FirstOrDefaultAsync();
 
@@ -59,7 +59,7 @@
         /// </summary>
         /// <param name="id">Application user id</param>
         /// <returns>Application user</returns>
-        public async Task<ApplicationUser> FindAsync(string id)
+        public async Task<ApplicationUser> FindUserAsync(string id)
             => await this.context.FindByIdAsync(id);
 
         private IQueryable<TModel> By<TModel>(Expression<Func<ApplicationUser, bool>> predicate = null)

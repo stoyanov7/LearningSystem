@@ -130,13 +130,13 @@
 
         private static void RegisterServices(IServiceCollection services)
         {
-            services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<ICoursesService, CoursesService>();
-            services.AddTransient<ICourseInstancesService, CourseInstancesService>();
-            services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
-            services.AddTransient<ILecturersService, LecturersService>();
+            services.AddTransient<IAdminUsersService, AdminUsersService>();
+            services.AddTransient<IAdminCoursesService, AdminCoursesService>();
+            services.AddTransient<IAdminCourseInstancesService, AdminCourseInstancesService>();
+            services.AddTransient<IAdminLecturersService, AdminLecturersService>();
 
             services.AddTransient<IStudentCoursesService, StudentCoursesService>();
+            services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();

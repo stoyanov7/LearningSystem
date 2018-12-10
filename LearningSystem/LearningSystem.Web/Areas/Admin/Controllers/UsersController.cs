@@ -13,18 +13,18 @@
     /// </summary>
     public class UsersController : AdminController
     {
-        private readonly IUsersService usersService;
+        private readonly IAdminUsersService adminUsersService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMapper mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UsersController"/> class.
         /// </summary>
-        public UsersController(IUsersService usersService, 
+        public UsersController(IAdminUsersService adminUsersService, 
             UserManager<ApplicationUser> userManager, 
             IMapper mapper)
         {
-            this.usersService = usersService;
+            this.adminUsersService = adminUsersService;
             this.userManager = userManager;
             this.mapper = mapper;
         }
@@ -36,8 +36,8 @@
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await this.usersService
-                .All<AllUsersViewModel>(this.User);
+            var model = await this.adminUsersService
+                .AllUsersAsync<AllUsersViewModel>(this.User);
 
             return this.View(model);
         }
@@ -58,7 +58,7 @@
                 return this.Unauthorized();
             }
 
-            var user = await this.usersService.FindAsync(id);
+            var user = await this.adminUsersService.FindUserAsync(id);
 
             if (user == null)
             {

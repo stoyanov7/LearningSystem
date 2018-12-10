@@ -12,15 +12,15 @@
     /// <summary>
     /// Services to entering course data.
     /// </summary>
-    public class CoursesService : ICoursesService
+    public class AdminCoursesService : IAdminCoursesService
     {
         private readonly IMapper mapper;
         private readonly IRepository<Course> context;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CoursesService"/> class.
+        /// Initializes a new instance of the <see cref="AdminCoursesService"/> class.
         /// </summary>
-        public CoursesService(IMapper mapper, IRepository<Course> context)
+        public AdminCoursesService(IMapper mapper, IRepository<Course> context)
         {
             this.mapper = mapper;
             this.context = context;
@@ -64,7 +64,7 @@
         /// <typeparam name="TModel">Model of course.</typeparam>
         /// <param name="id">Course key.</param>
         /// <returns>Mapped information for the course.</returns>
-        public async Task<TModel> DetailsAsync<TModel>(int id)
+        public async Task<TModel> CourseDetailsAsync<TModel>(int id)
         {
             var model = await this.context
                 .Details()
@@ -74,6 +74,6 @@
             return this.mapper.Map<TModel>(model);
         }
 
-        public async Task<Course> FindAsync(int id) => await this.context.FindByIdAsync(id);
+        public async Task<Course> FindCourseAsync(int id) => await this.context.FindByIdAsync(id);
     }
 }

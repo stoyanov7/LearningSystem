@@ -26,7 +26,7 @@
             this.userManager = userManager;
         }
 
-        public async Task<TModel> DetailsAsync<TModel>(int id)
+        public async Task<TModel> CourseInstanceDetailsAsync<TModel>(int id)
         {
             var courseInstance = await this.repository.Details()
                 .Include(c => c.Lectures)
@@ -37,7 +37,7 @@
             return model;
         }
 
-        public async Task<TModel> PrepareInstanceForEditingAsync<TModel>(int id)
+        public async Task<TModel> PrepareCourseInstanceForEditingAsync<TModel>(int id)
         {
             var instance = await this.repository
                 .Details()
@@ -54,7 +54,7 @@
             return instanceModel;
         }
 
-        public async Task EditAsync(int id, ClaimsPrincipal user, string name, string description, DateTime startDate, DateTime endDate)
+        public async Task EditCourseInstanceAsync(int id, ClaimsPrincipal user, string name, string description, DateTime startDate, DateTime endDate)
         {
             var courseInstance = await this.repository.FindByIdAsync(id);
             var isLecturer = courseInstance.LecturerId == this.userManager.GetUserId(user);
@@ -73,7 +73,7 @@
             await this.repository.SaveChangesAsync();
         }
 
-        public async Task<bool> InstanceExist(int id) 
+        public async Task<bool> IsCourseInstanceExist(int id) 
             => await this.repository
                    .FindByIdAsync(id) != null;
 

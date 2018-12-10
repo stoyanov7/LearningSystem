@@ -19,7 +19,7 @@
         public async Task<IActionResult> Add(int id)
         {
             var isCourseInstancesExit = await this.lecturerCourseInstancesService
-                .InstanceExist(id);
+                .IsCourseInstanceExist(id);
 
             if (!isCourseInstancesExit)
             {

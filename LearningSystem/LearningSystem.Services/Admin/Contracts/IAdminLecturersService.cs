@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface ILecturersService
+    public interface IAdminLecturersService
     {
-        Task<IEnumerable<TModel>> GetAllLecturers<TModel>();
+        Task<IEnumerable<TModel>> GetAllLecturersAsync<TModel>();
     }
 }
