@@ -18,55 +18,70 @@
 </div>
 <br />
 
-<h3>All lectures for this course:</h3>
-@*<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Order</th>
-        <th>Title</th>
-        <th>Lector Hall</th>
-        <th>Description</th>
-        <th>Starts</th>
-        <th>Ends</th>
-    </tr>
-    </thead>
-    <tbody>
-    @{
-        foreach (var lectore in Model.Lectures)
-        {
-            <tr>
-                <td>@lectore.Order</td>
-                <td>@lectore.Title</td>
-                <td>@lectore.LectureHall </td>
-                <td>@lectore.Description        </td>
-                <td>@lectore.StartTime              </td>
-                <td>@lectore.EndTime</td>
-            </tr>
-        }
-    }
-    </tbody>
-</table>
+<h3 class="text-center">All lectures for this course:</h3>
+@if (!Model.Lectures.Any())
+{
+    <h3>There are no lectures yet.</h3>
+    <a asp-area="Lecturer"
+       asp-controller="Lectures"
+       asp-action="Add"
+       asp-route-id="@Model.Id">Add lecture</a>
+}
+else
+{
+    <a asp-area="Lecturer"
+       asp-controller="Lectures"
+       asp-action="Add"
+       asp-route-id="@Model.Id">Add lecture</a>
 
-@{int order = 1; }
-<br />
-<h3>All students for this course:</h3>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Order</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    @{
-        foreach (var student in Model.Students)
-        {
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@order</td>
-                <td>@student.FullName</td>
+                <th>Order</th>
+                <th>Title</th>
+                <th>Lector Hall</th>
+                <th>Description</th>
+                <th>Starts</th>
+                <th>Ends</th>
             </tr>
-            order++;
+        </thead>
+        <tbody>
+        @foreach (var lectore in Model.Lectures)
+        {
+        <tr>
+            <td>@lectore.Order</td>
+            <td>@lectore.Title</td>
+            <td>@lectore.LectureHall</td>
+            <td>@lectore.Description</td>
+            <td>@lectore.StartTime</td>
+            <td>@lectore.EndTime</td>
+        </tr>
         }
-    }
-    </tbody>
-</table>*@
+        </tbody>
+    </table>
+}
+
+
+@*@{int order = 1; }
+    <br />
+    <h3>All students for this course:</h3>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Order</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        @{
+            foreach (var student in Model.Students)
+            {
+                <tr>
+                    <td>@order</td>
+                    <td>@student.FullName</td>
+                </tr>
+                order++;
+            }
+        }
+        </tbody>
+    </table>*@

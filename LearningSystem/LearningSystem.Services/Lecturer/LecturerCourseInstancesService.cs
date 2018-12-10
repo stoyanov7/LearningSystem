@@ -28,12 +28,13 @@
 
         public async Task<TModel> DetailsAsync<TModel>(int id)
         {
-            var model = await this.repository.Details()
+            var courseInstance = await this.repository.Details()
                 .Include(c => c.Lectures)
                 .Include(c => c.Students)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
-            return this.mapper.Map<TModel>(model);
+            var model = this.mapper.Map<TModel>(courseInstance);
+            return model;
         }
 
         public async Task<TModel> PrepareInstanceForEditingAsync<TModel>(int id)

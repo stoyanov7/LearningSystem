@@ -1,5 +1,6 @@
 ﻿namespace LearningSystem.Web.Areas.Lecturer.Controllers
 {
+    using System;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -17,12 +18,20 @@
         [HttpGet]
         public async Task<IActionResult> Add(int id)
         {
-            if (!await this.lecturerCourseInstancesService.InstanceExist(id))
+            var isCourseInstancesExit = await this.lecturerCourseInstancesService
+                .InstanceExist(id);
+
+            if (!isCourseInstancesExit)
             {
                 return this.NotFound();
             }
 
-            var model = new CreateLectureBindingModel { CourseId = id };
+            var model = new CreateLectureBindingModel
+            {
+                CourseId = id,
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now.AddHours(1)
+            };
 
             return this.View(model);
         }
@@ -31,7 +40,8 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(int id, CreateLectureBindingModel model)
         {
-            await this.lecturerCourseInstancesService.AddLecture(id, model);
+            await this.lecturerCourseInstancesService
+                .AddLecture(id, model);
 
             return this.RedirectToAction("Details", "CourseInstances", new {id});
         }

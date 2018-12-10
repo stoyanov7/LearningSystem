@@ -1,6 +1,8 @@
 ﻿namespace LearningSystem.Web.Areas.Lecturer.Models
 {
     using System;
+    using System.Collections.Generic;
+    using Admin.Models;
 
     public class DetailsCourseInstanceViewModel
     {
@@ -15,5 +17,7 @@
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
+
+        public ICollection<LecturesViewModel> Lectures { get; set; }
     }
 }
