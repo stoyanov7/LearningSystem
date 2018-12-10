@@ -2,14 +2,15 @@
 {
     using System.Threading.Tasks;
     using Contracts;
-    using Data;
+    using Microsoft.EntityFrameworkCore;
 
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork<TContext> : IUnitOfWork<TContext>
+        where TContext : DbContext
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UnitOfWork"/> class.
         /// </summary>
-        public UnitOfWork(LearningSystemContext context)
+        public UnitOfWork(TContext context)
         {
             this.Context = context;
         }
@@ -17,7 +18,7 @@
         /// <summary>
         /// Getter for context.
         /// </summary>
-        public LearningSystemContext Context { get; }
+        public TContext Context { get; }
 
         /// <inheritdoc />
         /// <summary>

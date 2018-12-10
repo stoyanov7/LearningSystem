@@ -11,7 +11,7 @@
         {
         }
 
-        public LearningSystemContext(DbContextOptions options)
+        public LearningSystemContext(DbContextOptions<LearningSystemContext> options)
             : base(options)
         {
         }

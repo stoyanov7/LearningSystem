@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using AutoMapper.QueryableExtensions;
     using Contracts;
+    using Data;
     using Microsoft.AspNetCore.Identity;
     using Models.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -18,13 +19,13 @@
     /// </summary>
     public class AdminUsersService : IAdminUsersService
     {
-        private readonly IRepository<ApplicationUser> context;
+        private readonly IRepository<LearningSystemContext, ApplicationUser> context;
         private readonly UserManager<ApplicationUser> userManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AdminUsersService"/> class.
         /// </summary>
-        public AdminUsersService(IRepository<ApplicationUser> context, UserManager<ApplicationUser> userManager)
+        public AdminUsersService(IRepository<LearningSystemContext, ApplicationUser> context, UserManager<ApplicationUser> userManager)
         {
             this.context = context;
             this.userManager = userManager;

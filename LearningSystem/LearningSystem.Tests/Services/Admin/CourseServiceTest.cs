@@ -15,14 +15,14 @@
     [TestClass]
     public class CourseServiceTest
     {
-        private Mock<IRepository<Course>> courseRepositoryMock;
+        private Mock<IRepository<LearningSystemContext, Course>> courseRepositoryMock;
         private LearningSystemContext context;
         private IMapper mapper;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            this.courseRepositoryMock = new Mock<IRepository<Course>>();
+            this.courseRepositoryMock = new Mock<IRepository<LearningSystemContext, Course>>();
             this.context = LearningSystemContextMock.GetContext();
             this.mapper = AutoMapperMock.GetMapper();
         }

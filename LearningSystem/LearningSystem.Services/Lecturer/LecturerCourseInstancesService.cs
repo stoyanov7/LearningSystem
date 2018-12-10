@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Contracts;
+    using Data;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Models;
@@ -13,11 +14,11 @@
 
     public class LecturerCourseInstancesService : ILecturerCourseInstancesService
     {
-        private readonly IRepository<CourseInstance> repository;
+        private readonly IRepository<LearningSystemContext, CourseInstance> repository;
         private readonly IMapper mapper;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public LecturerCourseInstancesService(IRepository<CourseInstance> repository, 
+        public LecturerCourseInstancesService(IRepository<LearningSystemContext, CourseInstance> repository, 
             IMapper mapper, 
             UserManager<ApplicationUser> userManager)
         {

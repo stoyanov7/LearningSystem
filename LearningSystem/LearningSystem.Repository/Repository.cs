@@ -12,14 +12,16 @@
     /// Generic class to create an abstraction layer between the data access layer and the business logic layer.
     /// </summary>
     /// <typeparam name="T">Type of entity.</typeparam>
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<TContext, T> : IRepository<TContext, T>
+        where TContext : DbContext
+        where T : class 
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork<TContext> unitOfWork;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Repository{T}"/> class.
         /// </summary>
-        public Repository(IUnitOfWork unitOfWork)
+        public Repository(IUnitOfWork<TContext> unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }

@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Contracts;
+    using Data;
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Repository.Contracts;
@@ -15,12 +16,12 @@
     public class AdminCoursesService : IAdminCoursesService
     {
         private readonly IMapper mapper;
-        private readonly IRepository<Course> context;
+        private readonly IRepository<LearningSystemContext, Course> context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AdminCoursesService"/> class.
         /// </summary>
-        public AdminCoursesService(IMapper mapper, IRepository<Course> context)
+        public AdminCoursesService(IMapper mapper, IRepository<LearningSystemContext, Course> context)
         {
             this.mapper = mapper;
             this.context = context;

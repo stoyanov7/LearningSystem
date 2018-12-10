@@ -5,8 +5,11 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
 
-    public interface IRepository<T> where T : class
+    public interface IRepository<TContext, T>
+        where TContext : DbContext
+        where T : class
     {
         /// <summary>
         /// Find entity by given key.

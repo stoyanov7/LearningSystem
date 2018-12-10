@@ -2,14 +2,15 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Data;
+    using Microsoft.EntityFrameworkCore;
 
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork<TContext> : IDisposable
+        where TContext : DbContext
     {
         /// <summary>
         /// Getter for context.
         /// </summary>
-        LearningSystemContext Context { get; }
+        TContext Context { get; }
 
         /// <summary>
         /// Asynchronous save changes to this context.

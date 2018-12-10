@@ -3,16 +3,17 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using Contracts;
+    using Data;
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Repository.Contracts;
 
     public class AdminCourseInstancesService : IAdminCourseInstancesService
     {
-        private readonly IRepository<CourseInstance> repository;
+        private readonly IRepository<LearningSystemContext, CourseInstance> repository;
         private readonly IMapper mapper;
 
-        public AdminCourseInstancesService(IRepository<CourseInstance> repository, IMapper mapper)
+        public AdminCourseInstancesService(IRepository<LearningSystemContext, CourseInstance> repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;

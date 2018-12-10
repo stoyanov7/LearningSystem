@@ -56,8 +56,7 @@
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<LearningSystemContext>(options =>
-                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+            this.RegisterDatabases(services);
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
@@ -79,7 +78,7 @@
                     microsoftOptions.ClientSecret = this.Configuration["Authentication:Microsoft:Password"];
                 });
 
-            RegisterServices(services);
+            this.RegisterServices(services);
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
@@ -128,7 +127,16 @@
             });
         }
 
-        private static void RegisterServices(IServiceCollection services)
+        private void RegisterDatabases(IServiceCollection services)
+        {
+            services.AddDbContext<LearningSystemContext>(options =>
+                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<LearningSystemPaymentsContext>(options =>
+                options.UseMySql(this.Configuration.GetConnectionString("DefaultConnectionPayments")));
+        }
+
+        private void RegisterServices(IServiceCollection services)
         {
             services.AddTransient<IAdminUsersService, AdminUsersService>();
             services.AddTransient<IAdminCoursesService, AdminCoursesService>();
@@ -136,11 +144,12 @@
             services.AddTransient<IAdminLecturersService, AdminLecturersService>();
 
             services.AddTransient<IStudentCoursesService, StudentCoursesService>();
+            
             services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+            services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 
             services.AddSingleton<IEmailSender, EmailSender>();
         }
