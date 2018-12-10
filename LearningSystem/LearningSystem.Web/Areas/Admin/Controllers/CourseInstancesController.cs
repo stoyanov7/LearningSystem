@@ -60,7 +60,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                return this.View(model);
             }
 
             var instance = await this.adminCourseInstancesService

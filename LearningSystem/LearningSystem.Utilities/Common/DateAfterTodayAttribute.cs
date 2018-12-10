@@ -14,7 +14,7 @@
                 return false;
             }
 
-            return dateTimeValue.Date > DateTime.Today;
+            return dateTimeValue.Date >= DateTime.Today;
         }
     }
 }

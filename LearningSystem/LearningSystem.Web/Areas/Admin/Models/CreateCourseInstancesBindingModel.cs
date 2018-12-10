@@ -16,10 +16,12 @@
         public string Description { get; set; }
 
         [DataType(DataType.Date)]
+        [DateAfterToday]
         [Display(Name = "Start date")]
         public DateTime StartDate { get; set; }
 
         [DataType(DataType.Date)]
+        [DateAfter("StartDate")]
         [Display(Name = "End date")]
         public DateTime EndDate { get; set; }
 
