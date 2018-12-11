@@ -144,6 +144,7 @@
             services.AddTransient<IAdminLecturersService, AdminLecturersService>();
 
             services.AddTransient<IStudentCoursesService, StudentCoursesService>();
+            services.AddTransient<IStudentPaymentsService, StudentPaymentsService>();
             
             services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
 

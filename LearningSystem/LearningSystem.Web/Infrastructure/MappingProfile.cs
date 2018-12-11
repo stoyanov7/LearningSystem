@@ -5,6 +5,7 @@
     using AutoMapper;
     using LearningSystem.Models;
     using LearningSystem.Models.Identity;
+    using Models;
 
     public class MappingProfile : Profile
     {
@@ -32,6 +33,8 @@
             this.CreateMap<Lecture, LectureShortViewModel>();
 
             this.CreateMap<CreateLectureBindingModel, Lecture>();
+
+            this.CreateMap<CreatePaymentBindingModel, Payment>();
         }
     }
 }
