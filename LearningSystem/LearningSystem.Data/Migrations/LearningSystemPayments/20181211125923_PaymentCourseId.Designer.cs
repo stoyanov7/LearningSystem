@@ -2,14 +2,16 @@
 using LearningSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LearningSystem.Data.Migrations.LearningSystemPayments
 {
     [DbContext(typeof(LearningSystemPaymentsContext))]
-    partial class LearningSystemPaymentsContextModelSnapshot : ModelSnapshot
+    [Migration("20181211125923_PaymentCourseId")]
+    partial class PaymentCourseId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
