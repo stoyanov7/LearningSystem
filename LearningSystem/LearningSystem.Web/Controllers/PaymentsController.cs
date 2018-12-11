@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Controllers
+namespace LearningSystem.Web.Controllers
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
@@ -8,19 +8,25 @@
     public class PaymentsController : Controller
     {
         private readonly IStudentPaymentsService studentPaymentsService;
+        private readonly IStudentCoursesService studentCoursesService;
 
-        public PaymentsController(IStudentPaymentsService studentPaymentsService)
+        public PaymentsController(IStudentPaymentsService studentPaymentsService,
+            IStudentCoursesService studentCoursesService)
         {
             this.studentPaymentsService = studentPaymentsService;
+            this.studentCoursesService = studentCoursesService;
         }
 
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public IActionResult Index()
         {
-            await this.studentPaymentsService.CreatePaymentAsync(new CreatePaymentBindingModel
+            var model = new CreatePaymentBindingModel
             {
-                Username = this.User.Identity.Name,
-                Amount = 30m
-            });
+                Courses = this.studentCoursesService.GetCoursesForDropdownList()
+            };
+
+            return this.View(model);
+        }
 
             return this.View();
         }
