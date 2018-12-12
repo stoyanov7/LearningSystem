@@ -1,0 +1,50 @@
+﻿@model IEnumerable<StudentAllCoursesViewModel>
+
+@{
+    ViewData["Title"] = "All courses";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<ul id="all-courses" class="list-unstyled">
+    @foreach (var course in Model)
+    {
+        <li>
+            @Html.Raw(course.Instances.Any() ? "<span class='fa fa-chevron-right'></span>" : "") @course.Name
+            <ul class="instances">
+                @if (course.Instances.Any())
+                {
+
+                    foreach (var instances in course.Instances)
+                    {
+                        <li>
+                            <a asp-area=""
+                               asp-controller="Courses"
+                               asp-action="Details"
+                               asp-route-id="@instances.Id">@instances.Name</a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li>No instances yet.</li>
+                }
+            </ul>
+        </li>
+    }
+</ul>
+
+@section Scripts {
+    <script>
+        $(".instances").hide();
+
+        $("ul#all-courses > li").stop(true, true)
+            .click(function (e) {
+                $(".instances").hide("slow");
+
+                $(this).find("ul")
+                    .stop(true, true)
+                    .toggle("slow", "swing");
+            });
+    </script>
+}

@@ -10,6 +10,7 @@
 
         Task<TModel> GetCourseAsync<TModel>(int courseId);
 
-        Task<TModel> GetAllCoursesAsync<TModel>();
+        Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>();
+
     }
 }

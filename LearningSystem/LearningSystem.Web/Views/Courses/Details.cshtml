@@ -1,0 +1,16 @@
+﻿@model StudentDetailsCourseInstanceViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2 class="text-center"> Details for course instance: @Model.Name</h2>
+<div class="text-center">
+    <br />
+    <div><strong>Course Name:  @Model.Name </strong></div>
+    <div>Description: @Model.Description</>    </div>
+    <div>Course start date: @Model.StartDate.ToString("dd/MM/yyyy")</div>
+    <div>Course end date: @Model.EndDate.ToString("dd/MM/yyyy")</>  </div>
+    <br />
+    <a href="#" class="btn btn-success">Enroll</a>
+</div>

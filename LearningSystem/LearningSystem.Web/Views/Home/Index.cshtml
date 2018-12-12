@@ -1,9 +1,30 @@
-﻿<div class="jumbotron">
-    <h1 class="display-3">Welcome to Learning System!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
-</div>
+﻿@using LearningSystem.Models.Identity
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1 class="text-center">Hello, @UserManager.GetUserName(User)</h1>
+    <hr/>
+    <div class="card border-danger mb-3" style="max-width: 20rem;">
+        <div class="card-header text-center">No courses!</div>
+        <div class="card-body">
+            <h4 class="card-title">No enrolled course!</h4>
+            <p class="card-text">You are not enrolled in any of our courses. <a href="#">explore</a> our courses.</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="jumbotron">
+        <h1 class="display-3">Welcome to Learning System!</h1>
+        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </p>
+    </div>
+}

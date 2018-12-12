@@ -46,14 +46,14 @@
             return model;
         }
 
-        public async Task<TModel> GetAllCoursesAsync<TModel>()
+        public async Task<IEnumerable<TModel>> GetAllCoursesAsync<TModel>()
         {
             var courses = await this.repository
                 .Details()
                 .Include(x => x.Instances)
                 .ToListAsync();
 
-            var model = this.mapper.Map<TModel>(courses);
+            var model = this.mapper.Map<IEnumerable<TModel>>(courses);
 
             return model;
         }

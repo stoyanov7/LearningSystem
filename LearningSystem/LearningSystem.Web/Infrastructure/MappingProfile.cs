@@ -21,6 +21,8 @@
 
             this.CreateMap<Course, AllCoursesViewModel>();
 
+            this.CreateMap<Course, StudentAllCoursesViewModel>();
+
             this.CreateMap<Course, CourseDetailsViewModel>();
 
             this.CreateMap<CreateCourseInstancesBindingModel, CourseInstance>();
