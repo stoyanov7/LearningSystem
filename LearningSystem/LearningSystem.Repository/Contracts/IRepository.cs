@@ -45,6 +45,8 @@
         /// <returns></returns>
         Task AddAsync(T entity);
 
+        Task AddRangeAsync(IEnumerable<T> entity);
+
         /// <summary>
         /// Check if given entity exist in database, if exist delete the entity.
         /// </summary>

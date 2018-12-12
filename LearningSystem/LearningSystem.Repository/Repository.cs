@@ -41,6 +41,16 @@
             await this.unitOfWork.CommitAsync();
         }
 
+        public async Task AddRangeAsync(IEnumerable<T> entity)
+        {
+            await this.unitOfWork
+                .Context
+                .Set<T>()
+                .AddRangeAsync(entity);
+
+            await this.unitOfWork.CommitAsync();
+        }
+
         /// <summary>
         /// Find entity by given key.
         /// </summary>
