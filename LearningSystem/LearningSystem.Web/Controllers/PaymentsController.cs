@@ -1,8 +1,6 @@
 ﻿namespace LearningSystem.Web.Controllers
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using LearningSystem.Models;
     using Microsoft.AspNetCore.Authorization;
@@ -75,7 +73,8 @@
                 .Session
                 .Get<List<Payment>>(PaymentKey);
 
-            var payPalLink =  this.studentPaymentsService.CreatePayment(payments);
+            var payPalLink =  this.studentPaymentsService
+                .CreatePayment(payments);
 
             if (payPalLink == null)
             {
@@ -99,15 +98,13 @@
 
             model.Username = this.User.Identity.Name;
 
-            await this.studentPaymentsService.ProcessPaymentAsync(model, payments);
+            await this.studentPaymentsService
+                .ProcessPaymentAsync(model, payments);
 
             return this.RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Cancel()
-        {
-            return this.View("Index");
-        }
+        public IActionResult Cancel() => this.View("Index");
     }
 }

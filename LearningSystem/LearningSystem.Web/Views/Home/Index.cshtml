@@ -4,6 +4,10 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@{
+    ViewData["Title"] = "Home";
+}
+
 @if (SignInManager.IsSignedIn(User))
 {
     <h1 class="text-center">Hello, @UserManager.GetUserName(User)</h1>
@@ -12,7 +16,7 @@
         <div class="card-header text-center">No courses!</div>
         <div class="card-body">
             <h4 class="card-title">No enrolled course!</h4>
-            <p class="card-text">You are not enrolled in any of our courses. <a href="#">explore</a> our courses.</p>
+            <p class="card-text">You are not enrolled in any of our courses. <a asp-area="" asp-controller="Courses" asp-action="All">explore</a> our courses.</p>
         </div>
     </div>
 }
