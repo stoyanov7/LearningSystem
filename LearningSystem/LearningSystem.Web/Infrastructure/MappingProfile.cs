@@ -1,6 +1,7 @@
 ﻿namespace LearningSystem.Web.Infrastructure
 {
     using Areas.Admin.Models;
+    using Areas.Blog.Models;
     using Areas.Lecturer.Models;
     using AutoMapper;
     using LearningSystem.Models;
@@ -37,6 +38,8 @@
             this.CreateMap<CreateLectureBindingModel, Lecture>();
 
             this.CreateMap<CreatePaymentBindingModel, Payment>();
+
+            this.CreateMap<PublishArticleBindingModel, Article>();
         }
     }
 }

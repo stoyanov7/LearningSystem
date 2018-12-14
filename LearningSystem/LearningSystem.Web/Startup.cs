@@ -18,6 +18,10 @@
     using Repository.Contracts;
     using Services.Admin;
     using Services.Admin.Contracts;
+    using Services.Blog;
+    using Services.Blog.Contracts;
+    using Services.Html;
+    using Services.Html.Contracts;
     using Services.Identity;
     using Services.Lecturer;
     using Services.Lecturer.Contracts;
@@ -150,6 +154,9 @@
             services.AddTransient<IStudentCourseInstancesService, StudentCourseInstancesService>();
             
             services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
+
+            services.AddTransient<IBlogArticleService, BlogArticleService>();
+            services.AddTransient<IHtmlService, HtmlService>();
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
