@@ -66,5 +66,7 @@
         IQueryable<T> Details();
 
         Task SaveChangesAsync();
+
+        Task<int> GetCountAsync();
     }
 }

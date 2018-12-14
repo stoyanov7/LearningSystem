@@ -143,6 +143,12 @@
                 .Attach(entity);
         }
 
-        public Task SaveChangesAsync() => this.unitOfWork.CommitAsync();
+        public async Task SaveChangesAsync() => await this.unitOfWork.CommitAsync();
+
+        public async Task<int> GetCountAsync() 
+            => await this.unitOfWork
+                .Context
+                .Set<T>()
+                .CountAsync();
     }
 }
