@@ -28,7 +28,7 @@
             model.Content = this.htmlService.Sanitize(model.Content);
             var authorId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await this.blogArticleService.CreateAsync(model, authorId);
+            await this.blogArticleService.CreateArticleAsync(model, authorId);
 
             return this.RedirectToAction("Index", "Home");
         }
