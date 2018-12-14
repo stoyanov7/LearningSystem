@@ -48,6 +48,12 @@
             builder.Entity<HomeworkSubmition>()
                 .HasKey(hs => new { hs.AuthorId, hs.LectureId });
 
+            builder
+                .Entity<Article>()
+                .HasOne(a => a.Author)
+                .WithMany(u => u.Articles)
+                .HasForeignKey(a => a.AuthorId);
+
             base.OnModelCreating(builder);
         }
     }
