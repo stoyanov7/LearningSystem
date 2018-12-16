@@ -1,11 +1,14 @@
 ﻿namespace LearningSystem.Web.Areas.Blog.Controllers
 {
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Blog.Contracts;
 
-    public class HomeController : BlogController
+    [Area("Blog")]
+    [AllowAnonymous]
+    public class HomeController : Controller
     {
         private readonly IBlogArticleService blogArticleService;
 
@@ -26,9 +29,12 @@
             return this.View(model);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return this.View();
+            var model = await this.blogArticleService
+                .ArticleDetailsAsync<ArticleDetailsViewModel>(id);
+
+            return this.View(model);
         }
     }
 }

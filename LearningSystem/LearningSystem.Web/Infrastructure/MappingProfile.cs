@@ -40,6 +40,9 @@
             this.CreateMap<CreatePaymentBindingModel, Payment>();
 
             this.CreateMap<PublishArticleBindingModel, Article>();
+
+            this.CreateMap<Article, ArticleDetailsViewModel>()
+                .ForMember(a => a.Author, cfg => cfg.MapFrom(a => a.Author.UserName));
         }
     }
 }

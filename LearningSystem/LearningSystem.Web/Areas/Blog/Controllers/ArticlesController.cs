@@ -7,7 +7,8 @@
     using Services.Blog.Contracts;
     using Services.Html.Contracts;
 
-    public class ArticlesController : BlogController
+    [Area("Blog")]
+    public class ArticlesController : Controller
     {
         private readonly IBlogArticleService blogArticleService;
         private readonly IHtmlService htmlService;
@@ -23,6 +24,7 @@
         public IActionResult Create() => this.View();
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PublishArticleBindingModel model)
         {
             model.Content = this.htmlService.Sanitize(model.Content);
