@@ -1,7 +1,13 @@
-﻿
+﻿@model LearningSystem.Web.Areas.Blog.Models.ArticleDetailsViewModel
+
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
-
+<h2>@ViewData["Title"]</h2>
+<h4>
+    <em>published by @Model.Author on @Model.PublishDate.ToShortDateString()</em>
+</h4>
+<div>
+    @Html.Raw(Model.Content)
+</div>

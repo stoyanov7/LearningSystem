@@ -7,6 +7,7 @@
     using AutoMapper;
     using Contracts;
     using Data;
+    using Microsoft.EntityFrameworkCore;
     using Models;
     using Repository.Contracts;
     using Utilities.Common;
@@ -27,6 +28,8 @@
         {
             var articles = this.repository
                 .Get()
+                .AsQueryable()
+                .Include(x => x.Author)
                 .OrderByDescending(a => a.PublishDate)
                 .Skip((page - 1) * 25)
                 .Take(25);
@@ -47,5 +50,18 @@
         }
 
         public async Task<int> TotalAsync() => await this.repository.GetCountAsync();
+
+        public async Task<TModel> ArticleDetailsAsync<TModel>(int id)
+        {
+            var article = await this.repository
+                .Details()
+                .Include(a => a.Author)
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
+
+            var model = this.mapper.Map<TModel>(article);
+
+            return model;
+        }
     }
 }

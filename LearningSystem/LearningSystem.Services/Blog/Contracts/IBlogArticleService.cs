@@ -10,5 +10,7 @@
         Task CreateArticleAsync<TModel>(TModel model, string authorId);
 
         Task<int> TotalAsync();
+
+        Task<TModel> ArticleDetailsAsync<TModel>(int id);
     }
 }
