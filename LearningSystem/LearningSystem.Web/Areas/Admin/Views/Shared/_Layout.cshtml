@@ -47,8 +47,12 @@
                         <a asp-area="Admin" asp-controller="Courses" asp-action="Index" class="dropdown-item">All Courses</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a asp-area="Blog" asp-controller="Home" asp-action="Index" class="nav-link">Blog</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Blog Panel</a>
+                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 41px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <a asp-area="Blog" asp-controller="Home" asp-action="Index" class="dropdown-item">Blog</a>
+                        <a asp-area="Blog" asp-controller="Articles" asp-action="Create" class="dropdown-item">Create article</a>
+                    </div>
                 </li>
             </ul>
             <partial name="_LoginPartial" />

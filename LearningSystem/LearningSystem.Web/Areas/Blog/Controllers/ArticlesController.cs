@@ -2,12 +2,14 @@
 {
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Blog.Contracts;
     using Services.Html.Contracts;
 
     [Area("Blog")]
+    [Authorize(Roles = "Blogger, Administrator")]
     public class ArticlesController : Controller
     {
         private readonly IBlogArticleService blogArticleService;
