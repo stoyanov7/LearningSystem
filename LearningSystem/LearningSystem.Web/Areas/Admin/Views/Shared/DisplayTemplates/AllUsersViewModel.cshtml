@@ -3,8 +3,19 @@
 <tr>
     <td>@Model.Username</td>
     <td>@Model.Email</td>
-    <td>@Html.DisplayFor(model => model.IsLecturer)</td>
-    <td>@Html.DisplayFor(model => model.IsAdmin)</td>
+    <td>
+        <form asp-area="Admin" asp-controller="Users" asp-action="AddToRole" method="post">
+            <div class="row">
+                <div class="col-md-9">
+                    <input type="hidden" name="UserId" value="@Model.Id" />
+                    <select name="Role" asp-items="Model.Roles" class="form-control"></select>
+                </div>
+                <div class="col-md-3">
+                    <input class="btn btn-sm btn-primary" type="submit" value="Add To Role" />
+                </div>
+            </div>
+        </form>
+    </td>
     <td>
         <a asp-area="Admin"
            asp-controller="Users"
