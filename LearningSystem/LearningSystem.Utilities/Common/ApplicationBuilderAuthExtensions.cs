@@ -13,9 +13,9 @@
         private static readonly IdentityRole[] roles =
         {
             new IdentityRole("Administrator"),
-            new IdentityRole("Lecturer")
+            new IdentityRole("Lecturer"),
+            new IdentityRole("Blogger")
         };
-
 
         /// <summary>
         /// Middleware for seed data into database.
