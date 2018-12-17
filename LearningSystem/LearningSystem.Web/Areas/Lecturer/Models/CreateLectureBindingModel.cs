@@ -2,8 +2,11 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using AutoMapper;
+    using Infrastructure.Contracts;
+    using LearningSystem.Models;
 
-    public class CreateLectureBindingModel
+    public class CreateLectureBindingModel : IMapFrom<Lecture>, IHaveCustomMapping
     {
         public string Title { get; set; }
 
@@ -23,5 +26,8 @@
         public DateTime EndTime { get; set; }
 
         public int CourseId { get; set; }
+
+        public void ConfigureMapping(Profile mapper) 
+            => mapper.CreateMap<CreateLectureBindingModel, Lecture>();
     }
 }

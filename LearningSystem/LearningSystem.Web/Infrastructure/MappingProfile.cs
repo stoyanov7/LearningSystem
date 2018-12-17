@@ -1,48 +1,52 @@
 ﻿namespace LearningSystem.Web.Infrastructure
 {
-    using Areas.Admin.Models;
-    using Areas.Blog.Models;
-    using Areas.Lecturer.Models;
+    using System;
+    using System.Linq;
     using AutoMapper;
-    using LearningSystem.Models;
-    using LearningSystem.Models.Identity;
-    using Models;
+    using Contracts;
 
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            this.CreateMap<ApplicationUser, AllUsersViewModel>();
+            var allTypes = AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .Where(a => a.GetName().Name.Contains("LearningSystem"))
+                .SelectMany(a => a.GetTypes());
 
-            this.CreateMap<ApplicationUser, UserDetailsViewModel>();
+            allTypes
+                .Where(t => t.IsClass && !t.IsAbstract && t
+                                .GetInterfaces()
+                                .Where(i => i.IsGenericType)
+                                .Select(i => i.GetGenericTypeDefinition())
+                                .Contains(typeof(IMapFrom<>)))
+                .Select(t => new
+                {
+                    Destination = t,
+                    Source = t
+                        .GetInterfaces()
+                        .Where(i => i.IsGenericType)
+                        .Select(i => new
+                        {
+                            Definition = i.GetGenericTypeDefinition(),
+                            Arguments = i.GetGenericArguments()
+                        })
+                        .Where(i => i.Definition == typeof(IMapFrom<>))
+                        .SelectMany(i => i.Arguments)
+                        .First(),
+                })
+                .ToList()
+                .ForEach(mapping => this.CreateMap(mapping.Source, mapping.Destination));
 
-            this.CreateMap<CreateCourseBindingModel, Course>()
-                .ForMember(x => x.Instances, opt => opt.Ignore())
-                .ForSourceMember(x => x.Instances, opt => opt.DoNotValidate());
-
-            this.CreateMap<Course, AllCoursesViewModel>();
-
-            this.CreateMap<Course, StudentAllCoursesViewModel>();
-
-            this.CreateMap<Course, CourseDetailsViewModel>();
-
-            this.CreateMap<CreateCourseInstancesBindingModel, CourseInstance>();
-
-            this.CreateMap<CreateCourseInstancesBindingModel, Course>();
-
-            this.CreateMap<ApplicationUser, LecturerConsiseViewModel>()
-                .ForMember(x => x.Name, opt => opt.MapFrom(u => u.UserName));
-
-            this.CreateMap<Lecture, LectureShortViewModel>();
-
-            this.CreateMap<CreateLectureBindingModel, Lecture>();
-
-            this.CreateMap<CreatePaymentBindingModel, Payment>();
-
-            this.CreateMap<PublishArticleBindingModel, Article>();
-
-            this.CreateMap<Article, ArticleDetailsViewModel>()
-                .ForMember(a => a.Author, cfg => cfg.MapFrom(a => a.Author.UserName));
+            allTypes
+                .Where(t => t.IsClass
+                            && !t.IsAbstract
+                            && typeof(IHaveCustomMapping).IsAssignableFrom(t))
+                .Select(Activator.CreateInstance)
+                .Cast<IHaveCustomMapping>()
+                .ToList()
+                .ForEach(mapping => mapping.ConfigureMapping(this));
         }
     }
 }
