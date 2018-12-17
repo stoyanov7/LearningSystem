@@ -2,14 +2,36 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Localization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
+    using Services.Student.Contracts;
 
     public class HomeController : Controller
     {
+        private readonly IStudentCourseInstancesService studentCourseInstancesService;
+
+        public HomeController(IStudentCourseInstancesService studentCourseInstancesService)
+        {
+            this.studentCourseInstancesService = studentCourseInstancesService;
+        }
+
         public IActionResult Index() => this.View();
+
+        public async Task<IActionResult> Search(SearchFormBindingModel model)
+        {
+            var viewModel = new SearchViewModel { SearchText = model.SearchText };
+
+            if (model.SearchInCourses)
+            {
+                viewModel.Courses = await this.studentCourseInstancesService
+                    .GetCourseInstancesAsync<SearchCourseInstanceViewModel>(model.SearchText);
+            }
+
+            return this.View(viewModel);
+        }
 
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)

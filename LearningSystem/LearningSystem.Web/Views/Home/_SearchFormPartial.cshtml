@@ -1,0 +1,14 @@
+﻿@model SearchFormBindingModel
+
+<form asp-area="" asp-controller="Home" asp-action="Search">
+    <div class="form-group">
+        <input asp-for="SearchText" class="form-control" placeholder="Search..." />
+    </div>
+    <div class="form-group">
+        <input asp-for="SearchInCourses" />
+        <label asp-for="SearchInCourses"></label>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-success" value="Search" />
+    </div>
+</form>

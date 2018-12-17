@@ -1,0 +1,8 @@
+﻿@model IEnumerable<SearchCourseInstanceViewModel>
+
+@foreach (var course in Model)
+{
+    <h3>
+        <a asp-area="" asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">@course.Name</a>
+    </h3>
+}
