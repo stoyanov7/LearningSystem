@@ -1,5 +1,7 @@
 ﻿namespace LearningSystem.Services.Student
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using Contracts;
@@ -28,6 +30,21 @@
                 .FirstOrDefaultAsync(c => c.Id == courseId);
 
             return this.mapper.Map<TModel>(model);
+        }
+
+        public async Task<IEnumerable<TModel>> GetCourseInstancesAsync<TModel>(string searchText)
+        {
+            searchText = searchText ?? string.Empty;
+
+            var courseInstance =  await this.repository
+                .Details()
+                .OrderByDescending(c => c.Id)
+                .Where(c => c.Name.ToLower().Contains(searchText.ToLower()))
+                .ToListAsync();
+
+            var model = this.mapper.Map<IEnumerable<TModel>>(courseInstance);
+
+            return model;
         }
     }
 }
