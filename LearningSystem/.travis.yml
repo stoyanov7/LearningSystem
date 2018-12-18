@@ -1,0 +1,4 @@
+language: csharp
+script:
+  dotnet restore
+  dotnet build
