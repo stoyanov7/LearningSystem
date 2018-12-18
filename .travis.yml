@@ -4,3 +4,5 @@ mono: none
 dotnet: 2.2.1
 install:
 - dotnet restore
+script:
+- dotnet build
