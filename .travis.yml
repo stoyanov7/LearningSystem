@@ -1,3 +1,4 @@
 language: csharp
 solution: ./LearningSystem/LearningSystem.sln
 mono: none
+dotnet: 2.2.500
