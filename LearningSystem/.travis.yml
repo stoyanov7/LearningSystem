@@ -1,4 +1,6 @@
 language: csharp
+solution: ./LearningSystem/LearningSystem.sln
+install: nuget restore ./LearningSystem/LearningSystem.sln
 script:
   dotnet restore
   dotnet build
