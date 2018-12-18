@@ -6,4 +6,5 @@ dotnet: 2.1.1
 before_install:
   - chmod +x build.sh
 script:
-  - ./build.sh --quiet verify
+  - dotnet restore
+  - dotnet build --configuration $CONFIGURATION $PROJECT
