@@ -1,10 +1,7 @@
-language: csharp
-dist: xenial
-sudo: required
-mono: none
-dotnet: 2.1.1
-before_install:
-  - chmod +x build.sh
-script:
-  - dotnet restore
-  - dotnet build --configuration $CONFIGURATION $PROJECT
+version: 2.2.{build}
+before_build:
+- cmd: nuget restore LearningSystem\LearningSystem.sln
+build:
+  project: LearningSystem\LearningSystem.sln
+  parallel: true
+verbosity: minimal
