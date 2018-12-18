@@ -12,5 +12,5 @@ addons:
     - dotnet-sharedframework-microsoft.netcore.app-1.0.5
 
 install:
-  - dotnet restore
-  - dotnet build
+  - dotnet restore 
+  - dotnet build **/project.json
