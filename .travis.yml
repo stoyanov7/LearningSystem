@@ -1,2 +1,3 @@
 language: csharp
 solution: ./LearningSystem/LearningSystem.sln
+mono: none
