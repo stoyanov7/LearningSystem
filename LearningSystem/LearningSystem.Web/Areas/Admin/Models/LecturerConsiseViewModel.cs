@@ -1,8 +1,8 @@
 ﻿namespace LearningSystem.Web.Areas.Admin.Models
 {
     using AutoMapper;
-    using Infrastructure.Contracts;
     using LearningSystem.Models.Identity;
+    using Utilities.Infrastructure.Contracts;
 
     public class LecturerConsiseViewModel : IMapFrom<ApplicationUser>, IHaveCustomMapping
     {

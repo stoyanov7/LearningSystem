@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Infrastructure
+﻿namespace LearningSystem.Utilities.Infrastructure
 {
     using System;
     using System.Linq;

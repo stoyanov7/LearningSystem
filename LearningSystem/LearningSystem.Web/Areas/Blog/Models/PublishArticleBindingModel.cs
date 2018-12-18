@@ -1,8 +1,8 @@
 ﻿namespace LearningSystem.Web.Areas.Blog.Models
 {
     using AutoMapper;
-    using Infrastructure.Contracts;
     using LearningSystem.Models;
+    using Utilities.Infrastructure.Contracts;
 
     public class PublishArticleBindingModel : IMapFrom<Article>, IHaveCustomMapping
     {

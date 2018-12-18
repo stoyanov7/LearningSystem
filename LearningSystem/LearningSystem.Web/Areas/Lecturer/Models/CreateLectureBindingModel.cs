@@ -3,8 +3,8 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using AutoMapper;
-    using Infrastructure.Contracts;
     using LearningSystem.Models;
+    using Utilities.Infrastructure.Contracts;
 
     public class CreateLectureBindingModel : IMapFrom<Lecture>, IHaveCustomMapping
     {

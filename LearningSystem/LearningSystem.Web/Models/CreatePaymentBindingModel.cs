@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using AutoMapper;
-    using Infrastructure.Contracts;
     using LearningSystem.Models;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Utilities.Infrastructure.Contracts;
 
     public class CreatePaymentBindingModel : IMapFrom<Payment>, IHaveCustomMapping
     {

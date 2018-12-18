@@ -2,8 +2,8 @@
 {
     using System;
     using AutoMapper;
-    using Infrastructure.Contracts;
     using LearningSystem.Models;
+    using Utilities.Infrastructure.Contracts;
 
     public class ArticleDetailsViewModel : IMapFrom<Article>, IHaveCustomMapping
     {

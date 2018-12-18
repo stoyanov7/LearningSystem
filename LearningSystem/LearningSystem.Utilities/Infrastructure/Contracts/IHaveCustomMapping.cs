@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Infrastructure.Contracts
+﻿namespace LearningSystem.Utilities.Infrastructure.Contracts
 {
     using AutoMapper;
 

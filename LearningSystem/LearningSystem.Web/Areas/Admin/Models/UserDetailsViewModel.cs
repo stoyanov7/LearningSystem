@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using AutoMapper;
-    using Infrastructure.Contracts;
     using LearningSystem.Models.Identity;
+    using Utilities.Infrastructure.Contracts;
 
     public class UserDetailsViewModel : IMapFrom<ApplicationUser>, IHaveCustomMapping
     {

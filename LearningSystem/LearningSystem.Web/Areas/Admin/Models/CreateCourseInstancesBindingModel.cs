@@ -3,9 +3,9 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using AutoMapper;
-    using Infrastructure.Contracts;
     using LearningSystem.Models;
     using Utilities.Common;
+    using Utilities.Infrastructure.Contracts;
 
     public class CreateCourseInstancesBindingModel : IMapFrom<CourseInstance>, IHaveCustomMapping
     {
