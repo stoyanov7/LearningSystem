@@ -2,7 +2,7 @@ language: csharp
 solution: ./LearningSystem/LearningSystem.sln
 dist: xenial
 mono: none
-dotnet: 2.1.1
+dotnet: 2.0.0
 script:
   - dotnet restore
   - dotnet build ./LearningSystem/
