@@ -1,6 +1,8 @@
 language: csharp
 solution: ./LearningSystem/LearningSystem.sln
-install: nuget restore ./LearningSystem/LearningSystem.sln
+dist: trusty
+install:
+- nuget restore ./LearningSystem/LearningSystem.sln
+- dotnet restore
 script:
-  dotnet restore
-  dotnet build
+- dotnet build
