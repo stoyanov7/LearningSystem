@@ -1,6 +1,7 @@
 language: csharp
+dist: xenial
 mono: none
-dotnet: 2.0.0
+dotnet: 2.1.5
 sudo: true
 env:
     global:
