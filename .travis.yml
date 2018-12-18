@@ -1,5 +1,6 @@
 language: csharp
 solution: ./LearningSystem/LearningSystem.sln
+dist: xenial
 mono: none
 dotnet: 2.2.1
 install:
