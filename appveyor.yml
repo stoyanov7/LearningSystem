@@ -1,7 +1,6 @@
-version: 2.2.{build}
+version: 1.0.{build}
 before_build:
 - cmd: nuget restore LearningSystem\LearningSystem.sln
 build:
   project: LearningSystem\LearningSystem.sln
   parallel: true
-verbosity: minimal
