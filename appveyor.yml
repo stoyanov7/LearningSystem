@@ -17,5 +17,5 @@ test_script:
   - cmd: dotnet restore ./LearningSystem/LearningSystem.Tests.csproj
   # run the unit tests (requires changing into the test directory)
   - cmd: cd tests
-- cmd: dotnet xunit
+  - cmd: dotnet xunit
 deploy: off
