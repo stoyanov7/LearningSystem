@@ -13,5 +13,5 @@ before_build:
   - cmd: dotnet restore ./LearningSystem
 clone_depth: 1
 test_script:
-  - cmd: dotnet xunit
+  - cmd: dotnet test
 deploy: off
