@@ -10,6 +10,6 @@ before_build:
   # Display .NET Core version
   - cmd: dotnet --version
   # Display minimal restore text
-  - cmd: dotnet restore ./LearningSystem/LearningSystem.csproj --verbosity m
+  - cmd: dotnet restore ./LearningSystem/LearningSystem.sln --verbosity m
 clone_depth: 1
 deploy: off
