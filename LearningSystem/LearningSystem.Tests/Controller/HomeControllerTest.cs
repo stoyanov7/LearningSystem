@@ -1,13 +1,12 @@
 ﻿namespace LearningSystem.Tests.Controller
 {
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Web.Areas.Admin.Controllers;
+    using Xunit;
 
-    [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
+        [Fact]
         public void Index_ReturnsTheProperView()
         {
             // Arrange
@@ -17,7 +16,7 @@
             var result = controller.Index();
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsType<ViewResult>(result);
         }
     }
 }
