@@ -8,7 +8,7 @@ namespace LearningSystem.Tests.Controller
     using Microsoft.AspNetCore.Mvc;
     using Web.Areas.Admin.Controllers;
     using Moq;
-    using Utilities.Constants;
+    using LearningSystem.Utilities.Constants;
     using Web.Areas.Admin.Models;
     using Xunit;
 

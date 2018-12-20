@@ -3,7 +3,7 @@
     using System.Security.Claims;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Utilities.Constants;
+    using LearningSystem.Utilities.Constants;
     using Web.Areas.Admin.Controllers;
     using Xunit;
 

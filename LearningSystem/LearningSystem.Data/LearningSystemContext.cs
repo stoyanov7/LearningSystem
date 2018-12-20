@@ -28,6 +28,8 @@
 
         public DbSet<StudentsInCourses> StudentsInCourses { get; set; }
 
+        public DbSet<Article> Articles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUser>()

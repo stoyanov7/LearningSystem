@@ -6,6 +6,7 @@
     using System.Linq.Expressions;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Contracts;
     using Data;
@@ -20,15 +21,17 @@
     public class AdminUsersService : IAdminUsersService
     {
         private readonly IRepository<LearningSystemContext, ApplicationUser> context;
+        private readonly IMapper mapper;
         private readonly UserManager<ApplicationUser> userManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AdminUsersService"/> class.
         /// </summary>
-        public AdminUsersService(IRepository<LearningSystemContext, ApplicationUser> context, UserManager<ApplicationUser> userManager)
+        public AdminUsersService(IRepository<LearningSystemContext, ApplicationUser> context, UserManager<ApplicationUser> userManager, IMapper mapper)
         {
             this.context = context;
             this.userManager = userManager;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -60,7 +63,7 @@
         /// </summary>
         /// <param name="id">Application user id</param>
         /// <returns>Application user</returns>
-        public async Task<ApplicationUser> FindUserAsync(string id)
+        public async Task<ApplicationUser> FindUserAsync(string id) 
             => await this.context.FindByIdAsync(id);
 
         private IQueryable<TModel> By<TModel>(Expression<Func<ApplicationUser, bool>> predicate = null)
