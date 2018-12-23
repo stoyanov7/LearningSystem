@@ -31,10 +31,7 @@
 
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            this.Configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) => this.Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
@@ -62,25 +59,7 @@
 
             this.RegisterDatabases(services);
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 1;
-                options.User.RequireUniqueEmail = true;
-            })
-            .AddDefaultUI()
-            .AddDefaultTokenProviders()
-            .AddEntityFrameworkStores<LearningSystemContext>();
-
-            services.AddAuthentication()
-                .AddMicrosoftAccount(microsoftOptions =>
-                {
-                    microsoftOptions.ClientId = this.Configuration["Authentication:Microsoft:ApplicationId"];
-                    microsoftOptions.ClientSecret = this.Configuration["Authentication:Microsoft:Password"];
-                });
+            this.RegisterIdentityAndAuthentication(services);
 
             this.RegisterServices(services);
 
@@ -142,6 +121,29 @@
                 options.UseMySql(this.Configuration.GetConnectionString("DefaultConnectionPayments")));
         }
 
+        private void RegisterIdentityAndAuthentication(IServiceCollection services)
+        {
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 1;
+                options.User.RequireUniqueEmail = true;
+            })
+            .AddDefaultUI()
+            .AddDefaultTokenProviders()
+            .AddEntityFrameworkStores<LearningSystemContext>();
+
+            services.AddAuthentication()
+                .AddMicrosoftAccount(microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = this.Configuration["Authentication:Microsoft:ApplicationId"];
+                    microsoftOptions.ClientSecret = this.Configuration["Authentication:Microsoft:Password"];
+                });
+        }
+
         private void RegisterServices(IServiceCollection services)
         {
             services.AddTransient<IAdminUsersService, AdminUsersService>();
@@ -149,10 +151,11 @@
             services.AddTransient<IAdminCourseInstancesService, AdminCourseInstancesService>();
             services.AddTransient<IAdminLecturersService, AdminLecturersService>();
 
+            services.AddTransient<IStudentsService, StudentsService>();
             services.AddTransient<IStudentCoursesService, StudentCoursesService>();
             services.AddTransient<IStudentPaymentsService, StudentPaymentsService>();
             services.AddTransient<IStudentCourseInstancesService, StudentCourseInstancesService>();
-            
+
             services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
 
             services.AddTransient<IBlogArticleService, BlogArticleService>();

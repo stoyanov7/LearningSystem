@@ -16,3 +16,19 @@ else
 {
     <h3>No courses to show.</h3>
 }
+
+@if (Model.Users.Any())
+{
+    <h3>Found users</h3>
+
+    <ul>
+        @foreach (var user in Model.Users)
+        {
+            <li>@user.Username - @user.EnrolledCourses Courses</li>
+        }
+    </ul>
+}
+else
+{
+    <h3>No users to show.</h3>
+}

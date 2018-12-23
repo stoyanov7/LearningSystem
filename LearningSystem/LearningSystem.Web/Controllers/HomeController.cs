@@ -12,10 +12,13 @@
     public class HomeController : Controller
     {
         private readonly IStudentCourseInstancesService studentCourseInstancesService;
+        private readonly IStudentsService studentsService;
 
-        public HomeController(IStudentCourseInstancesService studentCourseInstancesService)
+        public HomeController(IStudentCourseInstancesService studentCourseInstancesService, 
+            IStudentsService studentsService)
         {
             this.studentCourseInstancesService = studentCourseInstancesService;
+            this.studentsService = studentsService;
         }
 
         public IActionResult Index() => this.View();
@@ -28,6 +31,11 @@
             {
                 viewModel.Courses = await this.studentCourseInstancesService
                     .GetCourseInstancesAsync<SearchCourseInstanceViewModel>(model.SearchText);
+            }
+
+            if (model.SearchInUsers)
+            {
+                viewModel.Users = await this.studentsService.FindAsync<SearchUsersViewModel>(model.SearchText);
             }
 
             return this.View(viewModel);
