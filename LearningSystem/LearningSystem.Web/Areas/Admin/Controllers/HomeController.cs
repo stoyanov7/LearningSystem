@@ -1,7 +1,6 @@
 ﻿namespace LearningSystem.Web.Areas.Admin.Controllers
 {
     using System.Threading.Tasks;
-    using Blog.Models;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Admin.Contracts;

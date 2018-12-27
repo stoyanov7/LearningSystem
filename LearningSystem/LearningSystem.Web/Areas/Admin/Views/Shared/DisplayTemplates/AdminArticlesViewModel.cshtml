@@ -1,0 +1,28 @@
+﻿@model AdminArticlesViewModel
+
+<div class="col-lg-4">
+    <div class="card" style="max-width: 20rem;">
+        <div class="card-body">
+            <h4 class="card-title">@Model.Title</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Published by @Model.Author</h6>
+            <p class="card-text">@Html.Raw(Model.Content)</p>
+            <a asp-area="Blog"
+               asp-controller="Home"
+               asp-action="Details"
+               asp-route-id="@Model.Id"
+               class="btn btn-primary">Details</a>
+
+            <a asp-area="Blog"
+               asp-controller="Articles"
+               asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn btn-warning">Edit</a>
+
+            <a asp-area="Blog"
+               asp-controller="Articles"
+               asp-action="Delete"
+               asp-route-id="@Model.Id"
+               class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>

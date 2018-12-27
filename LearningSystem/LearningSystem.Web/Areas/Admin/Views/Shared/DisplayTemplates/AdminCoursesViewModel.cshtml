@@ -1,0 +1,22 @@
+﻿@model AdminCoursesViewModel
+
+@{
+    var weeks = -(Model.StartDate - Model.EndDate).TotalDays % 7;
+}
+
+<div class="col-lg-4">
+    <div class="card" style="max-width: 20rem">
+        <div class="card-body">
+            <h4 class="card-title">@Model.Name</h4>
+            <h6 class="card-subtitle mb-2 text-muted">
+                <i class="fa fa-clock-o"></i>Duration: @weeks weeks
+            </h6>
+            <p class="card-text">@Html.Raw(Model.Description)</p>
+            <a asp-area="Admin"
+               asp-controller="CourseInstances"
+               asp-action="Details"
+               asp-route-id="@Model.Id"
+               class="btn btn-primary">Details</a>
+        </div>
+    </div>
+</div>

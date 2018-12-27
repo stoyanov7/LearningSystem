@@ -7,61 +7,13 @@
 <h2>Latest courses:</h2>
 <div class="container">
     <div class="row">
-        @foreach (var course in Model.Courses)
-        {
-            var weeks = -(course.StartDate - course.EndDate).TotalDays % 7;
-
-            <div class="col-lg-4">
-                <div class="card" style="max-width: 20rem">
-                    <div class="card-body">
-                        <h4 class="card-title">@course.Name</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            <i class="fa fa-clock-o"></i>Duration: @weeks weeks
-                        </h6>
-                        <p class="card-text">@Html.Raw(course.Description)</p>
-                        <a asp-area="Admin"
-                           asp-controller="CourseInstances"
-                           asp-action="Details"
-                           asp-route-id="@course.Id"
-                           class="btn btn-primary">Details</a>
-                    </div>
-                </div>
-            </div>
-        }
+        @Html.DisplayFor(x => x.Courses)
     </div>
 </div>
 
 <h2>Latest articles:</h2>
 <div class="container">
     <div class="row">
-        @foreach (var article in Model.Articles)
-        {
-            <div class="col-lg-4">
-                <div class="card" style="max-width: 20rem;">
-                    <div class="card-body">
-                        <h4 class="card-title">@article.Title</h4>
-                        <h6 class="card-subtitle mb-2 text-muted">Published by @article.Author</h6>
-                        <p class="card-text">@Html.Raw(article.Content)</p>
-                        <a asp-area="Blog"
-                           asp-controller="Home"
-                           asp-action="Details"
-                           asp-route-id="@article.Id"
-                           class="btn btn-primary">Details</a>
-
-                        <a asp-area="Blog"
-                           asp-controller="Articles"
-                           asp-action="Edit"
-                           asp-route-id="@article.Id"
-                           class="btn btn-warning">Edit</a>
-
-                        <a asp-area="Blog"
-                           asp-controller="Articles"
-                           asp-action="Delete"
-                           asp-route-id="@article.Id"
-                           class="btn btn-danger">Delete</a>
-                    </div>
-                </div>
-            </div>
-        }
+        @Html.DisplayFor(x => x.Articles)
     </div>
 </div>
