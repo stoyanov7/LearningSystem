@@ -100,6 +100,16 @@
             await this.repository.SaveChangesAsync();
         }
 
+        public async Task Delete(int id)
+        {
+            var article = await this.repository
+                .Get()
+                .AsQueryable()
+                .SingleOrDefaultAsync(i => i.Id == id);
+
+            this.repository.Delete(article, article.Id);
+        }
+
         public async Task<bool> ExistsAsync(int id)
             => await this.repository
                 .Get()

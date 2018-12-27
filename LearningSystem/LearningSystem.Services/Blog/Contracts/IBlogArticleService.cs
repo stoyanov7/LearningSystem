@@ -19,6 +19,8 @@
 
         Task Edit(int id, string title, string content);
 
+        Task Delete(int id);
+
         Task<bool> ExistsAsync(int id);
     }
 }

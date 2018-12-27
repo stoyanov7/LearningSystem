@@ -38,6 +38,7 @@
             return this.RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,6 +88,32 @@
             }
 
             return this.View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!await this.blogArticleService.ExistsAsync(id))
+            {
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            var article = await this.blogArticleService.FindByIdAsync<BlogArticleViewModel>(id);
+
+            return this.View(article);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            if (!await this.blogArticleService.ExistsAsync(id))
+            {
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            await this.blogArticleService.Delete(id);
+
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

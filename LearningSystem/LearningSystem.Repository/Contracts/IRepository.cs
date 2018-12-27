@@ -51,7 +51,7 @@
         /// Check if given entity exist in database, if exist delete the entity.
         /// </summary>
         /// <param name="entity">Entity for deleting.</param>
-        void Delete(T entity);
+        void Delete(T entity, int id);
 
         /// <summary>
         /// Update entity.

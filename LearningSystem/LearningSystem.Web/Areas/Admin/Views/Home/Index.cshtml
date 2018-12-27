@@ -24,12 +24,11 @@
                asp-route-id="@article.Id"
                class="btn btn-warning">Edit</a>
             
-            <button type="submit"
-                    asp-page-handler="delete"
-                    asp-route-id="@article.Id"
-                    class="btn btn-danger">
-                Delete
-            </button>
+            <a asp-area="Blog"
+               asp-controller="Articles"
+               asp-action="Delete"
+                asp-route-id="@article.Id"
+                class="btn btn-danger">Delete</a>
         </div>
     </div>
 }

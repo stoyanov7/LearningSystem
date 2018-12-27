@@ -77,12 +77,12 @@
         /// Check if given entity exist in database, if exist delete the entity.
         /// </summary>
         /// <param name="entity">Entity for deleting.</param>
-        public void Delete(T entity)
+        public void Delete(T entity, int id)
         {
             var existing = this.unitOfWork
                 .Context
                 .Set<T>()
-                .Find(entity);
+                .Find(id);
 
             if (existing != null)
             {
