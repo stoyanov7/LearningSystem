@@ -2,12 +2,9 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using AutoMapper;
-    using LearningSystem.Models;
     using Utilities.Common;
-    using Utilities.Infrastructure.Contracts;
 
-    public class CreateCourseInstancesBindingModel : IMapFrom<CourseInstance>, IHaveCustomMapping
+    public class CreateCourseInstancesBindingModel
     {
         [Required]
         public string Name { get; set; }
@@ -34,8 +31,5 @@
 
         [Required]
         public int CourseId { get; set; }
-
-        public void ConfigureMapping(Profile mapper) 
-            => mapper.CreateMap<CreateCourseInstancesBindingModel, CourseInstance>();
     }
 }

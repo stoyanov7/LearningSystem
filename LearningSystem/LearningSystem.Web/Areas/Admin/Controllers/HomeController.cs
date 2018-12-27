@@ -2,6 +2,7 @@
 {
     using Blog.Models;
     using Microsoft.AspNetCore.Mvc;
+    using Models;
     using Services.Blog.Contracts;
 
     public class HomeController : AdminController
@@ -15,9 +16,12 @@
 
         public IActionResult Index()
         {
-            var articles = this.blogArticleService.AllArticles<BlogArticleViewModel>();
+            var home = new AdminHomeViewModel
+            {
+                Articles = this.blogArticleService.AllArticles<BlogArticleViewModel>()
+            };
 
-            return this.View(articles);
+            return this.View(home);
         }
     }
 }

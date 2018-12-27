@@ -1,11 +1,11 @@
-﻿@model IEnumerable<LearningSystem.Web.Areas.Blog.Models.BlogArticleViewModel>
+﻿@model AdminHomeViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2>Latest articles:</h2>
-@foreach (var article in Model)
+@foreach (var article in Model.Articles)
 {
     <div class="card" style="max-width: 20rem;">
         <div class="card-body">

@@ -38,9 +38,6 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddResponseCaching();
-            services.AddResponseCompression();
-
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.Configure<RequestLocalizationOptions>(options =>
@@ -60,12 +57,12 @@
             this.RegisterDatabases(services);
 
             this.RegisterIdentityAndAuthentication(services);
-
+             
             this.RegisterServices(services);
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(cfg => cfg.ValidateInlineMaps = false);
             services.AddSession();
 
             services.AddMvc()
@@ -76,9 +73,6 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseResponseCaching();
-            app.UseResponseCompression();
-
             if (env.IsDevelopment())
             {
                 app.SeedDatabase();

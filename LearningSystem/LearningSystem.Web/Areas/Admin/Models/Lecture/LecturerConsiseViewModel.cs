@@ -8,12 +8,11 @@
     {
         public string Id { get; set; }
 
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         public void ConfigureMapping(Profile mapper)
         {
-            mapper.CreateMap<ApplicationUser, LecturerConsiseViewModel>()
-                .ForMember(x => x.Name, opt => opt.MapFrom(u => u.UserName));
+            mapper.CreateMap<ApplicationUser, LecturerConsiseViewModel>();
         }
     }
 }
