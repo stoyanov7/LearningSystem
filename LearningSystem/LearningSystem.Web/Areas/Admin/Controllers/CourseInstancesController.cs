@@ -4,7 +4,8 @@
     using System.Threading.Tasks;
     using Lecturer.Models;
     using Microsoft.AspNetCore.Mvc;
-    using Models;
+    using Models.CourseInstance;
+    using Models.Lecture;
     using Services.Admin.Contracts;
     using Utilities.Common;
     using Utilities.Constants;

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Areas.Admin.Models;
+    using Areas.Admin.Models.Course;
     using Microsoft.AspNetCore.Mvc;
     using Services.Student.Contracts;
 

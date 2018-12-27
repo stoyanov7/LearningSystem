@@ -9,7 +9,7 @@ namespace LearningSystem.Tests.Controller
     using Web.Areas.Admin.Controllers;
     using Moq;
     using LearningSystem.Utilities.Constants;
-    using Web.Areas.Admin.Models;
+    using Web.Areas.Admin.Models.Course;
     using Xunit;
 
     public class CourseControllerTest

@@ -9,8 +9,8 @@
     using Models;
     using Moq;
     using Repository.Contracts;
-    using Web.Areas.Admin.Models;
-    using Web.Models;
+    using Web.Areas.Admin.Models.Course;
+    using Web.Models.Course;
     using Xunit;
 
     public class StudentCoursesServiceTest

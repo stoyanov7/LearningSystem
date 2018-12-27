@@ -5,7 +5,7 @@
     using LearningSystem.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Models;
+    using Models.Course;
     using Services.Student;
     using Services.Student.Contracts;
     using Utilities.Common;

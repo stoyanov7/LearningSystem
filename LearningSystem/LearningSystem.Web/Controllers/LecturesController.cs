@@ -3,7 +3,7 @@
     using System.IO;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using Models;
+    using Models.Course;
 
     public class LecturesController : Controller
     {

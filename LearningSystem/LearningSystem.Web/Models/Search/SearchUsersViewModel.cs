@@ -1,4 +1,4 @@
-﻿namespace LearningSystem.Web.Models
+﻿namespace LearningSystem.Web.Models.Search
 {
     using AutoMapper;
     using LearningSystem.Models.Identity;

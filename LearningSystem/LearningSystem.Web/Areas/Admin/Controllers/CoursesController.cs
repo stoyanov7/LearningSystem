@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Localization;
     using Microsoft.Extensions.Logging;
-    using Models;
+    using Models.Course;
     using Services.Admin.Contracts;
     using Utilities.Common;
     using Utilities.Constants;
