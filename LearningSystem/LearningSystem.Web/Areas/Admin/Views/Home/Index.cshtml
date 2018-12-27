@@ -1,7 +1,35 @@
-﻿
+﻿@model IEnumerable<LearningSystem.Web.Areas.Blog.Models.BlogArticleViewModel>
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Admin Home Index work</h2>
+<h2>Latest articles:</h2>
+@foreach (var article in Model)
+{
+    <div class="card" style="max-width: 20rem;">
+        <div class="card-body">
+            <h4 class="card-title">@article.Title</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Published by @article.Author</h6>
+            <p class="card-text">@Html.Raw(article.Content)</p>
+            <a asp-area="Blog"
+               asp-controller="Home" 
+               asp-action="Details"
+               asp-route-id="@article.Id" 
+               class="btn btn-primary">Details</a>
 
+            <a asp-area="Blog" 
+               asp-controller="Articles"
+               asp-action="Edit" 
+               asp-route-id="@article.Id"
+               class="btn btn-warning">Edit</a>
+            
+            <button type="submit"
+                    asp-page-handler="delete"
+                    asp-route-id="@article.Id"
+                    class="btn btn-danger">
+                Delete
+            </button>
+        </div>
+    </div>
+}

@@ -6,17 +6,17 @@
 
     public class HomeControllerTest
     {
-        [Fact]
-        public void Index_ReturnsTheProperView()
-        {
-            // Arrange
-            var controller = new HomeController();
+        //[Fact]
+        //public void Index_ReturnsTheProperView()
+        //{
+        //    // Arrange
+        //    var controller = new HomeController();
 
-            // Act
-            var result = controller.Index();
+        //    // Act
+        //    var result = controller.Index();
 
-            // Assert
-            Assert.IsType<ViewResult>(result);
-        }
+        //    // Assert
+        //    Assert.IsType<ViewResult>(result);
+        //}
     }
 }

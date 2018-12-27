@@ -24,6 +24,19 @@
             this.mapper = mapper;
         }
 
+        public IEnumerable<TModel> AllArticles<TModel>()
+        {
+            var articles = this.repository
+                .Get()
+                .AsQueryable()
+                .Include(x => x.Author)
+                .OrderByDescending(a => a.PublishDate);
+
+            var model = this.mapper.Map<IEnumerable<TModel>>(articles);
+
+            return model;
+        }
+
         public IEnumerable<TModel> AllArticles<TModel>(int page = 1)
         {
             var articles = this.repository
@@ -63,5 +76,34 @@
 
             return model;
         }
+
+        public async Task<TModel> FindByIdAsync<TModel>(int? id)
+        {
+            var article = await this.repository
+                .Details()
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+            var model = this.mapper.Map<TModel>(article);
+
+            return model;
+        }
+
+        public async Task Edit(int id, string title, string content)
+        {
+            var article = await this.repository
+                .Details()
+                .SingleOrDefaultAsync(g => g.Id == id);
+
+            article.Title = title;
+            article.Content = content;
+
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsAsync(int id)
+            => await this.repository
+                .Get()
+                .AsQueryable()
+                .AnyAsync(u => u.Id == id);
     }
 }
