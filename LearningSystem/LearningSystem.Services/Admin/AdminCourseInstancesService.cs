@@ -1,5 +1,7 @@
 ﻿namespace LearningSystem.Services.Admin
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using Contracts;
@@ -36,6 +38,16 @@
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             return this.mapper.Map<TModel>(model);
+        }
+
+        public async Task<IEnumerable<TModel>> AllCourseInstancesAsync<TModel>()
+        {
+            var model = await this.repository
+                .Get()
+                .AsQueryable()
+                .ToListAsync();
+
+            return this.mapper.Map<IEnumerable<TModel>>(model);
         }
     }
 }
