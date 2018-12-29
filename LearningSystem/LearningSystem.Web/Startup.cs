@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using Data;
+    using Hubs;
     using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,8 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.Configure<RequestLocalizationOptions>(options =>
@@ -65,6 +68,8 @@
             services.AddAutoMapper(cfg => cfg.ValidateInlineMaps = false);
             services.AddSession();
 
+            services.AddSignalR();
+
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -86,6 +91,15 @@
                 app.UseHsts();
             }
 
+            app.UseCors(options =>
+            {
+                options
+                    .WithOrigins("https:localhost:44319")
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+
             app.UseRequestLocalization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -93,6 +107,7 @@
 
             app.UseAuthentication();
             app.UseSession();
+            app.UseSignalR(options => options.MapHub<QuestionHub>("/questions"));
 
             app.UseMvc(routes =>
             {
