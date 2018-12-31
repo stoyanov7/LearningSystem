@@ -11,13 +11,15 @@
     <script src="/js/questions.js"></script>
 </head>
 <body>
-<form>
-    <label for="username">Username:</label>
-    <input type="text" id="username"/><br/>
-
+<form id="join-group-form">
+    <label for="group-name">Group name:</label>
+    <input type="text" id="group-name"/><br/>
+    <input type="submit" value="Join" />
+</form>
+<form id="ask-question-form" style="display: none">
     <label for="question">Question:</label>
     <input type="text" id="question"/><br/>
-    <input type="submit" id="submit-button" value="Submit question"/>
+    <input type="submit" value="Ask"/>
 </form>
 <div id="questions"></div>
 </body>
