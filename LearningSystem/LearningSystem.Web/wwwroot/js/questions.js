@@ -17,6 +17,10 @@ $(function() {
                 e.preventDefault();
                 let groupName = $("#group-name").val();
                 connection.invoke("JoinGroup", groupName);
+
+                $(function () {
+                    $('#group-name').val('');
+                });
             });
 
             $("#ask-question-form").submit(e => {
@@ -41,7 +45,9 @@ $(function() {
                     .append($("<div>").attr("id", "questions-container"));
             });
 
-            connection.on("group-rejected", reason => console.log(reason));
+            connection.on("group-rejected", reason => {
+                $("#questions").html(`<h2>${reason}</h2>`);
+            });
 
             connection.on("receive-question", question =>
                 $("#questions-container").append($("<div>").text(question)));
