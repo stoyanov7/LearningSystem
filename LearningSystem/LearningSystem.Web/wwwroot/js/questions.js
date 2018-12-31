@@ -23,6 +23,10 @@ $(function() {
                 e.preventDefault();
                 let question = $("#question").val();
                 connection.invoke("AskQuestion", group.slug, question);
+
+                $(function () {
+                    $('#question').val('');
+                });
             });
             
             connection.on("group-accept", (courseName, slug) => {
