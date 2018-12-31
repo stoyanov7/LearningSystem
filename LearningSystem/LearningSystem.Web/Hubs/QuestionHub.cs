@@ -5,6 +5,11 @@
 
     public class QuestionHub : Hub
     {
+        public async Task PostQuestion(string user, string question)
+        {
+            await this.Clients.All.SendAsync("showQuestion", user, question);
+        }
+    
         public override Task OnConnectedAsync()
         {
             return base.OnConnectedAsync();
