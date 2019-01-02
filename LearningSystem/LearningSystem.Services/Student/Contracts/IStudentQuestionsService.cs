@@ -5,5 +5,7 @@
     public interface IStudentQuestionsService
     {
         Task<TModel> GetCourseInstanceAsync<TModel>(string questionSlug);
+
+        void AddQuestion(CreateQuestionBindingModel model);
     }
 }

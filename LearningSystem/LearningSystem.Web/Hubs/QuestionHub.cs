@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.SignalR;
     using Models.CourseInstance;
+    using Services.Student;
     using Services.Student.Contracts;
 
     public class QuestionHub : Hub
@@ -16,7 +17,8 @@
 
         public async Task JoinGroup(string groupName)
         {
-            var course = await this.questionsService.GetCourseInstanceAsync<CourseInstanceQuestionsViewModel>(groupName);
+            var course = await this.questionsService
+                .GetCourseInstanceAsync<CourseInstanceQuestionsViewModel>(groupName);
 
             if (course == null)
             {
@@ -31,6 +33,13 @@
 
         public async Task AskQuestion(string groupName, string question)
         {
+            this.questionsService.AddQuestion(new CreateQuestionBindingModel
+            {
+                QuestionSlug = groupName,
+                Question = question,
+                Username = "unknown"
+            });
+
             await this.Clients.Group(groupName).SendAsync("receive-question", question);
         }
     }
