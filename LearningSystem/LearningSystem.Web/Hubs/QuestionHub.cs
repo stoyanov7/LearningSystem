@@ -26,21 +26,24 @@
             }
             else
             {
+                var questionPage = this.questionsService.GetQuestionPage(groupName);
+
                 await this.Groups.AddToGroupAsync(this.Context.ConnectionId, groupName);
-                await this.Clients.Caller.SendAsync("group-accept", course.Name, course.Slug);
+                await this.Clients.Caller.SendAsync("group-accept", course.Name, course.Slug, questionPage);
             }
         }
 
         public async Task AskQuestion(string groupName, string question)
         {
-            this.questionsService.AddQuestion(new CreateQuestionBindingModel
+            var model = new CreateQuestionBindingModel
             {
                 QuestionSlug = groupName,
                 QuestionText = question,
                 Username = "unknown"
-            });
+            };
 
-            await this.Clients.Group(groupName).SendAsync("receive-question", question);
+            this.questionsService.AddQuestion(model);
+            await this.Clients.Group(groupName).SendAsync("receive-question", model);
         }
     }
 }

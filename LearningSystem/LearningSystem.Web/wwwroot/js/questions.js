@@ -32,8 +32,8 @@ $(function() {
                     $('#question').val('');
                 });
             });
-            
-            connection.on("group-accept", (courseName, slug) => {
+
+            connection.on("group-accept", (courseName, slug, page) => {
                 group.name = courseName;
                 group.slug = slug;
 
@@ -43,6 +43,11 @@ $(function() {
                 $("#questions")
                     .append($("<div>").html(`<h2>${courseName}</h2>`))
                     .append($("<div>").attr("id", "questions-container"));
+
+                for (let question of page.questions) {
+                    $("<div>").html(`<strong>${question.username}</strong>: ${question.questionText}`)
+                        .appendTo($("#questions-container"));
+                }
             });
 
             connection.on("group-rejected", reason => {
@@ -50,7 +55,8 @@ $(function() {
             });
 
             connection.on("receive-question", question =>
-                $("#questions-container").append($("<div>").text(question)));
+                $("<div>").html(`<strong>${question.username}</strong>: ${question.questionText}`)
+                    .appendTo($("#questions-container")));
         })
         .catch(err => console.log(err));
 
