@@ -128,6 +128,8 @@
 
             services.AddDbContext<LearningSystemPaymentsContext>(options =>
                 options.UseMySql(this.Configuration.GetConnectionString("DefaultConnectionPayments")));
+
+            services.AddSingleton<LearningSystemQuestionsContext>();
         }
 
         private void RegisterIdentityAndAuthentication(IServiceCollection services)
