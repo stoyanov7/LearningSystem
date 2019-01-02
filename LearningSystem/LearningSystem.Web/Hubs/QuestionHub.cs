@@ -36,7 +36,7 @@
             this.questionsService.AddQuestion(new CreateQuestionBindingModel
             {
                 QuestionSlug = groupName,
-                Question = question,
+                QuestionText = question,
                 Username = "unknown"
             });
 

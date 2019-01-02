@@ -15,6 +15,7 @@
         private readonly IRepository<LearningSystemContext, CourseInstance> repository;
         private readonly IMapper mapper;
         private readonly LearningSystemQuestionsContext questionsContext;
+        private readonly IMongoCollection<QuestionPage> questions;
 
         public StudentQuestionsService(IRepository<LearningSystemContext, CourseInstance> repository,
             IMapper mapper, 
@@ -23,6 +24,10 @@
             this.repository = repository;
             this.mapper = mapper;
             this.questionsContext = questionsContext;
+
+            this.questions = this.questionsContext
+                .Database
+                .GetCollection<QuestionPage>("questions");
         }
 
         public async Task<TModel> GetCourseInstanceAsync<TModel>(string questionSlug)
@@ -43,19 +48,35 @@
 
         public void AddQuestion(CreateQuestionBindingModel model)
         {
-            var questions = this.questionsContext.Database.GetCollection<QuestionPage>("questions");
+            var questionPage = this.GetQuestionPage(model.QuestionSlug);
 
-            questions.InsertOne(new QuestionPage
+            if (questionPage == null)
             {
-                QuestionSlug = "c#-web",
-                Questions = new List<Question>
+                questionPage = new QuestionPage
                 {
-                    new Question { Username = "firstUsername", QuestionText = "text question" },
-                    new Question { Username = "secondUsername", QuestionText = "text question" }
-                }
-            });
+                    QuestionSlug = model.QuestionSlug,
+                    Questions = new List<Question>()
+                };
 
-            var result = questions.FindSync(FilterDefinition<QuestionPage>.Empty).ToList();
+                this.questions.InsertOne(questionPage);
+                questionPage = this.GetQuestionPage(model.QuestionSlug);
+            }
+
+            var oldQuestions = questionPage.Questions;
+            oldQuestions.Add(this.mapper.Map<Question>(model));
+
+            this.questions.UpdateOne(
+                p => p.QuestionSlug == questionPage.QuestionSlug,
+                Builders<QuestionPage>.Update.Set(p => p.Questions, oldQuestions));
+
+            var newQuestions = this.questions
+                .FindSync(p => p.QuestionSlug == model.QuestionSlug)
+                .First();
         }
+
+        public QuestionPage GetQuestionPage(string questionSlug)
+            => this.questions
+                .FindSync(p => p.QuestionSlug == questionSlug)
+                .FirstOrDefault();
     }
 }
