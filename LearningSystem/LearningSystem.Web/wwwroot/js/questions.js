@@ -26,7 +26,8 @@ $(function() {
             $("#ask-question-form").submit(e => {
                 e.preventDefault();
                 let question = $("#question").val();
-                connection.invoke("AskQuestion", group.slug, question);
+                let username = $("#username").val();
+                connection.invoke("AskQuestion", group.slug, question, username);
 
                 $(function () {
                     $('#question').val('');

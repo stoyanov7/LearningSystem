@@ -33,13 +33,13 @@
             }
         }
 
-        public async Task AskQuestion(string groupName, string question)
+        public async Task AskQuestion(string groupName, string question, string username)
         {
             var model = new CreateQuestionBindingModel
             {
                 QuestionSlug = groupName,
                 QuestionText = question,
-                Username = "unknown"
+                Username = username
             };
 
             this.questionsService.AddQuestion(model);
