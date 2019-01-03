@@ -19,4 +19,10 @@
     <ProjectReference Include="..\LearningSystem.Models\LearningSystem.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\..\..\.nuget\packages\mongodb.driver\2.7.2\lib\netstandard1.5\MongoDB.Driver.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
