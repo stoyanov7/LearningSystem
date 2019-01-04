@@ -1,6 +1,7 @@
 ﻿namespace LearningSystem.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using LearningSystem.Models;
     using Microsoft.AspNetCore.Authorization;
@@ -97,6 +98,7 @@
             }
 
             model.Username = this.User.Identity.Name;
+            model.StudentId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             await this.studentPaymentsService
                 .ProcessPaymentAsync(model, payments);

@@ -6,22 +6,26 @@
     using AutoMapper;
     using Contracts;
     using Data;
+    using Models;
     using PayPal.Api;
     using Repository.Contracts;
+    using Payment = PayPal.Api.Payment;
 
     public class StudentPaymentsService : IStudentPaymentsService
     {
         private const string ApprovalUrlRel = "approval_url";
 
         private readonly IRepository<LearningSystemPaymentsContext, Models.Payment> repository;
+        private readonly IRepository<LearningSystemContext, StudentsInCourses> studentsInCourseRepository;
         private readonly IMapper mapper;
         private readonly APIContext apiContext;
 
         public StudentPaymentsService(IRepository<LearningSystemPaymentsContext, Models.Payment> repository,
-            IMapper mapper)
+            IMapper mapper, IRepository<LearningSystemContext, StudentsInCourses> studentsInCourseRepository)
         {
             this.repository = repository;
             this.mapper = mapper;
+            this.studentsInCourseRepository = studentsInCourseRepository;
 
             var apiToken = new OAuthTokenCredential("AaHyyJSKlaI7dNUZVmSKjXzAnhZExaI_wZkrWzhLAbsthXw5iWZ6ycHujLNSb4SnjSvGz9QbRj_WnLtK",
                     "EM48aVUbccMGdntebIPgvqy5PtXySgL6DBsVF30dzdMVRvp7DXQ1dppMooanyGS_Qc_b1d42_A76Eu0K")
@@ -63,9 +67,22 @@
             {
                 payment1.PayPalPaymentId = model.PaymentId;
                 payment1.Username = model.Username;
+                payment1.StudentId = model.StudentId;
             }
 
             await this.repository.AddRangeAsync(payments);
+
+            StudentsInCourses studentsInCourses = null;
+            foreach (var payment2 in payments)
+            {
+                studentsInCourses = new StudentsInCourses
+                {
+                    CourseId = payment2.CourseId,
+                    StudentId = payment2.StudentId
+                };
+            }
+
+            await this.studentsInCourseRepository.AddAsync(studentsInCourses);
         }
 
         public decimal GetAmountForCourse(int courseId)

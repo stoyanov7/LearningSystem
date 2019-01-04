@@ -27,6 +27,8 @@ namespace LearningSystem.Data.Migrations.LearningSystemPayments
 
                     b.Property<string>("PayPalPaymentId");
 
+                    b.Property<string>("StudentId");
+
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
