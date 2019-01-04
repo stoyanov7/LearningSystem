@@ -18,12 +18,16 @@
 
         private readonly IStudentPaymentsService studentPaymentsService;
         private readonly IStudentCoursesService studentCoursesService;
+        private readonly IStudentCourseInstancesService studentCourseInstancesService;
 
-        public PaymentsController(IStudentPaymentsService studentPaymentsService,
-            IStudentCoursesService studentCoursesService)
+        public PaymentsController(
+            IStudentPaymentsService studentPaymentsService,
+            IStudentCoursesService studentCoursesService,
+            IStudentCourseInstancesService studentCourseInstancesService)
         {
             this.studentPaymentsService = studentPaymentsService;
             this.studentCoursesService = studentCoursesService;
+            this.studentCourseInstancesService = studentCourseInstancesService;
         }
 
         [HttpGet]
@@ -31,7 +35,7 @@
         {
             var model = new CreatePaymentBindingModel
             {
-                Courses = this.studentCoursesService
+                Courses = this.studentCourseInstancesService
                     .GetCoursesForDropdownList()
             };
 

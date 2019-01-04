@@ -22,18 +22,6 @@
             this.mapper = mapper;
         }
 
-        public IEnumerable<SelectListItem> GetCoursesForDropdownList()
-        {
-            return this.repository
-                .Get()
-                .Select(x => new SelectListItem
-                {
-                    Text = x.Name,
-                    Value = x.Id.ToString()
-                })
-                .ToList();
-        }
-
         public async Task<TModel> GetCourseAsync<TModel>(int courseId)
         {
             var course = await this.repository
