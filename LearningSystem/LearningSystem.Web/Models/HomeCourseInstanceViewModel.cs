@@ -14,10 +14,10 @@
 
         public void ConfigureMapping(Profile mapper)
         {
-            mapper.CreateMap<HomeCourseInstanceViewModel, StudentsInCourses>()
-                .ForMember(x => x.Course.Id, opt => opt.MapFrom(x => x.CourseId))
-                .ForMember(x => x.Course.Name, opt => opt.MapFrom(x => x.CourseName))
-                .ForMember(x => x.Course.Description, opt => opt.MapFrom(x => x.CourseDescription));
+            mapper.CreateMap<HomeCourseInstanceViewModel, StudentsInCourses>();
+            //.ForMember(x => x.Course.Id, opt => opt.MapFrom(x => x.CourseId))
+            //.ForMember(x => x.Course.Name, opt => opt.MapFrom(x => x.CourseName))
+            //.ForMember(x => x.Course.Description, opt => opt.MapFrom(x => x.CourseDescription));
         }
     }
 }
