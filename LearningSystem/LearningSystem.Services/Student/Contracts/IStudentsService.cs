@@ -6,5 +6,7 @@
     public interface IStudentsService
     {
         Task<IEnumerable<TModel>> FindAsync<TModel>(string searchText);
+
+        IEnumerable<TModel> EnrolledCourses<TModel>(string studentId);
     }
 }

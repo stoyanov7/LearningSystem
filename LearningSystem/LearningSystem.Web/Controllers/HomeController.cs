@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Localization;
@@ -22,7 +23,17 @@
             this.studentsService = studentsService;
         }
 
-        public IActionResult Index() => this.View();
+        public IActionResult Index()
+        {
+            var studentId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var model = new HomeIndexViewModel
+            {
+                CourseInstances = this.studentsService.EnrolledCourses<HomeCourseInstanceViewModel>(studentId)
+            };
+
+            return this.View(model);
+        }
 
         public async Task<IActionResult> Search(SearchFormBindingModel model)
         {
