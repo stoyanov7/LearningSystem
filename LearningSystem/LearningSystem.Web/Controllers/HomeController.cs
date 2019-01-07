@@ -23,13 +23,14 @@
             this.studentsService = studentsService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var studentId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var model = new HomeIndexViewModel
             {
-                CourseInstances = this.studentsService.EnrolledCourses<HomeCourseInstanceViewModel>(studentId)
+                CourseInstances = await this.studentsService
+                    .EnrolledCourses<HomeCourseInstanceViewModel>(studentId)
             };
 
             return this.View(model);

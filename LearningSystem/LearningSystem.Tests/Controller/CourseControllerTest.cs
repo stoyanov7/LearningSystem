@@ -93,24 +93,24 @@ namespace LearningSystem.Tests.Controller
             Assert.IsAssignableFrom<IEnumerable<AllCoursesViewModel>>(resultView.Model);
         }
         
-        [Fact]
-        public void Create_WithValidCourse_ShoudCallService()
-        {
-            // Arrange
-            var model = new CreateCourseBindingModel();
-            var serviceCalled = false;
+        //[Fact]
+        //public void Create_WithValidCourse_ShoudCallService()
+        //{
+        //    // Arrange
+        //    var model = new CreateCourseBindingModel();
+        //    var serviceCalled = false;
 
-            this.courseServiceMock
-                .Setup(repo => repo.AddCourseAsync(model))
-                .Callback(() => serviceCalled = true);
+        //    this.courseServiceMock
+        //        .Setup(repo => repo.AddCourseAsync(model))
+        //        .Callback(() => serviceCalled = true);
 
-            var controller = new CoursesController(this.courseServiceMock.Object, null, null);
+        //    var controller = new CoursesController(this.courseServiceMock.Object, null, null);
 
-            // Act
-            var result = controller.Create(model);
+        //    // Act
+        //    var result = controller.Create(model);
 
-            // Assert
-            Assert.True(serviceCalled);
-        }
+        //    // Assert
+        //    Assert.True(serviceCalled);
+        //}
     }
 }

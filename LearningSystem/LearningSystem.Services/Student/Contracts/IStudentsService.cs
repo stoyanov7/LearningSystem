@@ -7,6 +7,8 @@
     {
         Task<IEnumerable<TModel>> FindAsync<TModel>(string searchText);
 
-        IEnumerable<TModel> EnrolledCourses<TModel>(string studentId);
+        Task<IEnumerable<TModel>> EnrolledCourses<TModel>(string studentId);
+
+        Task<bool> IsUserEnrolledInCourse(string studentId, int courseId);
     }
 }

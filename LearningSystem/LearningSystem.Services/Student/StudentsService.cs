@@ -42,18 +42,27 @@
             return model;
         }
 
-        public IEnumerable<TModel> EnrolledCourses<TModel>(string studentId)
+        public async Task<IEnumerable<TModel>> EnrolledCourses<TModel>(string studentId)
         {
-            var enrolledCourses = this.studentsInCoursesRepository
+            var enrolledCourses = await this.studentsInCoursesRepository
                 .Get()
                 .AsQueryable()
                 .Include(x => x.Course)
                 .Where(x => x.StudentId == studentId)
-                .ToList();
+                .ToListAsync();
 
             var model = this.mapper.Map<IEnumerable<TModel>>(enrolledCourses);
 
             return model;
+        }
+
+        public async Task<bool> IsUserEnrolledInCourse(string studentId, int courseId)
+        {
+            var enrolledCourses = await this.studentsInCoursesRepository
+                .Details()
+                .FirstOrDefaultAsync(x => x.StudentId == studentId && x.CourseId == courseId);
+
+            return enrolledCourses != null;
         }
     }
 }
