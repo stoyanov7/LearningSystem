@@ -8,12 +8,16 @@
 
     public class CreateLectureBindingModel : IMapFrom<Lecture>, IHaveCustomMapping
     {
+        [Required]
         public string Title { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
+        [Required]
         public int Order { get; set; }
 
+        [Required]
         [Display(Name = "Lecture Hall")]
         public string LectureHall { get; set; }
 

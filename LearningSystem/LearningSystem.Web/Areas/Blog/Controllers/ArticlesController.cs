@@ -105,6 +105,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirm(int id)
         {
             if (!await this.blogArticleService.ExistsAsync(id))

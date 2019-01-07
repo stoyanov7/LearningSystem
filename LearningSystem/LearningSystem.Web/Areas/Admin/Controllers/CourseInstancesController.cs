@@ -7,6 +7,7 @@
     using Models.CourseInstance;
     using Models.Lecture;
     using Services.Admin.Contracts;
+    using Services.Html.Contracts;
     using Utilities.Common;
     using Utilities.Constants;
     using Utilities.Helpers.Messages;
@@ -16,14 +17,18 @@
         private readonly IAdminCourseInstancesService adminCourseInstancesService;
         private readonly IAdminCoursesService adminCoursesService;
         private readonly IAdminLecturersService adminLecturersService;
+        private readonly IHtmlService htmlService;
 
-        public CourseInstancesController(IAdminCourseInstancesService adminCourseInstancesService,
+        public CourseInstancesController(
+            IAdminCourseInstancesService adminCourseInstancesService,
             IAdminCoursesService adminCoursesService, 
-            IAdminLecturersService adminLecturersService)
+            IAdminLecturersService adminLecturersService, 
+            IHtmlService htmlService)
         {
             this.adminCourseInstancesService = adminCourseInstancesService;
             this.adminCoursesService = adminCoursesService;
             this.adminLecturersService = adminLecturersService;
+            this.htmlService = htmlService;
         }
 
         [HttpGet]
@@ -63,6 +68,10 @@
             {
                 return this.View(model);
             }
+
+            model.Name = this.htmlService.Sanitize(model.Name);
+            model.Slug = this.htmlService.Sanitize(model.Slug);
+            model.Description = this.htmlService.Sanitize(model.Description);
 
             var instance = await this.adminCourseInstancesService
                 .CreateCourseIntancesAsync(model);

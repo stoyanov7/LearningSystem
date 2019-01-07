@@ -65,6 +65,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddToRole(AddUserToRoleBindingModel model)
         {
             var roleExists = await this.roleManager.RoleExistsAsync(model.Role);

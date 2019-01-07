@@ -27,7 +27,7 @@
                 .Setup(x => x.FindCourseAsync(It.IsAny<int>()))
                 .Callback(() => isServiceCalled = true);
 
-            var controller = new CourseInstancesController(null, this.adminCoursesServiceMock.Object, null);
+            var controller = new CourseInstancesController(null, this.adminCoursesServiceMock.Object, null, null);
 
             // Act
             var result = controller.Create(It.IsAny<int>());

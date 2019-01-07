@@ -5,6 +5,7 @@
     using AutoMapper;
     using Contracts;
     using Data;
+    using Html.Contracts;
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Repository.Contracts;
