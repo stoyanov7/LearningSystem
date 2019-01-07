@@ -30,7 +30,7 @@
         {
             var apiKey = this.configuration["SendGrid:ApiKey"];
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("admin@gmail.com", "Learning System Admin");
+            var from = new EmailAddress(this.configuration["Admin:Email"], "Learning System Admin");
             var to = new EmailAddress(email, email);
             var message = MailHelper.CreateSingleEmail(from, to, subject, htmlMessage, htmlMessage);
             var response = await client.SendEmailAsync(message);

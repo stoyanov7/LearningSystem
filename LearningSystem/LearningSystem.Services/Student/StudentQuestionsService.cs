@@ -12,6 +12,8 @@
 
     public class StudentQuestionsService : IStudentQuestionsService
     {
+        private const string Database = "questions";
+
         private readonly IRepository<LearningSystemContext, CourseInstance> repository;
         private readonly IMapper mapper;
         private readonly LearningSystemQuestionsContext questionsContext;
@@ -27,7 +29,7 @@
 
             this.questions = this.questionsContext
                 .Database
-                .GetCollection<QuestionPage>("questions");
+                .GetCollection<QuestionPage>(Database);
         }
 
         public async Task<TModel> GetCourseInstanceAsync<TModel>(string questionSlug)

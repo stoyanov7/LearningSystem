@@ -15,6 +15,7 @@
     public class PaymentsController : Controller
     {
         private const string PaymentKey = "payments";
+        private const string CartConst = "Cart";
 
         private readonly IStudentPaymentsService studentPaymentsService;
         private readonly IStudentCoursesService studentCoursesService;

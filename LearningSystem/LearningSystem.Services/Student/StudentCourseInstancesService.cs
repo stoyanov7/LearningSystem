@@ -25,12 +25,14 @@
 
         public async Task<TModel> GetCourseInstancesAsync<TModel>(int courseId)
         {
-            var model = await this.repository
+            var courseInstance = await this.repository
                 .Details()
                 .Include(c => c.Lectures)
                 .FirstOrDefaultAsync(c => c.Id == courseId);
 
-            return this.mapper.Map<TModel>(model);
+            var model = this.mapper.Map<TModel>(courseInstance);
+
+            return model;
         }
 
         public async Task<IEnumerable<TModel>> GetCourseInstancesAsync<TModel>(string searchText)

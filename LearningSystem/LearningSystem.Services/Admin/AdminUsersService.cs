@@ -41,7 +41,10 @@
             var currentUser = await this.userManager
                 .GetUserAsync(user);
 
-            var repositoryUser = this.context.Details().Where(x => x.Id != currentUser.Id);
+            var repositoryUser = this.context
+                .Details()
+                .Where(x => x.Id != currentUser.Id);
+
             var model = this.mapper.Map<IEnumerable<TModel>>(repositoryUser);
 
             return model;

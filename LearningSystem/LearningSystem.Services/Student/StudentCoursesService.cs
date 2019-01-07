@@ -1,12 +1,10 @@
 ﻿namespace LearningSystem.Services.Student
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
     using Contracts;
     using Data;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Repository.Contracts;

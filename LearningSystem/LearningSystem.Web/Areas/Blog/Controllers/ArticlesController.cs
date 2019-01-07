@@ -8,9 +8,10 @@
     using Models;
     using Services.Blog.Contracts;
     using Services.Html.Contracts;
+    using Utilities.Constants;
 
-    [Area("Blog")]
-    [Authorize(Roles = "Blogger, Administrator")]
+    [Area(BlogConstants.BlogArea)]
+    [Authorize(Roles = BlogConstants.BloggerAndAdministrator)]
     public class ArticlesController : Controller
     {
         private readonly IBlogArticleService blogArticleService;

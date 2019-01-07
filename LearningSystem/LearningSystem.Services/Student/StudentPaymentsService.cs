@@ -14,6 +14,11 @@
     public class StudentPaymentsService : IStudentPaymentsService
     {
         private const string ApprovalUrlRel = "approval_url";
+        private const string PaymentMethod = "paypal";
+        private const string Currency = "EUR";
+        private const string Intent = "sale";
+        private const string ReturnUrl = "https://localhost:44319/Payments/Process";
+        private const string CancelUrl = "https://localhost:44319/Payments/Cancel";
 
         private readonly IRepository<LearningSystemPaymentsContext, Models.Payment> repository;
         private readonly IRepository<LearningSystemContext, StudentsInCourses> studentsInCourseRepository;
@@ -95,12 +100,12 @@
         {
             var payer = new Payer
             {
-                payment_method = "paypal"
+                payment_method = PaymentMethod
             };
 
             var amount = new Amount
             {
-                currency = "EUR",
+                currency = Currency,
                 total = total.ToString()
             };
 
@@ -113,11 +118,11 @@
             {
                 payer = payer,
                 transactions = new[] {transaction}.ToList(),
-                intent = "sale",
+                intent = Intent,
                 redirect_urls = new RedirectUrls
                 {
-                    return_url = "https://localhost:44319/Payments/Process",
-                    cancel_url = "https://localhost:44319/Payments/Cancel"
+                    return_url = ReturnUrl,
+                    cancel_url = CancelUrl
                 }
             };
 

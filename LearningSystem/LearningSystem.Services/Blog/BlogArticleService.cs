@@ -11,6 +11,7 @@
     using Models;
     using Repository.Contracts;
     using Utilities.Common;
+    using Utilities.Constants;
 
     public class BlogArticleService : IBlogArticleService
     {
@@ -54,7 +55,7 @@
 
         public async Task CreateArticleAsync<TModel>(TModel model, string authorId)
         {
-            CoreValidator.EnsureNotNull(model, "The article is null");
+            CoreValidator.EnsureNotNull(model, BlogConstants.NullArticle);
             var article = this.mapper.Map<Article>(model);
             article.AuthorId = authorId;
             article.PublishDate = DateTime.UtcNow;

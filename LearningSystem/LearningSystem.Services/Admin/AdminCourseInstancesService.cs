@@ -21,6 +21,12 @@
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Create a new course instances
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public async Task<int> CreateCourseIntancesAsync<TModel>(TModel model)
         {
             var instance = this.mapper.Map<CourseInstance>(model);
@@ -29,25 +35,38 @@
             return instance.Id;
         }
 
+        /// <summary>
+        /// Get details for course instances
+        /// </summary>
+        /// <typeparam name="TModel">Course instance model</typeparam>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<TModel> CourseInstancesDetailsAsync<TModel>(int id)
         {
-            var model = await this.repository
+            var courseInstances = await this.repository
                 .Details()
                 .Include(c => c.Lectures)
                 .Include(c => c.Students)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
-            return this.mapper.Map<TModel>(model);
+            var model = this.mapper.Map<TModel>(courseInstances);
+            return model;
         }
 
+        /// <summary>
+        /// List with all course instances.
+        /// </summary>
+        /// <typeparam name="TModel">Course instance model.</typeparam>
+        /// <returns></returns>
         public async Task<IEnumerable<TModel>> AllCourseInstancesAsync<TModel>()
         {
-            var model = await this.repository
+            var courseInstances = await this.repository
                 .Get()
                 .AsQueryable()
                 .ToListAsync();
 
-            return this.mapper.Map<IEnumerable<TModel>>(model);
+            var model = this.mapper.Map<IEnumerable<TModel>>(courseInstances);
+            return model;
         }
     }
 }

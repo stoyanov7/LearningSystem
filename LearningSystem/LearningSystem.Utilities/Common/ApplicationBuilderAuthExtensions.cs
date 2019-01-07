@@ -7,14 +7,25 @@
 
     public static class ApplicationBuilderAuthExtensions
     {
+        private const string AdminRole = "Administrator";
+        private const string LecturerRole = "Lecturer";
+        private const string BloggerRole = "Blogger";
+
+        private const string AdminUsername = "admin";
+        private const string AdminEmail = "admin@gmail.com";
+        private const string AdminFullName = "Admin Adminov";
+
+        private const string LecturerUsername = "lecturer";
+        private const string LecturerEmail = "lecturer@gmail.com";
+
         private const string DefaultAdminPassword = "123";
         private const string DetaultLecturerPassword = "123";
 
         private static readonly IdentityRole[] roles =
         {
-            new IdentityRole("Administrator"),
-            new IdentityRole("Lecturer"),
-            new IdentityRole("Blogger")
+            new IdentityRole(AdminRole),
+            new IdentityRole(LecturerRole),
+            new IdentityRole(BloggerRole)
         };
 
         /// <summary>
@@ -47,28 +58,29 @@
                     }
                 }
 
-                var user = await userManager.FindByNameAsync("admin");
+                var user = await userManager.FindByNameAsync(AdminUsername);
 
                 if (user == null)
                 {
                     user = new ApplicationUser
                     {
-                        UserName = "admin",
-                        Email = "admin@gmail.com",
-                        FullName = "Admin Adminov"
+                        UserName = AdminUsername,
+                        Email = AdminEmail,
+                        FullName = AdminFullName
                     };
 
                     await userManager.CreateAsync(user, DefaultAdminPassword);
                     await userManager.AddToRoleAsync(user, roles[0].Name);
                 }
 
-                var lecturer = await userManager.FindByNameAsync("lecturer");
+                var lecturer = await userManager.FindByNameAsync(LecturerUsername);
+
                 if (lecturer == null)
                 {
                     lecturer = new ApplicationUser
                     {
-                        UserName = "lecturer",
-                        Email = "lecturer@gmail.com"
+                        UserName = LecturerUsername,
+                        Email = LecturerEmail
                     };
 
                     await userManager.CreateAsync(lecturer, DetaultLecturerPassword);

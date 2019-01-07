@@ -16,6 +16,8 @@
     /// </summary>
     public class UsersController : AdminController
     {
+        private const string InvalidIdentityDetails = "Invalid identity details.";
+
         private readonly IAdminUsersService adminUsersService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
@@ -71,7 +73,7 @@
 
             if (!roleExists || !userExists)
             {
-                this.ModelState.AddModelError(string.Empty, "Invalid identity details.");
+                this.ModelState.AddModelError(string.Empty, InvalidIdentityDetails);
             }
 
             if (!this.ModelState.IsValid)
