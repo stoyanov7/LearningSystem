@@ -1,0 +1,8 @@
+﻿@model AllCoursesInstanceViewModel
+
+<li>
+    <a asp-area=""
+       asp-controller="Courses"
+       asp-action="Details"
+       asp-route-id="@Model.Id">@Model.Name</a>
+</li>
