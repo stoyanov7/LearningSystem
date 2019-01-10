@@ -1,4 +1,4 @@
-﻿@model AdminArticlesViewModel
+﻿@model HomeArticlesViewModel
 
 <div class="col-lg-4">
     <div class="card" style="max-width: 20rem;">
@@ -10,18 +10,6 @@
                asp-action="Details"
                asp-route-id="@Model.Id"
                class="btn btn-primary">Details</a>
-
-            <a asp-area="Blog"
-               asp-controller="Articles"
-               asp-action="Edit"
-               asp-route-id="@Model.Id"
-               class="btn btn-warning">Edit</a>
-
-            <a asp-area="Blog"
-               asp-controller="Articles"
-               asp-action="Delete"
-               asp-route-id="@Model.Id"
-               class="btn btn-danger">Delete</a>
         </div>
     </div>
 </div>

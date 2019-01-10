@@ -1,4 +1,6 @@
-﻿namespace LearningSystem.Web.Controllers
+﻿using LearningSystem.Services.Blog.Contracts;
+
+namespace LearningSystem.Web.Controllers
 {
     using System;
     using System.Diagnostics;
@@ -15,12 +17,15 @@
     {
         private readonly IStudentCourseInstancesService studentCourseInstancesService;
         private readonly IStudentsService studentsService;
+        private readonly IBlogArticleService blogArticleService;
 
         public HomeController(IStudentCourseInstancesService studentCourseInstancesService, 
-            IStudentsService studentsService)
+            IStudentsService studentsService,
+            IBlogArticleService blogArticleService)
         {
             this.studentCourseInstancesService = studentCourseInstancesService;
             this.studentsService = studentsService;
+            this.blogArticleService = blogArticleService;
         }
 
         public async Task<IActionResult> Index()
@@ -30,7 +35,8 @@
             var model = new HomeIndexViewModel
             {
                 CourseInstances = await this.studentsService
-                    .EnrolledCourses<HomeCourseInstanceViewModel>(studentId)
+                    .EnrolledCourses<HomeCourseInstanceViewModel>(studentId),
+                Articles = this.blogArticleService.AllArticles<HomeArticlesViewModel>()
             };
 
             return this.View(model);
