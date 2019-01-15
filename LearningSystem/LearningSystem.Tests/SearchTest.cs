@@ -17,7 +17,7 @@
         public async Task Search_WithNoCriteria_ShouldReturnNoResults()
         {
             // Arrange
-            var controller = new HomeController(null, null);
+            var controller = new HomeController(null, null, null);
 
             // Act
             var result = await controller.Search(new SearchFormBindingModel
@@ -53,7 +53,7 @@
                     new SearchCourseInstanceViewModel { Id = 10 }
                 });
 
-            var controller = new HomeController(courseServiceMock.Object, null);
+            var controller = new HomeController(courseServiceMock.Object, null, null);
 
             // Act
             var result = await controller.Search(new SearchFormBindingModel
@@ -102,7 +102,7 @@
                     new SearchUsersViewModel { Username = searchText }
                 });
 
-            var controller = new HomeController(null, studentsServiceMock.Object);
+            var controller = new HomeController(null, studentsServiceMock.Object, null);
 
             // Act
             var result = await controller.Search(new SearchFormBindingModel
