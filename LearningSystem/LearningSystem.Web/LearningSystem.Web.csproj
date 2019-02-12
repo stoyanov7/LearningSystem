@@ -1,8 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <Target Name="MyPreCompileTarget" BeforeTargets="Build">
-    <Exec Command="npm install" />
-    <Exec Command="gulp clean" />
-  </Target>
   
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
