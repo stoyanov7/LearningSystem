@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
+  
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-LearningSystem.Web-E76C1A3E-224F-4AC1-A388-4397403C936F</UserSecretsId>
