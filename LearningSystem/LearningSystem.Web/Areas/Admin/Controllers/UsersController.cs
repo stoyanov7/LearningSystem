@@ -8,7 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
-    using Models;
+    using Models.User;
     using Services.Admin.Contracts;
 
     /// <summary>
@@ -16,6 +16,8 @@
     /// </summary>
     public class UsersController : AdminController
     {
+        private const string InvalidIdentityDetails = "Invalid identity details.";
+
         private readonly IAdminUsersService adminUsersService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
@@ -63,6 +65,7 @@
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddToRole(AddUserToRoleBindingModel model)
         {
             var roleExists = await this.roleManager.RoleExistsAsync(model.Role);
@@ -71,7 +74,7 @@
 
             if (!roleExists || !userExists)
             {
-                this.ModelState.AddModelError(string.Empty, "Invalid identity details.");
+                this.ModelState.AddModelError(string.Empty, InvalidIdentityDetails);
             }
 
             if (!this.ModelState.IsValid)

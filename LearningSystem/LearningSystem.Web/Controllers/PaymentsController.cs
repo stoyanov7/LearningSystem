@@ -1,11 +1,12 @@
 ﻿namespace LearningSystem.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using LearningSystem.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Models;
+    using Models.Course;
     using Services.Student;
     using Services.Student.Contracts;
     using Utilities.Common;
@@ -14,15 +15,20 @@
     public class PaymentsController : Controller
     {
         private const string PaymentKey = "payments";
+        private const string CartConst = "Cart";
 
         private readonly IStudentPaymentsService studentPaymentsService;
         private readonly IStudentCoursesService studentCoursesService;
+        private readonly IStudentCourseInstancesService studentCourseInstancesService;
 
-        public PaymentsController(IStudentPaymentsService studentPaymentsService,
-            IStudentCoursesService studentCoursesService)
+        public PaymentsController(
+            IStudentPaymentsService studentPaymentsService,
+            IStudentCoursesService studentCoursesService,
+            IStudentCourseInstancesService studentCourseInstancesService)
         {
             this.studentPaymentsService = studentPaymentsService;
             this.studentCoursesService = studentCoursesService;
+            this.studentCourseInstancesService = studentCourseInstancesService;
         }
 
         [HttpGet]
@@ -30,7 +36,7 @@
         {
             var model = new CreatePaymentBindingModel
             {
-                Courses = this.studentCoursesService
+                Courses = this.studentCourseInstancesService
                     .GetCoursesForDropdownList()
             };
 
@@ -97,6 +103,7 @@
             }
 
             model.Username = this.User.Identity.Name;
+            model.StudentId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             await this.studentPaymentsService
                 .ProcessPaymentAsync(model, payments);

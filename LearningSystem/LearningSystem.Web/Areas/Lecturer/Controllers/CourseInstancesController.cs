@@ -3,15 +3,19 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Models;
+    using Services.Html.Contracts;
     using Services.Lecturer.Contracts;
 
     public class CourseInstancesController : LecturerController
     {
         private readonly ILecturerCourseInstancesService courseInstancesService;
+        private readonly IHtmlService htmlService;
 
-        public CourseInstancesController(ILecturerCourseInstancesService courseInstancesService)
+        public CourseInstancesController(ILecturerCourseInstancesService courseInstancesService, 
+            IHtmlService htmlService)
         {
             this.courseInstancesService = courseInstancesService;
+            this.htmlService = htmlService;
         }
 
         [HttpGet]
@@ -40,6 +44,9 @@
             {
                 return this.View(model);
             }
+
+            model.Name = this.htmlService.Sanitize(model.Name);
+            model.Description = this.htmlService.Sanitize(model.Description);
 
             await this.courseInstancesService
                 .EditCourseInstanceAsync(id, this.User, model.Name, model.Description, model.StartDate, model.EndDate);

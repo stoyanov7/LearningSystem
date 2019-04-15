@@ -1,7 +1,7 @@
 ﻿namespace LearningSystem.Tests.Mocks
 {
     using AutoMapper;
-    using Utilities.Infrastructure;
+    using LearningSystem.Utilities.Infrastructure;
 
     public class AutoMapperMock
     {

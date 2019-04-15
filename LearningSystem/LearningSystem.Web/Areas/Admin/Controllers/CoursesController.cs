@@ -2,10 +2,10 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Localization;
     using Microsoft.Extensions.Logging;
-    using Models;
+    using Models.Course;
     using Services.Admin.Contracts;
+    using Services.Html.Contracts;
     using Utilities.Common;
     using Utilities.Constants;
     using Utilities.Helpers.Messages;
@@ -14,15 +14,15 @@
     {
         private readonly IAdminCoursesService adminCoursesService;
         private readonly ILogger<CoursesController> logger;
-        private readonly IStringLocalizer<CoursesController> stringLocalizer;
+        private readonly IHtmlService htmlService;
 
         public CoursesController(IAdminCoursesService adminCoursesService,
             ILogger<CoursesController> logger,
-            IStringLocalizer<CoursesController> stringLocalizer)
+            IHtmlService htmlService)
         {
             this.adminCoursesService = adminCoursesService;
             this.logger = logger;
-            this.stringLocalizer = stringLocalizer;
+            this.htmlService = htmlService;
         }
 
         [HttpGet]
@@ -45,6 +45,9 @@
             {
                 return this.View();
             }
+
+            model.Name = this.htmlService.Sanitize(model.Name);
+            model.Slug = this.htmlService.Sanitize(model.Slug);
 
             var course = await this.adminCoursesService.AddCourseAsync(model);
             this.logger.LogInformation(string.Format(AdminConstants.CreatedSuccessfullyCourse, course.Name));

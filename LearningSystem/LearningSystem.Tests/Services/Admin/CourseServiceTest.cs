@@ -6,28 +6,26 @@
     using AutoMapper;
     using Data;
     using LearningSystem.Services.Admin;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mocks;
     using Models;
     using Moq;
     using Repository.Contracts;
+    using Xunit;
 
-    [TestClass]
     public class CourseServiceTest
     {
-        private Mock<IRepository<LearningSystemContext, Course>> courseRepositoryMock;
-        private LearningSystemContext context;
-        private IMapper mapper;
+        private readonly Mock<IRepository<LearningSystemContext, Course>> courseRepositoryMock;
+        private readonly LearningSystemContext context;
+        private readonly IMapper mapper;
 
-        [TestInitialize]
-        public void TestInitialize()
+        public CourseServiceTest()
         {
             this.courseRepositoryMock = new Mock<IRepository<LearningSystemContext, Course>>();
             this.context = LearningSystemContextMock.GetContext();
             this.mapper = AutoMapperMock.GetMapper();
         }
 
-        [TestMethod]
+        [Fact]
         public async Task FindAsync_WithOneCourse_ShouldReturnCorrectCourse()
         {
             //Arrange
@@ -53,12 +51,12 @@
             //Assert
             this.courseRepositoryMock.Verify();
 
-            Assert.IsNotNull(courseResult);
-            Assert.AreEqual(expectedId, courseResult.Id);
-            Assert.AreEqual(expectedName, courseResult.Name);
+            Assert.NotNull(courseResult);
+            Assert.Equal(expectedId, courseResult.Id);
+            Assert.Equal(expectedName, courseResult.Name);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task FindAsync_WithoutCourse_ShouldReturnNull()
         {
             const int expectedId = 1;
@@ -75,10 +73,10 @@
             var courseResult = await service.FindCourseAsync(expectedId);
 
             // Assert
-            Assert.IsNull(courseResult);
+            Assert.Null(courseResult);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task AddCourse_WithNullCourse_ShouldThrowException() 
         {
             // Arrange           
@@ -94,11 +92,11 @@
             Task AddCourse() => service.AddCourseAsync(course);
 
             // Asserts 
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(AddCourse);
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(AddCourse, "The course is null");
+            await Assert.ThrowsAsync<ArgumentNullException>(AddCourse);
+            //await Assert.ThrowsAsync<ArgumentNullException>(AddCourse, "The course is null");
         }
 
-        [TestMethod]
+        [Fact]
         public async Task AddCourse_WithProperCourse_ShouldReturnCorrectCourse()
         {
             // Arrange
@@ -122,11 +120,11 @@
             var course = await service.AddCourseAsync(courseModel);
             
             // Asserts 
-            Assert.AreEqual(courseName, course.Name);
-            Assert.AreEqual(slugName, course.Slug);
+            Assert.Equal(courseName, course.Name);
+            Assert.Equal(slugName, course.Slug);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetCourses_WithAFewCourses_ShouldReturnAll()
         {
             // Arrange
@@ -146,12 +144,12 @@
             var courses = await service.GetCoursesAsync<Course>();
 
             // Assert
-            Assert.IsNotNull(courses);
-            Assert.AreEqual(3, courses.Count());
-            CollectionAssert.AreEqual(new[] { 1, 2, 3 }, courses.Select(c => c.Id).ToArray());
+            Assert.NotNull(courses);
+            Assert.Equal(3, courses.Count());
+            Assert.Equal(new[] { 1, 2, 3 }, courses.Select(c => c.Id).ToArray());
         }
 
-        [TestMethod]
+        [Fact]
         public async Task GetCourses_WithNoCourses_ShouldReturnNone()
         {
             // Arrange           
@@ -166,11 +164,11 @@
             var courses = await service.GetCoursesAsync<Course>();
 
             // Assert
-            Assert.IsNotNull(courses);
-            Assert.AreEqual(0, courses.Count());
+            Assert.NotNull(courses);
+            Assert.Empty(courses);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Details_WithValidCourse_ShouldReturnCorrectDetails()
         {
             // Arrange
@@ -188,7 +186,7 @@
             var courses = await service.CourseDetailsAsync<Course>(1);
 
             // Assert
-            Assert.AreEqual(1, courses.Id);
+            Assert.Equal(1, courses.Id);
         }
     }
 }

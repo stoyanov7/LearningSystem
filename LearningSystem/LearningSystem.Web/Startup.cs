@@ -2,6 +2,7 @@
 {
     using AutoMapper;
     using Data;
+    using Hubs;
     using LearningSystem.Models.Identity;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -31,18 +32,14 @@
 
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            this.Configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) => this.Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddResponseCaching();
-            services.AddResponseCompression();
+            services.AddCors();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
@@ -56,38 +53,22 @@
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
             this.RegisterDatabases(services);
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 1;
-                options.User.RequireUniqueEmail = true;
-            })
-            .AddDefaultUI()
-            .AddDefaultTokenProviders()
-            .AddEntityFrameworkStores<LearningSystemContext>();
-
-            services.AddAuthentication()
-                .AddMicrosoftAccount(microsoftOptions =>
-                {
-                    microsoftOptions.ClientId = this.Configuration["Authentication:Microsoft:ApplicationId"];
-                    microsoftOptions.ClientSecret = this.Configuration["Authentication:Microsoft:Password"];
-                });
-
+            this.RegisterIdentityAndAuthentication(services);
+             
             this.RegisterServices(services);
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(cfg => cfg.ValidateInlineMaps = false);
             services.AddSession();
+
+            services.AddSignalR();
 
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -97,9 +78,6 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseResponseCaching();
-            app.UseResponseCompression();
-
             if (env.IsDevelopment())
             {
                 app.SeedDatabase();
@@ -113,6 +91,15 @@
                 app.UseHsts();
             }
 
+            app.UseCors(options =>
+            {
+                options
+                    .WithOrigins("https:localhost:44319")
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+
             app.UseRequestLocalization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -120,6 +107,7 @@
 
             app.UseAuthentication();
             app.UseSession();
+            app.UseSignalR(options => options.MapHub<QuestionHub>("/questions"));
 
             app.UseMvc(routes =>
             {
@@ -140,6 +128,31 @@
 
             services.AddDbContext<LearningSystemPaymentsContext>(options =>
                 options.UseMySql(this.Configuration.GetConnectionString("DefaultConnectionPayments")));
+
+            services.AddSingleton<LearningSystemQuestionsContext>();
+        }
+
+        private void RegisterIdentityAndAuthentication(IServiceCollection services)
+        {
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 1;
+                options.User.RequireUniqueEmail = true;
+            })
+            .AddDefaultUI()
+            .AddDefaultTokenProviders()
+            .AddEntityFrameworkStores<LearningSystemContext>();
+
+            services.AddAuthentication()
+                .AddMicrosoftAccount(microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = this.Configuration["Authentication:Microsoft:ApplicationId"];
+                    microsoftOptions.ClientSecret = this.Configuration["Authentication:Microsoft:Password"];
+                });
         }
 
         private void RegisterServices(IServiceCollection services)
@@ -149,10 +162,12 @@
             services.AddTransient<IAdminCourseInstancesService, AdminCourseInstancesService>();
             services.AddTransient<IAdminLecturersService, AdminLecturersService>();
 
+            services.AddTransient<IStudentsService, StudentsService>();
             services.AddTransient<IStudentCoursesService, StudentCoursesService>();
             services.AddTransient<IStudentPaymentsService, StudentPaymentsService>();
             services.AddTransient<IStudentCourseInstancesService, StudentCourseInstancesService>();
-            
+            services.AddTransient<IStudentQuestionsService, StudentQuestionsService>();
+
             services.AddTransient<ILecturerCourseInstancesService, LecturerCourseInstancesService>();
 
             services.AddTransient<IBlogArticleService, BlogArticleService>();

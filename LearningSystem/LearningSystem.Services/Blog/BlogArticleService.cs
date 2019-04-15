@@ -11,6 +11,7 @@
     using Models;
     using Repository.Contracts;
     using Utilities.Common;
+    using Utilities.Constants;
 
     public class BlogArticleService : IBlogArticleService
     {
@@ -22,6 +23,19 @@
         {
             this.repository = repository;
             this.mapper = mapper;
+        }
+
+        public IEnumerable<TModel> AllArticles<TModel>()
+        {
+            var articles = this.repository
+                .Get()
+                .AsQueryable()
+                .Include(x => x.Author)
+                .OrderByDescending(a => a.PublishDate);
+
+            var model = this.mapper.Map<IEnumerable<TModel>>(articles);
+
+            return model;
         }
 
         public IEnumerable<TModel> AllArticles<TModel>(int page = 1)
@@ -41,7 +55,7 @@
 
         public async Task CreateArticleAsync<TModel>(TModel model, string authorId)
         {
-            CoreValidator.EnsureNotNull(model, "The article is null");
+            CoreValidator.EnsureNotNull(model, BlogConstants.NullArticle);
             var article = this.mapper.Map<Article>(model);
             article.AuthorId = authorId;
             article.PublishDate = DateTime.UtcNow;
@@ -63,5 +77,44 @@
 
             return model;
         }
+
+        public async Task<TModel> FindByIdAsync<TModel>(int? id)
+        {
+            var article = await this.repository
+                .Details()
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+            var model = this.mapper.Map<TModel>(article);
+
+            return model;
+        }
+
+        public async Task Edit(int id, string title, string content)
+        {
+            var article = await this.repository
+                .Details()
+                .SingleOrDefaultAsync(g => g.Id == id);
+
+            article.Title = title;
+            article.Content = content;
+
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var article = await this.repository
+                .Get()
+                .AsQueryable()
+                .SingleOrDefaultAsync(i => i.Id == id);
+
+            this.repository.Delete(article, article.Id);
+        }
+
+        public async Task<bool> ExistsAsync(int id)
+            => await this.repository
+                .Get()
+                .AsQueryable()
+                .AnyAsync(u => u.Id == id);
     }
 }

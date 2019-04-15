@@ -5,8 +5,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using Services.Blog.Contracts;
+    using Utilities.Constants;
 
-    [Area("Blog")]
+    [Area(BlogConstants.BlogArea)]
     [AllowAnonymous]
     public class HomeController : Controller
     {

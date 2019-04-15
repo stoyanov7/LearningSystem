@@ -3,10 +3,12 @@
     using System.IO;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using Models;
+    using Models.Course;
 
     public class LecturesController : Controller
     {
+        private const string Folder = "Files";
+
         [HttpGet]
         public IActionResult UploadHomework() => this.View();
 
@@ -14,7 +16,7 @@
         public async Task<IActionResult> UploadHomework(UploadHomeworkBindingModel model)
         {
             var fullFilePath = Path
-                .Combine(Directory.GetCurrentDirectory(), "Files", model.HomeworkFile.FileName);
+                .Combine(Directory.GetCurrentDirectory(), Folder, model.HomeworkFile.FileName);
 
             var fileStream = new FileStream(fullFilePath, FileMode.Create);
 

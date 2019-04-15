@@ -1,7 +1,19 @@
-﻿
+﻿@model AdminHomeViewModel
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Admin Home Index work</h2>
+<h2>Latest courses:</h2>
+<div class="container">
+    <div class="row">
+        @Html.DisplayFor(x => x.Courses)
+    </div>
+</div>
 
+<h2>Latest articles:</h2>
+<div class="container">
+    <div class="row">
+        @Html.DisplayFor(x => x.Articles)
+    </div>
+</div>

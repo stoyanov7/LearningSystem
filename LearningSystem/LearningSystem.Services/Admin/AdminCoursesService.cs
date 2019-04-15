@@ -5,10 +5,12 @@
     using AutoMapper;
     using Contracts;
     using Data;
+    using Html.Contracts;
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Repository.Contracts;
     using Utilities.Common;
+    using Utilities.Constants;
 
     /// <summary>
     /// Services to entering course data.
@@ -35,7 +37,7 @@
         /// <returns>Return the mapped course.</returns>
         public async Task<Course> AddCourseAsync<TModel>(TModel model)
         {
-            CoreValidator.EnsureNotNull(model, "The course is null");
+            CoreValidator.EnsureNotNull(model, AdminConstants.NullCourse);
             var course = this.mapper.Map<Course>(model);
 
             await this.context.AddAsync(course);
@@ -75,6 +77,11 @@
             return this.mapper.Map<TModel>(model);
         }
 
+        /// <summary>
+        /// Find course by given id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Course> FindCourseAsync(int id) => await this.context.FindByIdAsync(id);
     }
 }

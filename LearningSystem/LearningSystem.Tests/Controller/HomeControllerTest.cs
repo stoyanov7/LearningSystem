@@ -1,23 +1,28 @@
 ﻿namespace LearningSystem.Tests.Controller
 {
+    using System.Threading.Tasks;
+    using LearningSystem.Services.Admin.Contracts;
+    using LearningSystem.Services.Blog.Contracts;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
     using Web.Areas.Admin.Controllers;
+    using Xunit;
 
-    [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
-        public void Index_ReturnsTheProperView()
+        [Fact]
+        public async Task Index_ReturnsTheProperView()
         {
             // Arrange
-            var controller = new HomeController();
+            var blogArticleServiceMock = new Mock<IBlogArticleService>();
+            var adminCourseInstancesServiceMock = new Mock<IAdminCourseInstancesService>();
+            var controller = new HomeController(blogArticleServiceMock.Object, adminCourseInstancesServiceMock.Object);
 
             // Act
-            var result = controller.Index();
+            var result = await controller.Index();
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsType<ViewResult>(result);
         }
     }
 }

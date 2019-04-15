@@ -2,7 +2,8 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using Models;
+    using Models.Course;
+    using Models.CourseInstance;
     using Services.Student.Contracts;
 
     public class CoursesController : Controller

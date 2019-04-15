@@ -1,7 +1,13 @@
-﻿@model StudentDetailsCourseInstanceViewModel
+﻿@using System.Security.Claims
+@using LearningSystem.Services.Student.Contracts
+
+@model StudentDetailsCourseInstanceViewModel
+
+@inject IStudentsService StudentsService
 
 @{
     ViewData["Title"] = "Details";
+    var currentUser = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 }
 
 <h2 class="text-center"> Details for course instance: @Model.Name</h2>
@@ -12,5 +18,40 @@
     <div>Course start date: @Model.StartDate.ToString("dd/MM/yyyy")</div>
     <div>Course end date: @Model.EndDate.ToString("dd/MM/yyyy")</>  </div>
     <br />
-    <a href="#" class="btn btn-success">Enroll</a>
+    @if (await StudentsService.IsUserEnrolledInCourse(currentUser, Model.Id))
+    {
+        <h3 class="text-center">All lectures for this course:</h3>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Order</th>
+                <th>Title</th>
+                <th>Lector Hall</th>
+                <th>Description</th>
+                <th>Starts</th>
+                <th>Ends</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var lectore in Model.Lectures)
+            {
+                <tr>
+                    <td>@lectore.Order</td>
+                    <td>@lectore.Title</td>
+                    <td>@lectore.LectureHall</td>
+                    <td>@lectore.Description</td>
+                    <td>@lectore.StartTime</td>
+                    <td>@lectore.EndTime</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <a asp-area=""
+           asp-controller="Payments"
+           asp-action="Index"
+           class="btn btn-success">Enroll</a>
+    }
 </div>

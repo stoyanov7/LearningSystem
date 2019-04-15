@@ -4,6 +4,8 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@model HomeIndexViewModel
+
 @{
     ViewData["Title"] = "Home";
 }
@@ -12,13 +14,41 @@
 {
     <h1 class="text-center">Hello, @UserManager.GetUserName(User)</h1>
     <hr/>
-    <div class="card border-danger mb-3" style="max-width: 20rem;">
-        <div class="card-header text-center">No courses!</div>
-        <div class="card-body">
-            <h4 class="card-title">No enrolled course!</h4>
-            <p class="card-text">You are not enrolled in any of our courses. <a asp-area="" asp-controller="Courses" asp-action="All">explore</a> our courses.</p>
+
+    if (Model.CourseInstances.Any())
+    {
+        foreach (var courseInstance in Model.CourseInstances)
+        {
+            <div class="card border-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header text-center"></div>
+                <div class="card-body">
+                    <h4 class="card-title">@courseInstance.CourseName</h4>
+                    <p class="card-text">@courseInstance.CourseDescription</p>
+                </div>
+                <a asp-area=""
+                   asp-controller="Courses" 
+                   asp-action="Details"
+                   asp-route-id="@courseInstance.CourseId"
+                   class="btn btn-primary">View</a>
+            </div>
+        }
+        <h2>Latest articles:</h2>
+        <div class="container">
+            <div class="row">
+                @Html.DisplayFor(x => x.Articles)
+            </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="card border-danger mb-3" style="max-width: 20rem;">
+            <div class="card-header text-center">No courses!</div>
+            <div class="card-body">
+                <h4 class="card-title">No enrolled course!</h4>
+                <p class="card-text">You are not enrolled in any of our courses. <a asp-area="" asp-controller="Courses" asp-action="All">explore</a> our courses.</p>
+            </div>
+        </div>
+    }
 }
 else
 {

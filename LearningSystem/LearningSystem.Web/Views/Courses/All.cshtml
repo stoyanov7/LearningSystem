@@ -7,31 +7,7 @@
 <h2>@ViewData["Title"]</h2>
 
 <ul id="all-courses" class="list-unstyled">
-    @foreach (var course in Model)
-    {
-        <li>
-            @Html.Raw(course.Instances.Any() ? "<span class='fa fa-chevron-right'></span>" : "") @course.Name
-            <ul class="instances">
-                @if (course.Instances.Any())
-                {
-
-                    foreach (var instances in course.Instances)
-                    {
-                        <li>
-                            <a asp-area=""
-                               asp-controller="Courses"
-                               asp-action="Details"
-                               asp-route-id="@instances.Id">@instances.Name</a>
-                        </li>
-                    }
-                }
-                else
-                {
-                    <li>No instances yet.</li>
-                }
-            </ul>
-        </li>
-    }
+    @Html.DisplayForModel()
 </ul>
 
 @section Scripts {

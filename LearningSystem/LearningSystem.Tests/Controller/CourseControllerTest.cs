@@ -7,23 +7,21 @@ namespace LearningSystem.Tests.Controller
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Web.Areas.Admin.Controllers;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using Utilities.Constants;
-    using Web.Areas.Admin.Models;
+    using LearningSystem.Utilities.Constants;
+    using Web.Areas.Admin.Models.Course;
+    using Xunit;
 
-    [TestClass]
     public class CourseControllerTest
     {
-        private Mock<IAdminCoursesService> courseServiceMock;
+        private readonly Mock<IAdminCoursesService> courseServiceMock;
 
-        [TestInitialize]
-        public void TestInitialize() 
+        public CourseControllerTest() 
         {
             this.courseServiceMock = new Mock<IAdminCoursesService>();
         } 
 
-        [TestMethod]
+        [Fact]
         public void CorsesController_ShoudBeInAdminArea()
         {
             //Arrange & Act
@@ -32,11 +30,11 @@ namespace LearningSystem.Tests.Controller
                 .FirstOrDefault(atr => atr is AreaAttribute) as AreaAttribute;
 
             // Assert:
-            Assert.IsNotNull(area);
-            Assert.AreEqual(AdminConstants.AdminArea, area.RouteValue);
+            Assert.NotNull(area);
+            Assert.Equal(AdminConstants.AdminArea, area.RouteValue);
         }
 
-        [TestMethod]
+        [Fact]
         public void CorsesController_ShoudAuthorizeAdmins()
         {
             // Arrange & Act
@@ -45,11 +43,11 @@ namespace LearningSystem.Tests.Controller
                 .FirstOrDefault(atr => atr is AuthorizeAttribute) as AuthorizeAttribute;
 
             //3. Assert:
-            Assert.IsNotNull(authorization);
-            Assert.AreEqual(AdminConstants.AdminRole, authorization.Roles);
+            Assert.NotNull(authorization);
+            Assert.Equal(AdminConstants.AdminRole, authorization.Roles);
         }
 
-        [TestMethod]
+        [Fact]
         public void Index_WithValidModel_ShouldCallService()
         {
             // Arrange
@@ -65,10 +63,10 @@ namespace LearningSystem.Tests.Controller
             var result = controller.Index();
 
             // Assert
-            Assert.IsTrue(isServiceCalled);
+            Assert.True(isServiceCalled);
         }
 
-        [TestMethod]
+        [Fact]
         public async Task Index_ShouldReturnAllCourses()
         {
             // Arrange
@@ -90,29 +88,29 @@ namespace LearningSystem.Tests.Controller
             // Assert
             var resultView = result as ViewResult;
 
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
-            Assert.IsNotNull(resultView?.Model);
-            Assert.IsInstanceOfType(resultView.Model, typeof(IEnumerable<AllCoursesViewModel>));
+            Assert.IsType<ViewResult>(result);
+            Assert.NotNull(resultView?.Model);
+            Assert.IsAssignableFrom<IEnumerable<AllCoursesViewModel>>(resultView.Model);
         }
         
-        [TestMethod]
-        public void Create_WithValidCourse_ShoudCallService()
-        {
-            // Arrange
-            var model = new CreateCourseBindingModel();
-            var serviceCalled = false;
+        //[Fact]
+        //public void Create_WithValidCourse_ShoudCallService()
+        //{
+        //    // Arrange
+        //    var model = new CreateCourseBindingModel();
+        //    var serviceCalled = false;
 
-            this.courseServiceMock
-                .Setup(repo => repo.AddCourseAsync(model))
-                .Callback(() => serviceCalled = true);
+        //    this.courseServiceMock
+        //        .Setup(repo => repo.AddCourseAsync(model))
+        //        .Callback(() => serviceCalled = true);
 
-            var controller = new CoursesController(this.courseServiceMock.Object, null, null);
+        //    var controller = new CoursesController(this.courseServiceMock.Object, null, null);
 
-            // Act
-            var result = controller.Create(model);
+        //    // Act
+        //    var result = controller.Create(model);
 
-            // Assert
-            Assert.IsTrue(serviceCalled);
-        }
+        //    // Assert
+        //    Assert.True(serviceCalled);
+        //}
     }
 }

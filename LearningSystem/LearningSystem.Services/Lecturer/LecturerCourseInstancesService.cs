@@ -11,6 +11,7 @@
     using Models;
     using Models.Identity;
     using Repository.Contracts;
+    using Utilities.Constants;
 
     public class LecturerCourseInstancesService : ILecturerCourseInstancesService
     {
@@ -59,7 +60,7 @@
         {
             var courseInstance = await this.repository.FindByIdAsync(id);
             var isLecturer = courseInstance.LecturerId == this.userManager.GetUserId(user);
-            var isAdmin = user.IsInRole("Administrator");
+            var isAdmin = user.IsInRole(AdminConstants.AdminRole);
 
             if (!isLecturer && !isAdmin)
             {

@@ -1,4 +1,4 @@
-﻿@model CreateCourseBindingModel
+﻿@model LearningSystem.Web.Areas.Admin.Models.Course.CreateCourseBindingModel
 @{
     ViewData["Title"] = "Create course";
 }
@@ -16,7 +16,7 @@
 </form>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script src="~/js/create-slug.js"></script>
     <script>
        $(function () {

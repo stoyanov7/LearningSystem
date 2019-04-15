@@ -39,7 +39,7 @@ namespace LearningSystem.Data.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Article");
+                    b.ToTable("Articles");
                 });
 
             modelBuilder.Entity("LearningSystem.Models.Course", b =>

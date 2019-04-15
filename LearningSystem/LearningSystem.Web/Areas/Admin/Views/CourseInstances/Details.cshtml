@@ -7,42 +7,64 @@
 <h2 class="text-center"> Details for course instance: @Model.Name</h2>
 <div class="text-center">
     <br />
-    <div><strong>Course Name:  @Model.Name </strong></div>
-    <div>Description: @Model.Description</>    </div>
+    <div><strong>Course Name:  @Model.Name</strong></div>
+    <div>Description: @Model.Description</div>
     <div>Course start date: @Model.StartDate.ToString("dd/MM/yyyy")</div>
-    <div>Course end date: @Model.EndDate.ToString("dd/MM/yyyy")</>  </div>
+    <div>Course end date: @Model.EndDate.ToString("dd/MM/yyyy")</div>
     <br />
     <div class="text-center">
-        <a asp-area="Lecturer" asp-controller="CourseInstances" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
+        <a asp-area="Lecturer"
+           asp-controller="CourseInstances"
+           asp-action="Edit"
+           asp-route-id="@Model.Id"
+           class="btn btn-warning">Edit</a>
     </div>
 </div>
 <br />
-<h3 class="text-center">All lectures for this course:</h3>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Order</th>
-            <th>Title</th>
-            <th>Lector Hall</th>
-            <th>Description</th>
-            <th>Starts</th>
-            <th>Ends</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var lectore in Model.Lectures)
-        {
+
+@if (!Model.Lectures.Any())
+{
+    <h3>There are no lectures yet.</h3>
+    <a asp-area="Lecturer"
+       asp-controller="Lectures"
+       asp-action="Add"
+       asp-route-id="@Model.Id">Add new lecture</a>
+}
+else
+{
+    <h3 class="text-center">All lectures for this course:</h3>
+    <a asp-area="Lecturer"
+       asp-controller="Lectures"
+       asp-action="Add"
+       asp-route-id="@Model.Id"
+       class="btn btn-success mb-3">Add new lecture</a>
+
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@lectore.Order</td>
-                <td>@lectore.Title</td>
-                <td>@lectore.LectureHall</td>
-                <td>@lectore.Description</td>
-                <td>@lectore.StartTime</td>
-                <td>@lectore.EndTime</td>
+                <th>Order</th>
+                <th>Title</th>
+                <th>Lector Hall</th>
+                <th>Description</th>
+                <th>Starts</th>
+                <th>Ends</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var lectore in Model.Lectures)
+            {
+                <tr>
+                    <td>@lectore.Order</td>
+                    <td>@lectore.Title</td>
+                    <td>@lectore.LectureHall</td>
+                    <td>@lectore.Description</td>
+                    <td>@lectore.StartTime</td>
+                    <td>@lectore.EndTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 
 @*@{int order = 1; }

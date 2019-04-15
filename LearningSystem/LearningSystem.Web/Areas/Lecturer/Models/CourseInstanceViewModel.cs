@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Admin.Models;
+    using Admin.Models.Lecture;
 
     public class DetailsCourseInstanceViewModel
     {

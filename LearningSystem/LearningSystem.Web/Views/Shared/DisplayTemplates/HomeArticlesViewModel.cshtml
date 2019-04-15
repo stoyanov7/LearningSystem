@@ -1,0 +1,15 @@
+﻿@model HomeArticlesViewModel
+
+<div class="col-lg-4">
+    <div class="card" style="max-width: 20rem;">
+        <div class="card-body">
+            <h4 class="card-title">@Model.Title</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Published by @Model.Author</h6>
+            <a asp-area="Blog"
+               asp-controller="Home"
+               asp-action="Details"
+               asp-route-id="@Model.Id"
+               class="btn btn-primary">Details</a>
+        </div>
+    </div>
+</div>

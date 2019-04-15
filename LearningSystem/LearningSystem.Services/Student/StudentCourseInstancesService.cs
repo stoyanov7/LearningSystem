@@ -6,6 +6,7 @@
     using AutoMapper;
     using Contracts;
     using Data;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Repository.Contracts;
@@ -24,12 +25,14 @@
 
         public async Task<TModel> GetCourseInstancesAsync<TModel>(int courseId)
         {
-            var model = await this.repository
+            var courseInstance = await this.repository
                 .Details()
                 .Include(c => c.Lectures)
                 .FirstOrDefaultAsync(c => c.Id == courseId);
 
-            return this.mapper.Map<TModel>(model);
+            var model = this.mapper.Map<TModel>(courseInstance);
+
+            return model;
         }
 
         public async Task<IEnumerable<TModel>> GetCourseInstancesAsync<TModel>(string searchText)
@@ -45,6 +48,18 @@
             var model = this.mapper.Map<IEnumerable<TModel>>(courseInstance);
 
             return model;
+        }
+
+        public IEnumerable<SelectListItem> GetCoursesForDropdownList()
+        {
+            return this.repository
+                .Get()
+                .Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+                .ToList();
         }
     }
 }

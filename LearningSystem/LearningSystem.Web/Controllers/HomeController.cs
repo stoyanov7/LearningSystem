@@ -1,24 +1,46 @@
-﻿namespace LearningSystem.Web.Controllers
+﻿using LearningSystem.Services.Blog.Contracts;
+
+namespace LearningSystem.Web.Controllers
 {
     using System;
     using System.Diagnostics;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Localization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
+    using Models.Search;
     using Services.Student.Contracts;
 
     public class HomeController : Controller
     {
         private readonly IStudentCourseInstancesService studentCourseInstancesService;
+        private readonly IStudentsService studentsService;
+        private readonly IBlogArticleService blogArticleService;
 
-        public HomeController(IStudentCourseInstancesService studentCourseInstancesService)
+        public HomeController(IStudentCourseInstancesService studentCourseInstancesService, 
+            IStudentsService studentsService,
+            IBlogArticleService blogArticleService)
         {
             this.studentCourseInstancesService = studentCourseInstancesService;
+            this.studentsService = studentsService;
+            this.blogArticleService = blogArticleService;
         }
 
-        public IActionResult Index() => this.View();
+        public async Task<IActionResult> Index()
+        {
+            var studentId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var model = new HomeIndexViewModel
+            {
+                CourseInstances = await this.studentsService
+                    .EnrolledCourses<HomeCourseInstanceViewModel>(studentId),
+                Articles = this.blogArticleService.AllArticles<HomeArticlesViewModel>()
+            };
+
+            return this.View(model);
+        }
 
         public async Task<IActionResult> Search(SearchFormBindingModel model)
         {
@@ -28,6 +50,11 @@
             {
                 viewModel.Courses = await this.studentCourseInstancesService
                     .GetCourseInstancesAsync<SearchCourseInstanceViewModel>(model.SearchText);
+            }
+
+            if (model.SearchInUsers)
+            {
+                viewModel.Users = await this.studentsService.FindAsync<SearchUsersViewModel>(model.SearchText);
             }
 
             return this.View(viewModel);

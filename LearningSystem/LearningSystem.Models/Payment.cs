@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
 
+        public string StudentId { get; set; }
         public string Username { get; set; }
 
         public string PayPalPaymentId { get; set; }

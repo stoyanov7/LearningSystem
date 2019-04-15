@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="/lib/signalr/signalr.js"></script>
+    <script src="/js/questions.js"></script>
+</head>
+<body>
+<form id="join-group-form">
+    <label for="group-name">Group name:</label>
+    <input type="text" id="group-name"/><br/>
+    <input type="submit" value="Join" />
+</form>
+<form id="ask-question-form" style="display: none">
+    <label for="username">Username:</label>
+    <input type="text" id="username" /><br />
+    <label for="question">Question:</label>
+    <input type="text" id="question" /><br />
+    <input type="submit" value="Ask" />
+</form>
+<div id="questions"></div>
+</body>
+</html>

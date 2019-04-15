@@ -1,0 +1,15 @@
+﻿@model StudentAllCoursesViewModel
+
+<li>
+    @Html.Raw(Model.Instances.Any() ? "<span class='fa fa-chevron-right'></span>" : "") @Model.Name
+    <ul class="instances">
+        @if (Model.Instances.Any())
+        {
+            @Html.DisplayFor(x => x.Instances)
+        }
+        else
+        {
+            <li>No instances yet.</li>
+        }
+    </ul>
+</li>
